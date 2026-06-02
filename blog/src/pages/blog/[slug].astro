@@ -1,0 +1,32 @@
+---
+// src/pages/blog/[slug].astro
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import BlogArticle from '../../components/blog/BlogArticle.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content, headings } = await post.render();
+
+const ua = Astro.request.headers.get('user-agent') ?? '';
+const isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(ua);
+const device = isMobile ? 'mobile' : 'desktop';
+---
+
+<Layout title={`${post.data.title} — KRK Checker`} description={post.data.summary}>
+  <BlogArticle
+    article={post.data}
+    device={device}
+    headings={headings}
+    slug={post.slug}
+  >
+    <Content />
+  </BlogArticle>
+</Layout>

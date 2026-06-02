@@ -1,0 +1,13 @@
+---
+// src/pages/blog/index.astro — Blog List Page
+import Layout from '../../layouts/Layout.astro';
+import BlogList from '../../components/blog/BlogList';
+
+// Server-side device detection
+const ua = Astro.request.headers.get('user-agent') ?? '';
+const isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(ua);
+const device = isMobile ? 'mobile' : 'desktop';
+---
+<Layout title="블로그 — KRK Checker" description="스몰 식품 브랜드를 위한 라벨 기준 가이드. 판매 전 확인해야 할 표시 기준을 정리합니다.">
+  <BlogList device={device} client:load />
+</Layout>

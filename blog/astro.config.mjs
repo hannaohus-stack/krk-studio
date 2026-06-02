@@ -1,23 +1,9 @@
-import { defineConfig } from 'astro/config'
-import mdx from '@astrojs/mdx'
-import { fileURLToPath } from 'url'
-import path from 'path'
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url))
+import { defineConfig } from 'astro/config';
+import react from '@astrojs/react';
+import mdx from '@astrojs/mdx';
 
 export default defineConfig({
+  integrations: [mdx(), react()],
+  output: 'static', // or 'server' for SSR
   site: 'https://blog.krk.team',
-  integrations: [
-    mdx(),
-  ],
-  markdown: {
-    shikiConfig: { theme: 'github-light' },
-  },
-  vite: {
-    resolve: {
-      alias: {
-        '@': path.resolve(__dirname, 'src'),
-      },
-    },
-  },
-})
+});
