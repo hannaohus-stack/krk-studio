@@ -65,7 +65,15 @@ const related = ARTICLES.filter((a) => a.id !== slug).slice(0, 3);
   <!-- Hero Image -->
   <div class="hero-wrap">
     <div class="hero-inner">
-      <Thumb kind={article.thumb} tone="light" client:load />
+      {article.image ? (
+        <img
+          src={article.image}
+          alt={article.title}
+          style="width:100%; display:block;"
+        />
+      ) : (
+        <Thumb kind={article.thumb} tone="light" client:load />
+      )}
     </div>
   </div>
 
@@ -389,26 +397,13 @@ const related = ARTICLES.filter((a) => a.id !== slug).slice(0, 3);
   .prose p { margin: 0 0 16px; text-wrap: pretty; }
 
   .prose h2 {
-    display: flex;
-    align-items: baseline;
-    gap: 14px;
     font-weight: 700;
     line-height: 1.35;
     letter-spacing: -0.025em;
     color: #0A0A0B;
-    counter-increment: h2-counter;
   }
   .is-desktop .prose h2 { font-size: 22px; margin: 44px 0 14px; }
   .is-mobile  .prose h2 { font-size: 19px; margin: 32px 0 10px; }
-  .prose h2::before {
-    content: counter(h2-counter, decimal-leading-zero);
-    font-family: Inter, system-ui, sans-serif;
-    font-size: 12px;
-    font-weight: 600;
-    color: #002D72;
-    letter-spacing: 0.04em;
-    flex-shrink: 0;
-  }
 
   .prose h3 {
     font-weight: 600;
@@ -504,16 +499,7 @@ const related = ARTICLES.filter((a) => a.id !== slug).slice(0, 3);
     font-family: ui-monospace, monospace;
   }
 
-  /* h2 counter reset on article */
-  .prose { counter-reset: h2-counter; }
-
-  /* hr 뒤에 오는 h2 (자주 묻는 질문 등 부록 섹션) — 번호 제외 */
-  .prose hr + h2 {
-    counter-increment: none;
-  }
-  .prose hr + h2::before {
-    content: none;
-  }
+  /* hr 뒤에 오는 h2 (자주 묻는 질문 등 부록 섹션) — 번호 없음 유지 */
 </style>
 
 <style>

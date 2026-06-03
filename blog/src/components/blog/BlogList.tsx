@@ -12,29 +12,6 @@ import Thumb from './Thumb';
 import BlogNav from './BlogNav';
 import BlogFooter from './BlogFooter';
 
-// ─── Newsletter Strip ─────────────────────────────────────────
-function NewsletterStrip({ device }: { device: 'desktop' | 'mobile' }) {
-  const isD = device === 'desktop';
-  return (
-    <div style={{
-      background: colors.tint,
-      borderTop: `1px solid ${colors.rule}`,
-      borderBottom: `1px solid ${colors.rule}`,
-      padding: isD ? '14px 40px' : '12px 20px',
-      display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12,
-      boxSizing: 'border-box',
-    }}>
-      <div style={{ display: 'inline-flex', alignItems: 'center', gap: 10, fontFamily: fonts.kr, fontSize: isD ? 13.5 : 12.5, color: colors.ink }}>
-        <span style={{ display: 'inline-block', width: 6, height: 6, borderRadius: '50%', background: colors.breath }} />
-        판매 전 라벨 점검 기준을 메일로 받아보세요
-      </div>
-      <a href="#newsletter" style={{ fontFamily: fonts.kr, fontSize: isD ? 13 : 12, color: colors.ink, textDecoration: 'none', fontWeight: 600 }}>
-        구독하기 →
-      </a>
-    </div>
-  );
-}
-
 // ─── Category Tabs ────────────────────────────────────────────
 function CategoryTabs({ device, active, onSelect }: {
   device: 'desktop' | 'mobile';
@@ -74,8 +51,9 @@ export function ArticleCard({ art, device, compact = false }: ArticleCardProps) 
   return (
     <a href={`/blog/${art.id}`} style={{ display: 'flex', flexDirection: 'column', gap: isD ? 14 : 12, textDecoration: 'none', color: 'inherit' }}>
       <div style={{ overflow: 'hidden' }}>
-        {/* Replace Thumb with Next.js Image in production */}
-        <Thumb kind={art.thumb} tone="light" />
+        {art.image
+          ? <img src={art.image} alt={art.title} style={{ width: '100%', display: 'block' }} />
+          : <Thumb kind={art.thumb} tone="light" />}
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8, padding: '4px 0 8px' }}>
         <div style={{ fontFamily: fonts.kr, fontSize: 11.5, fontWeight: 500, color: colors.ink3, display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -105,7 +83,9 @@ function FeaturedCard({ art, device }: { art: Article; device: 'desktop' | 'mobi
   if (!isD) {
     return (
       <a href={`/blog/${art.id}`} style={{ display: 'flex', flexDirection: 'column', gap: 14, textDecoration: 'none', color: 'inherit' }}>
-        <Thumb kind={art.thumb} tone="light" />
+        {art.image
+          ? <img src={art.image} alt={art.title} style={{ width: '100%', display: 'block' }} />
+          : <Thumb kind={art.thumb} tone="light" />}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8, padding: '0 0 4px' }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 11.5, fontFamily: fonts.kr, color: colors.ink3 }}>
             <span style={{ padding: '3px 8px', background: colors.tint, color: colors.heritage, fontWeight: 600 }}>Featured</span>
@@ -119,10 +99,12 @@ function FeaturedCard({ art, device }: { art: Article; device: 'desktop' | 'mobi
   }
   return (
     <a href={`/blog/${art.id}`} style={{ display: 'grid', gridTemplateColumns: '1.05fr 1fr', gap: 0, textDecoration: 'none', color: 'inherit', border: `1px solid ${colors.rule}` }}>
-      <div style={{ borderRight: `1px solid ${colors.rule}` }}>
-        <Thumb kind={art.thumb} tone="light" />
+      <div style={{ borderRight: `1px solid ${colors.rule}`, display: 'flex', alignItems: 'stretch', overflow: 'hidden' }}>
+        {art.image
+          ? <img src={art.image} alt={art.title} style={{ width: '100%', display: 'block', objectFit: 'cover' }} />
+          : <Thumb kind={art.thumb} tone="light" />}
       </div>
-      <div style={{ padding: '40px 44px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: 24 }}>
+      <div style={{ padding: '28px 36px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: 16 }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: 10, fontFamily: fonts.kr, fontSize: 11.5, color: colors.ink3 }}>
             <span style={{ padding: '4px 10px', background: colors.heritage, color: '#fff', fontWeight: 600, fontFamily: fonts.en, fontSize: 10.5, letterSpacing: '0.04em', textTransform: 'uppercase' as const }}>FEATURED</span>
@@ -148,20 +130,20 @@ function FeaturedCard({ art, device }: { art: Article; device: 'desktop' | 'mobi
  * Place at: app/blog/page.tsx → <BlogList device="desktop" />
  * Use CSS media queries or server-side UA detection for `device` prop.
  */
-export default function BlogList({ device }: BlogListProps) {
+export default function BlogList({ device, articles }: BlogListProps) {
   const isD = device === 'desktop';
   const [active, setActive] = useState('all');
-  const featured = ARTICLES[0];
-  const rest = ARTICLES.slice(1).filter((a) => active === 'all' || a.cat === active);
+  const list = articles && articles.length > 0 ? articles : ARTICLES;
+  const featured = list[0];
+  const rest = list.slice(1).filter((a) => active === 'all' || a.cat === active);
 
   return (
     <div style={{ background: '#fff', minHeight: '100%', display: 'flex', flexDirection: 'column', fontFamily: fonts.kr }}>
       <BlogNav device={device} scope="blog" />
-      <NewsletterStrip device={device} />
 
       {/* Page Header */}
       <div style={{ maxWidth: 1240, margin: '0 auto', width: '100%', boxSizing: 'border-box', padding: isD ? '64px 40px 28px' : '32px 20px 20px' }}>
-        <div style={{ fontFamily: fonts.en, fontSize: isD ? 40 : 28, fontWeight: 700, letterSpacing: '-0.028em', textTransform: 'uppercase' as const, color: colors.ink, lineHeight: 1.1 }}>BLOG</div>
+        <div style={{ fontFamily: fonts.en, fontSize: isD ? 20 : 14, fontWeight: 700, letterSpacing: '-0.028em', textTransform: 'uppercase' as const, color: colors.ink, lineHeight: 1.1 }}>BLOG</div>
       </div>
 
       {/* Featured */}

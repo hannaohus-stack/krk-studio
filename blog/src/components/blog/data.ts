@@ -82,6 +82,13 @@ export const ARTICLES: Article[] = [
     time: 4, src: ['KRK Checker'],
     date: '2026.04.28', thumb: 'screen',
   },
+  {
+    id: 'zero-sugar-sweetener-label-2026', num: '11', cat: 'label',
+    title: '2026 제로슈거·무가당 표시 기준 — 감미료 함유·열량까지 써야 합니다',
+    summary: "'제로슈거', '무당', '무가당' 강조표시를 쓰는 식품은 2026년부터 감미료 함유와 열량 정보를 함께 라벨에 써야 합니다.",
+    time: 5, src: ['식품등의 표시기준', '식약처 고시 2024.7.24 개정'],
+    date: '2026.06.01', thumb: 'bars',
+  },
 ];
 
 export function catLabel(id: string): string {

@@ -25,6 +25,7 @@ export interface Article {
   date: string;         // Display date, e.g. '2026.05.24'
   featured?: boolean;   // If true, shown in Featured slot at top of list
   thumb: ThumbKind;     // Which abstract thumbnail to render
+  image?: string;       // Real image path e.g. '/images/blog/slug-thumb.png'
 }
 
 // ─── Component Props ─────────────────────────────────────────
@@ -57,7 +58,7 @@ export interface ArticleCardProps {
 
 export interface BlogListProps {
   device: 'desktop' | 'mobile';
-  /** 'A' = Editorial Restrained (default), 'B' = KRK Editorial */
+  articles: Article[];
   variant?: 'A' | 'B';
 }
 
