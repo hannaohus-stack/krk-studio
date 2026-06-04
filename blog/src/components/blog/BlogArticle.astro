@@ -9,6 +9,16 @@ import Thumb from './Thumb';
 import { ARTICLES, catLabel } from './data';
 import type { Article } from './types';
 
+interface RelatedArticle {
+  id: string;
+  title: string;
+  cat: string;
+  time: number;
+  src: string[];
+  thumb: string;
+  image: string;
+}
+
 interface Props {
   article: {
     num: string;
@@ -20,20 +30,22 @@ interface Props {
     date: string;
     featured?: boolean;
     thumb: string;
+    image?: string;
   };
   device: 'desktop' | 'mobile';
   headings: { depth: number; slug: string; text: string }[];
   slug: string;
+  relatedArticles?: RelatedArticle[];
 }
 
-const { article, device, headings, slug } = Astro.props;
+const { article, device, headings, slug, relatedArticles } = Astro.props;
 const isD = device === 'desktop';
 
 // TOC: h2 entries only
 const tocItems = headings.filter((h) => h.depth === 2);
 
-// Related: other articles (up to 3)
-const related = ARTICLES.filter((a) => a.id !== slug).slice(0, 3);
+// Related: prop에서 받은 실제 아티클 사용, 없으면 fallback
+const related = relatedArticles ?? ARTICLES.filter((a) => a.id !== slug).slice(0, 3);
 ---
 
 <div class={`page ${isD ? 'is-desktop' : 'is-mobile'}`}>
@@ -147,7 +159,10 @@ const related = ARTICLES.filter((a) => a.id !== slug).slice(0, 3);
         <div class="related__grid">
           {related.map((art) => (
             <a href={`/blog/${art.id}`} class="related__card">
-              <Thumb kind={art.thumb} tone="light" client:load />
+              {art.image
+                ? <img src={art.image} alt={art.title} style="width:100%; display:block;" />
+                : <Thumb kind={art.thumb} tone="light" client:load />
+              }
               <div class="related__cat">{catLabel(art.cat)}</div>
               <div class="related__art-title">{art.title}</div>
               <div class="related__art-meta">{art.time}분 · 기준 {art.src[0]}</div>

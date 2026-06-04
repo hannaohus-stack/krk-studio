@@ -8,12 +8,26 @@ export async function getStaticPaths() {
   const posts = await getCollection('blog');
   return posts.map((post) => ({
     params: { slug: post.slug },
-    props: { post },
+    props: { post, allPosts: posts },
   }));
 }
 
-const { post } = Astro.props;
+const { post, allPosts } = Astro.props;
 const { Content, headings } = await post.render();
+
+const relatedArticles = allPosts
+  .filter((p) => p.slug !== post.slug)
+  .sort((a, b) => b.data.date.localeCompare(a.data.date))
+  .slice(0, 3)
+  .map((p) => ({
+    id: p.slug,
+    title: p.data.title,
+    cat: p.data.cat,
+    time: p.data.time,
+    src: p.data.src,
+    thumb: p.data.thumb,
+    image: p.data.image ?? '',
+  }));
 
 const ua = Astro.request.headers.get('user-agent') ?? '';
 const isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(ua);
@@ -26,6 +40,7 @@ const device = isMobile ? 'mobile' : 'desktop';
     device={device}
     headings={headings}
     slug={post.slug}
+    relatedArticles={relatedArticles}
   >
     <Content />
   </BlogArticle>
