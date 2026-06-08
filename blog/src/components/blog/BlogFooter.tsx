@@ -28,15 +28,14 @@ export default function BlogFooter({ device }: BlogFooterProps) {
     <footer style={{ background: '#0F0F12' }}>
 
       {/* 링크 3컬럼 */}
-      <div style={{
+      <div className="krk-footer-top" style={{
         maxWidth: 1240,
         margin: '0 auto',
-        padding: isD ? '64px 40px 0' : '40px 20px 0',
       }}>
         {isD ? (
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 4fr', gap: 0 }}>
+          <div className="krk-footer-cols" style={{ display: 'grid', gap: 0 }}>
             <div />
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 40 }}>
+            <div className="krk-footer-colsinner" style={{ display: 'grid' }}>
               <div>
                 <div style={colTitleStyle}>서비스</div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
@@ -93,13 +92,11 @@ export default function BlogFooter({ device }: BlogFooterProps) {
       </div>
 
       {/* 빅 로고 + 카피라이트 */}
-      <div style={{
+      <div className="krk-footer-bottom" style={{
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        padding: '56px 40px 0',
         marginTop: 40,
-        paddingBottom: isD ? 40 : 32,
       }}>
         <img
           src="/krk-checker-logo.png"

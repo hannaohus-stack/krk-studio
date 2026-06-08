@@ -20,9 +20,8 @@ function CategoryTabs({ device, active, onSelect }: {
 }) {
   const isD = device === 'desktop';
   return (
-    <div style={{
-      display: 'flex', alignItems: 'center', gap: isD ? 28 : 18,
-      overflowX: isD ? 'visible' : 'auto',
+    <div className="krk-cattabs" style={{
+      display: 'flex', alignItems: 'center',
       whiteSpace: 'nowrap', WebkitOverflowScrolling: 'touch',
       scrollbarWidth: 'none',
     }}>
@@ -98,19 +97,19 @@ function FeaturedCard({ art, device }: { art: Article; device: 'desktop' | 'mobi
     );
   }
   return (
-    <a href={`/blog/${art.id}`} style={{ display: 'grid', gridTemplateColumns: '1.05fr 1fr', gap: 0, textDecoration: 'none', color: 'inherit', border: `1px solid ${colors.rule}` }}>
-      <div style={{ borderRight: `1px solid ${colors.rule}`, display: 'flex', alignItems: 'stretch', overflow: 'hidden' }}>
+    <a href={`/blog/${art.id}`} className="krk-featured" style={{ display: 'grid', gap: 0, textDecoration: 'none', color: 'inherit', border: `1px solid ${colors.rule}` }}>
+      <div className="krk-featured__img" style={{ display: 'flex', alignItems: 'stretch', overflow: 'hidden' }}>
         {art.image
           ? <img src={art.image} alt={art.title} style={{ width: '100%', display: 'block', objectFit: 'cover' }} />
           : <Thumb kind={art.thumb} tone="light" />}
       </div>
-      <div style={{ padding: '28px 36px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: 16 }}>
+      <div className="krk-featured__body" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: 16 }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: 10, fontFamily: fonts.kr, fontSize: 11.5, color: colors.ink3 }}>
             <span style={{ padding: '4px 10px', background: colors.heritage, color: '#fff', fontWeight: 600, fontFamily: fonts.en, fontSize: 10.5, letterSpacing: '0.04em', textTransform: 'uppercase' as const }}>FEATURED</span>
             <span>{catLabel(art.cat)}</span>
           </div>
-          <div style={{ fontFamily: fonts.kr, fontSize: 32, fontWeight: 700, lineHeight: 1.28, letterSpacing: '-0.025em', color: colors.ink }}>{art.title}</div>
+          <div className="krk-featured__title" style={{ fontFamily: fonts.kr, fontWeight: 700, lineHeight: 1.28, letterSpacing: '-0.025em', color: colors.ink }}>{art.title}</div>
           <div style={{ fontFamily: fonts.kr, fontSize: 15, color: colors.ink2, lineHeight: 1.65, letterSpacing: '-0.01em' }}>{art.summary}</div>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 14, paddingTop: 18, borderTop: `1px solid ${colors.rule}`, fontFamily: fonts.kr, fontSize: 12, color: colors.ink3 }}>
@@ -142,29 +141,26 @@ export default function BlogList({ device, articles }: BlogListProps) {
       <BlogNav device={device} scope="blog" />
 
       {/* Page Header */}
-      <div style={{ maxWidth: 1240, margin: '0 auto', width: '100%', boxSizing: 'border-box', padding: isD ? '64px 40px 28px' : '32px 20px 20px' }}>
+      <div className="krk-list-head" style={{ maxWidth: 1240, margin: '0 auto', width: '100%', boxSizing: 'border-box' }}>
         <div style={{ fontFamily: fonts.en, fontSize: isD ? 20 : 14, fontWeight: 700, letterSpacing: '-0.028em', textTransform: 'uppercase' as const, color: colors.ink, lineHeight: 1.1 }}>BLOG</div>
       </div>
 
       {/* Featured */}
-      <div style={{ maxWidth: 1240, margin: '0 auto', width: '100%', boxSizing: 'border-box', padding: isD ? '20px 40px 56px' : '8px 20px 36px' }}>
+      <div className="krk-list-featured" style={{ maxWidth: 1240, margin: '0 auto', width: '100%', boxSizing: 'border-box' }}>
         <FeaturedCard art={featured} device={device} />
       </div>
 
       {/* Category Bar (sticky) */}
       <div style={{ borderTop: `1px solid ${colors.rule}`, borderBottom: `1px solid ${colors.rule}`, background: '#fff', position: 'sticky', top: 0, zIndex: 5 }}>
-        <div style={{ maxWidth: 1240, margin: '0 auto', width: '100%', boxSizing: 'border-box', padding: isD ? '18px 40px' : '14px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16 }}>
+        <div className="krk-list-catbar" style={{ maxWidth: 1240, margin: '0 auto', width: '100%', boxSizing: 'border-box', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16 }}>
           <CategoryTabs device={device} active={active} onSelect={setActive} />
         </div>
       </div>
 
       {/* Article Grid */}
-      <div style={{
+      <div className="krk-list-grid" style={{
         maxWidth: 1240, margin: '0 auto', width: '100%', boxSizing: 'border-box',
-        padding: isD ? '56px 40px 96px' : '32px 20px 56px',
         display: 'grid',
-        gridTemplateColumns: isD ? 'repeat(3, 1fr)' : '1fr',
-        gap: isD ? '56px 32px' : '36px',
       }}>
         {rest.map((art) => <ArticleCard key={art.id} art={art} device={device} compact />)}
       </div>

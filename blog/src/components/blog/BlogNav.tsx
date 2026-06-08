@@ -38,10 +38,9 @@ export default function BlogNav({ device, scope = 'blog', showProgress = false }
       }}
     >
       {/* Inner container — max-width 1240px */}
-      <div style={{
+      <div className="krk-nav-inner" style={{
         maxWidth: 1240,
         margin: '0 auto',
-        padding: isDesktop ? '18px 40px' : '14px 20px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
