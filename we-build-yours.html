@@ -926,7 +926,7 @@
   <body>
     <div class="notice">
       <span class="notice-dot"></span>
-      <span>신청 마감 2026.06.12 · <strong id="countdownTimer">D-13 · 23:59:59</strong> · 5팀 선정</span>
+      <span>신청 마감 2026.06.21 · <strong id="countdownTimer">D-11 · 23:59:59</strong> · 5팀 선정</span>
     </div>
 
     <header class="topbar">
@@ -1165,8 +1165,8 @@
         <div class="section-inner">
           <h2 class="title">처음부터,<br />브랜드답게.</h2>
           <div class="deadline-count">
-            <span>신청 마감 2026.06.12</span>
-            <strong id="finalTimer">D-13 · 23:59:59</strong>
+            <span>신청 마감 2026.06.21</span>
+            <strong id="finalTimer">D-11 · 23:59:59</strong>
           </div>
           <p class="sub">선정 후 6월 중 3주 집중 작업으로 진행됩니다.</p>
           <button class="cta" type="button" data-apply-open>신청서 작성하기</button>
@@ -1190,7 +1190,7 @@
           <form id="applyForm" autocomplete="on">
             <div class="modal-urgency">
               <span>신청 마감까지</span>
-              <strong id="modalTimer">D-14 · 00:00:00</strong>
+              <strong id="modalTimer">D-11 · 23:59:59</strong>
             </div>
             <p class="modal-intro">아래 항목을 입력해주세요. 접수 후 영업일 기준 1–2일 내 회신드립니다.</p>
             <div class="form-grid">
@@ -1257,7 +1257,7 @@
     </div>
 
     <script>
-      const DEADLINE = new Date('2026-06-12T23:59:59+09:00');
+      const DEADLINE = new Date('2026-06-21T23:59:59+09:00');
       const fmtTwo = (n) => String(n).padStart(2, '0');
       const updateCountdown = () => {
         const diff = DEADLINE - new Date();
@@ -1265,9 +1265,9 @@
         const modalTimer = document.getElementById('modalTimer');
         const finalTimer = document.getElementById('finalTimer');
         if (diff <= 0) {
-          if (timer) timer.textContent = '마감됨';
-          if (modalTimer) modalTimer.textContent = '마감됨';
-          if (finalTimer) finalTimer.textContent = '마감됨';
+          if (timer) timer.textContent = '신청 마감';
+          if (modalTimer) modalTimer.textContent = '신청 마감';
+          if (finalTimer) finalTimer.textContent = '신청 마감';
           return;
         }
         const days = Math.floor(diff / 86400000);
@@ -1338,8 +1338,38 @@
         if (event.target.classList.contains('is-error')) event.target.classList.remove('is-error');
       });
 
-      const MAKE_WEBHOOK_URL = 'https://hook.us2.make.com/8omwxlfwuwdrenvqu3jdr7i8kyfror2l';
-      form.addEventListener('submit', (event) => {
+      const MAKE_WEBHOOK_URL = 'https://hook.us2.make.com/ivkfkwhkegwoalggl64mxnljhtex8sej';
+      const CONTACT_EMAIL = 'contact@krk.team';
+      const submitBtn = form.querySelector('.btn-submit');
+      const submitWrap = form.querySelector('.submit-wrap');
+
+      // 제출 실패 안내(접수 유실 방지) — 동적 생성, mailto 폴백 포함
+      const errorBox = document.createElement('p');
+      errorBox.className = 'form-error';
+      errorBox.style.cssText = 'display:none;margin:10px 0 0;color:#c73a63;font-size:13px;line-height:1.5;';
+      errorBox.setAttribute('role', 'alert');
+      if (submitWrap) submitWrap.appendChild(errorBox);
+
+      const showError = (payload) => {
+        const subject = encodeURIComponent('[KRK Build Yours] 신청서');
+        const lines = [
+          '성함: ' + (payload.name || ''),
+          '브랜드: ' + (payload.brand || ''),
+          '카테고리: ' + (payload.category || ''),
+          '운영 단계: ' + (payload.stage || ''),
+          '이메일: ' + (payload.email || ''),
+          '연락처: ' + (payload.phone || ''),
+          '함께하고 싶은 이유: ' + (payload.why || ''),
+          '3주 안에 정리하고 싶은 것: ' + (payload.goal || '')
+        ].join('\n');
+        const body = encodeURIComponent(lines);
+        errorBox.innerHTML = '전송에 실패했습니다. 잠시 후 다시 시도하시거나 '
+          + '<a href="mailto:' + CONTACT_EMAIL + '?subject=' + subject + '&body=' + body
+          + '" style="color:#c73a63;text-decoration:underline;">' + CONTACT_EMAIL + '</a> 로 보내주세요.';
+        errorBox.style.display = 'block';
+      };
+
+      form.addEventListener('submit', async (event) => {
         event.preventDefault();
         const required = ['name', 'brand', 'category', 'stage', 'why', 'goal', 'email'];
         let firstInvalid = null;
@@ -1360,20 +1390,32 @@
         const payload = Object.fromEntries(data.entries());
         payload.campaign = 'KRK Build Yours 5-Team Program';
         payload.submittedAt = new Date().toISOString();
-        fetch(MAKE_WEBHOOK_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        }).catch((err) => console.warn('[KRK] Make webhook failed:', err));
 
-        if (typeof gtag === 'function') {
-          gtag('event', 'generate_lead', { campaign: 'we-build-yours', form: 'apply' });
+        errorBox.style.display = 'none';
+        const originalLabel = submitBtn ? submitBtn.textContent : '';
+        if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = '전송 중…'; }
+
+        try {
+          // no-cors 제거 → 실제 응답 상태 확인 가능 (Make webhook은 CORS 허용)
+          const res = await fetch(MAKE_WEBHOOK_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+
+          if (typeof gtag === 'function') {
+            gtag('event', 'generate_lead', { campaign: 'we-build-yours', form: 'apply' });
+          }
+          // Meta Pixel Lead 이벤트는 픽셀 설치 후 이 지점에 추가: fbq('track', 'Lead');
+
+          form.style.display = 'none';
+          success.classList.add('is-active');
+        } catch (err) {
+          console.warn('[KRK] Make webhook failed:', err);
+          if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = originalLabel; }
+          showError(payload);
         }
-        // Meta Pixel Lead 이벤트는 픽셀 설치 후 이 지점에 추가: fbq('track', 'Lead');
-
-        form.style.display = 'none';
-        success.classList.add('is-active');
       });
     </script>
   </body>

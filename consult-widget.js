@@ -21,7 +21,7 @@
   window.__KRK_CONSULT_LOADED__ = true;
 
   // ── CONFIG ────────────────────────────────────────────────
-  const MAKE_WEBHOOK = 'https://hook.us2.make.com/8omwxlfwuwdrenvqu3jdr7i8kyfror2l';
+  const MAKE_WEBHOOK = 'https://hook.us2.make.com/ivkfkwhkegwoalggl64mxnljhtex8sej';
   const CALENDLY_URL = 'https://calendly.com/chaeumkorea/15min';
 
   // ── CSS ───────────────────────────────────────────────────
