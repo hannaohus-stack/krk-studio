@@ -284,7 +284,7 @@
 
     <main>
       <div class="work-meta-line">
-        <span>3 Projects</span>
+        <span>4 Projects</span>
         <span>|</span>
         <span>KRK가 설계한 식품 브랜드 운영 사례를 카테고리별로 확인하세요.</span>
       </div>
@@ -317,6 +317,13 @@
           </div>
           <div class="work-meta"><span>UrbanPure</span><span>Campaign</span></div>
         </a>
+        <a class="work-card" href="case_zzl.html" data-category="Branding Campaign">
+          <div class="work-image">
+            <span class="hover-title">ZZL</span>
+            <img src="../assets/index-zzl.png" alt="ZZL" loading="lazy" />
+          </div>
+          <div class="work-meta"><span>ZZL</span><span>Branding · Campaign</span></div>
+        </a>
       </section>
 
       <footer class="bottom-logo">
@@ -338,7 +345,8 @@
           const category = button.dataset.category;
           buttons.forEach((item) => item.classList.toggle('is-active', item === button));
           cards.forEach((card) => {
-            const show = category === 'All' || card.dataset.category === category;
+            const cats = (card.dataset.category || '').split(' ').filter(Boolean);
+            const show = category === 'All' || cats.includes(category);
             card.classList.toggle('hidden', !show);
           });
         });

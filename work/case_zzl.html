@@ -1,0 +1,1177 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Balance B | KRK Work</title>
+    <link rel="stylesheet" href="../assets/krk-tokens.css" />
+    <style>
+      :root {
+        --bg:      #f4f1ea;
+        --paper:   #faf7f0;
+        --paper-2: #ece7dc;
+        --ink:     #1a1816;
+        --ink-2:   #4a443c;
+        --ink-3:   #8a8275;
+        --line:    rgba(26,24,22,.12);
+        --line-soft: rgba(26,24,22,.06);
+        --accent:  #b89968;
+      }
+      html {
+        scroll-behavior: smooth;
+        scroll-snap-type: y proximity;
+      }
+      body {
+        background: var(--bg);
+        color: var(--ink);
+      }
+      ::selection { background: var(--ink); color: var(--paper); }
+
+      /* ===========================================================
+         TOPBAR — case_mium.html 구조 유지
+         =========================================================== */
+      .topbar {
+        position: fixed;
+        z-index: 70;
+        top: 0; left: 0; right: 0;
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+        padding: 18px var(--pad-x);
+        background: rgba(20,17,15,.14);
+        backdrop-filter: blur(18px) saturate(140%);
+        -webkit-backdrop-filter: blur(18px) saturate(140%);
+        color: rgba(255,255,255,.9);
+        font-family: var(--en);
+        font-size: 13px;
+        letter-spacing: .02em;
+      }
+      .topbar-menu {
+        display: flex;
+        align-items: center;
+        gap: 26px;
+        font-weight: 520;
+      }
+      .topbar-menu.left { justify-self: start; }
+
+      /* Make Label */
+      .topbar-menu.left .topbar-make-label { display: none; }
+      .topbar-make-label {
+        opacity: 1 !important;
+        padding: 7px 14px;
+        border: 1px solid rgba(255,255,255,.55);
+        border-radius: 999px;
+        font-size: 12px !important;
+        letter-spacing: .02em;
+        color: rgba(255,255,255,.9) !important;
+        transition: background .18s ease, color .18s ease, border-color .18s ease !important;
+      }
+      .topbar-make-label:hover {
+        background: #fff;
+        color: var(--ink) !important;
+        border-color: #fff;
+      }
+      @media (max-width: 760px) {
+        .topbar-menu.right { display: none; }
+        .topbar-menu.left .topbar-make-label { display: inline-flex; }
+      }
+      .topbar-menu.right { justify-self: end; }
+      .topbar-menu a { color: rgba(255,255,255,.72); transition: color .18s ease; }
+      .topbar-menu a:hover, .topbar-menu a.is-active { color: #fff; }
+      .topbar-logo {
+        justify-self: center;
+        display: inline-flex;
+        align-items: center;
+        height: 28px;
+      }
+      .topbar-logo img {
+        height: 24px;
+        width: auto;
+        filter: brightness(0) invert(1);
+      }
+
+      .fade-in {
+        opacity: 0;
+        transition: opacity 1s ease;
+      }
+      .fade-in.visible { opacity: 1; }
+
+      .container {
+        width: 100%;
+        max-width: var(--max);
+        margin: 0 auto;
+        padding: 0 var(--pad-x);
+      }
+      section { position: relative; }
+
+      /* ===========================================================
+         01 — HERO
+         =========================================================== */
+      .hero {
+        position: relative;
+        height: 100svh;
+        min-height: 600px;
+        color: #fff;
+        overflow: hidden;
+        background: #2a2622;
+        scroll-snap-align: start;
+      }
+      .hero-media {
+        position: absolute !important;
+        inset: 0 !important;
+        height: 100% !important;
+        min-height: 0 !important;
+        background: transparent !important;
+        overflow: visible !important;
+      }
+      .hero-media img,
+      .hero-media video {
+        position: absolute !important;
+        inset: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+      }
+      .hero-overlay {
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(180deg, rgba(0,0,0,.15) 0%, rgba(0,0,0,0) 30%, rgba(0,0,0,.5) 100%);
+      }
+      .hero-inner {
+        position: relative;
+        z-index: 2;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 0 var(--pad-x);
+        max-width: var(--max);
+        margin: 0 auto;
+      }
+      .hero-kicker {
+        margin: 0 0 18px;
+        color: rgba(255,255,255,.72);
+        font-family: var(--en);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: .22em;
+        text-transform: uppercase;
+      }
+      .hero-title {
+        margin: 0;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 30px;
+        font-weight: 300;
+        line-height: .92;
+        letter-spacing: -.025em;
+        color: #fff;
+        max-width: 14ch;
+      }
+
+      /* ===========================================================
+         02 — PROJECT OVERVIEW
+         =========================================================== */
+      .overview {
+        display: flex;
+        align-items: center;
+        padding: clamp(100px, 13vh, 140px) 0 clamp(60px, 8vh, 96px);
+        scroll-snap-align: start;
+      }
+      .overview-grid {
+        display: grid;
+        grid-template-columns: 40% 60%;
+        gap: 0;
+        align-items: start;
+      }
+      .meta-list {
+        display: flex;
+        flex-direction: column;
+      }
+      .meta-item {
+        display: grid;
+        grid-template-columns: 96px 1fr;
+        gap: 20px;
+        padding: 18px 0;
+        border-bottom: 1px solid var(--line-soft);
+      }
+      .meta-item:first-child { border-top: 1px solid var(--line-soft); }
+      .meta-label {
+        font-family: var(--en);
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: .22em;
+        text-transform: uppercase;
+        color: var(--ink);
+        padding-top: 3px;
+      }
+      .meta-value {
+        font-size: 16px;
+        line-height: 1.55;
+        color: var(--ink);
+      }
+      .overview-lead {
+        font-family: var(--kr), -apple-system, sans-serif;
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 1.6;
+        letter-spacing: -.01em;
+        color: var(--ink);
+        margin: 0;
+      }
+      .overview-right {
+        display: flex;
+        flex-direction: column;
+        gap: 56px;
+      }
+
+      /* Mobile-only meta elements — hidden on desktop */
+      .meta-chips     { display: none; }
+      .meta-brandname { display: none; }
+
+      /* Desktop-only: category + year (left col) */
+      .desktop-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .desktop-meta-item {
+        font-family: var(--en);
+        font-size: 14px;
+        font-weight: 400;
+        letter-spacing: 0;
+        line-height: 1.5;
+        color: var(--ink);
+        margin: 0;
+      }
+
+      /* Desktop-only brand name (right column top) */
+      .desktop-brandname {
+        font-family: var(--en);
+        font-size: 18px;
+        font-weight: 400;
+        letter-spacing: 0;
+        line-height: 1;
+        color: var(--ink);
+        margin: 0;
+      }
+
+      /* Credits */
+      .credits {
+        padding-top: 32px;
+        border-top: 1px solid var(--line-soft);
+      }
+      .credits-heading {
+        font-family: var(--en);
+        font-size: 13px;
+        font-weight: 400;
+        letter-spacing: 0;
+        text-transform: none;
+        line-height: 0.85;
+        color: var(--ink);
+        margin: 0 0 24px;
+      }
+      .credits-cols {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5px;
+        margin-bottom: 24px;
+      }
+      .credits-col-label {
+        font-family: var(--en);
+        font-size: 13px;
+        font-weight: 400;
+        letter-spacing: 0;
+        text-transform: none;
+        line-height: 0.85;
+        color: var(--ink);
+        margin: 0 0 8px;
+      }
+      .credits-col-value {
+        font-family: var(--en);
+        font-size: 13px;
+        font-weight: 400;
+        letter-spacing: 0;
+        line-height: 0.85;
+        color: var(--ink);
+        margin: 0;
+      }
+      .credits-dir {
+        padding-top: 20px;
+      }
+      .credits-dir-vals {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 24px;
+        margin-top: 10px;
+      }
+      .credits-director {
+        font-family: var(--en);
+        font-size: 13px;
+        font-weight: 400;
+        letter-spacing: 0;
+        line-height: 0.85;
+        color: var(--ink);
+      }
+      .credits-copyright {
+        font-family: var(--en);
+        font-size: 13px;
+        font-weight: 400;
+        letter-spacing: 0;
+        line-height: 0.85;
+        color: var(--ink);
+      }
+
+      /* ===========================================================
+         03 — VISUAL CAROUSEL
+         =========================================================== */
+      .visual-section {
+        padding: 0 0 140px;
+        scroll-snap-align: none;
+      }
+
+      /* Image layout: 2x1 / 1 / 2x1 */
+      .image-layout {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        width: 100%;
+      }
+      .image-row-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4px;
+      }
+      .image-row-2 .image-cell {
+        aspect-ratio: 3 / 4;
+      }
+      .image-row-1 .image-cell {
+        aspect-ratio: 16 / 7;
+      }
+      .image-cell {
+        overflow: hidden;
+        background: var(--paper-2);
+      }
+      .image-cell img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform .8s cubic-bezier(.22,1,.36,1);
+      }
+      .image-cell:hover img { transform: scale(1.03); }
+
+      /* Carousel section */
+      .carousel-section {
+        padding: 35px 0;
+      }
+
+      .section-head {
+        max-width: var(--max);
+        margin: 0 auto 60px;
+        padding: 0 var(--pad-x);
+        display: grid;
+        grid-template-columns: 5fr 7fr;
+        gap: 80px;
+        align-items: end;
+      }
+      .eyebrow {
+        font-family: var(--en);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: .22em;
+        text-transform: uppercase;
+        color: var(--ink);
+        margin: 0;
+      }
+      .section-title {
+        font-family: Georgia, "Times New Roman", serif;
+        font-weight: 300;
+        font-size: 25px;
+        line-height: 1.4;
+        letter-spacing: -.01em;
+        color: var(--ink);
+        margin: 16px 0 0;
+        max-width: 28ch;
+      }
+
+      .carousel-frame {
+        position: relative;
+        overflow: hidden;
+      }
+      .carousel-track {
+        display: flex;
+        gap: 24px;
+        padding: 0 var(--pad-x);
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+      }
+      .carousel-track::-webkit-scrollbar { display: none; }
+      .carousel-slide {
+        flex: 0 0 auto;
+        width: clamp(280px, 32vw, 440px);
+        aspect-ratio: 4 / 5;
+        scroll-snap-align: center;
+        overflow: hidden;
+        background: var(--paper-2);
+        border-radius: 4px;
+      }
+      .carousel-slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      /* ===========================================================
+         04 — INSTAGRAM + WEB
+         =========================================================== */
+      /* ===========================================================
+         04 — CHANNEL: Web (top, large) + IG/Text (bottom split)
+         =========================================================== */
+      .channel-section {
+        padding: 140px 0;
+        background: var(--paper);
+      }
+      .channel-inner {
+        max-width: var(--max);
+        margin: 0 auto;
+        padding: 0 var(--pad-x);
+        display: flex;
+        flex-direction: column;
+        gap: 64px;
+      }
+
+      /* Web Landing — top, large, 16:10 */
+      .channel-web {
+        width: 100%;
+      }
+      .channel-block .ch-label {
+        font-family: var(--en);
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: .22em;
+        text-transform: uppercase;
+        color: var(--ink);
+        margin: 0 0 16px;
+      }
+
+      .channel-copy {
+        max-width: 42ch;
+      }
+      .channel-copy .eyebrow {
+        margin: 0 0 16px;
+      }
+      .channel-copy .section-title {
+        margin: 0;
+      }
+      /* IG post cards */
+      .channel-ig {
+        width: 100%;
+        overflow: hidden;
+        margin-top: 50px;
+      }
+      /* IG 라벨: PC에서 카드 트랙(70% 중앙)과 정렬 */
+      .channel-ig .ch-label {
+        display: block;
+        width: 70%;
+        margin: 0 auto 50px;
+        padding: 0 20px;
+        box-sizing: border-box;
+      }
+
+      /* PC: 3개 가로 1줄, 전체 70% 중앙 정렬 */
+      .ig-cards-track {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        padding: 0 20px;
+        width: 70%;
+        margin: 0 auto;
+        box-sizing: border-box;
+      }
+
+      .ig-card {
+        width: 100%;
+        background: #fff;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 2px 20px rgba(26,24,22,.09);
+        transition: transform .3s ease;
+      }
+      .ig-card:hover { transform: translateY(-3px); }
+
+      /* 모바일: 카드뉴스 풀스크린 슬라이드 */
+      @media (max-width: 760px) {
+        .ig-cards-track {
+          display: flex;
+          flex-wrap: nowrap;
+          overflow-x: auto;
+          scroll-snap-type: x mandatory;
+          scrollbar-width: none;
+          -webkit-overflow-scrolling: touch;
+          padding: 0;
+          gap: 0;
+          width: 100%;
+          margin: 0;
+        }
+        .ig-cards-track::-webkit-scrollbar { display: none; }
+        .ig-card {
+          flex: 0 0 100%;
+          width: 100%;
+          scroll-snap-align: start;
+          border-radius: 0;
+          box-shadow: none;
+        }
+      }
+      .ig-card-top {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 12px;
+      }
+      .ig-card-avatar {
+        width: 26px; height: 26px;
+        border-radius: 50%;
+        background: var(--accent);
+        flex-shrink: 0;
+      }
+      .ig-card-handle {
+        font-family: var(--en);
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--ink);
+        letter-spacing: 0;
+      }
+      .ig-card-img {
+        width: 100%;
+        aspect-ratio: 9 / 16;
+        overflow: hidden;
+        background: var(--paper-2);
+      }
+      .ig-card-img img,
+      .ig-card-img video {
+        width: 100%; height: 100%; object-fit: cover;
+        display: block;
+      }
+      .ig-card-bottom {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 12px 10px;
+      }
+      .ig-card-dots {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .ig-card-dot {
+        width: 5px; height: 5px;
+        border-radius: 50%;
+        background: var(--ink-3);
+        opacity: .3;
+      }
+      .ig-card-dot.active {
+        background: var(--accent);
+        opacity: 1;
+      }
+
+      .web-frame {
+        background: #fff;
+        border-radius: 6px;
+        overflow: hidden;
+        box-shadow: 0 12px 40px rgba(26,24,22,.08);
+      }
+      .web-bar {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 12px 14px;
+        border-bottom: 1px solid var(--line-soft);
+        background: #f6f3ec;
+      }
+      .web-dot {
+        width: 10px; height: 10px;
+        border-radius: 50%;
+        background: #d8d3c8;
+      }
+      .web-body {
+        aspect-ratio: 16 / 10;
+        overflow: hidden;
+        position: relative;
+      }
+      .web-body img {
+        width: 100%; height: 100%; object-fit: cover;
+      }
+      .web-caption {
+        position: absolute;
+        bottom: 0; left: 0; right: 0;
+        padding: 32px;
+        color: #fff;
+        background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,.55) 100%);
+      }
+      .web-caption h4 {
+        margin: 0 0 6px;
+        font-family: Georgia, "Times New Roman", serif;
+        font-weight: 300;
+        font-size: clamp(20px, 2.2vw, 30px);
+        line-height: 1.2;
+      }
+      .web-caption p {
+        margin: 0;
+        font-size: 13px;
+        opacity: .85;
+      }
+
+      /* ===========================================================
+         05 — WORKFLOW (Image 3 reference style)
+         =========================================================== */
+      .workflow {
+        padding: 140px 0;
+        overflow-x: hidden;
+      }
+      .workflow-grid {
+        display: grid;
+        grid-template-columns: 5fr 7fr;
+        gap: 80px;
+        align-items: center;
+      }
+      .wf-title {
+        font-family: Georgia, "Times New Roman", serif;
+        font-weight: 300;
+        font-size: clamp(36px, 5vw, 72px);
+        line-height: 1.04;
+        letter-spacing: -.02em;
+        color: var(--ink);
+        margin: 16px 0 32px;
+      }
+      .wf-lead {
+        font-size: 15px;
+        line-height: 1.7;
+        color: var(--ink);
+        max-width: 42ch;
+        margin: 0 0 40px;
+      }
+      .wf-subhead {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--ink);
+        margin: 0 0 18px;
+      }
+      .wf-checks {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .wf-checks li {
+        display: grid;
+        grid-template-columns: 22px 1fr;
+        gap: 14px;
+        align-items: start;
+        font-size: 15px;
+        line-height: 1.5;
+        color: var(--ink);
+      }
+      .wf-check {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 22px; height: 22px;
+        background: var(--ink);
+        color: #fff;
+        border-radius: 4px;
+        font-size: 12px;
+      }
+
+      .wf-visual {
+        position: relative;
+        display: grid;
+        grid-template-columns: 150px 1fr;
+        gap: 28px;
+        align-items: center;
+      }
+      .wf-anchor {
+        background: #fff;
+        border-radius: 12px;
+        padding: 12px;
+        box-shadow: 0 8px 28px rgba(26,24,22,.06);
+        aspect-ratio: 3 / 4;
+        overflow: hidden;
+      }
+      .wf-anchor img {
+        width: 100%; height: 100%; object-fit: cover; border-radius: 6px;
+      }
+      .wf-refgrid {
+        background: #fff;
+        border-radius: 12px;
+        padding: 12px;
+        box-shadow: 0 8px 28px rgba(26,24,22,.06);
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+      }
+      .wf-refgrid > div {
+        aspect-ratio: 1;
+        overflow: hidden;
+        background: var(--paper-2);
+        border-radius: 4px;
+      }
+      .wf-refgrid img {
+        width: 100%; height: 100%; object-fit: cover;
+      }
+
+      /* ===========================================================
+         FOOTER — case_mium.html 동일 구조
+         =========================================================== */
+      .bottom-logo {
+        display: grid;
+        place-items: center;
+        padding: 84px var(--pad-x) 70px;
+        text-align: center;
+        background: var(--paper);
+      }
+      .bottom-logo img {
+        width: min(52vw, 350px);
+        height: auto;
+        margin-bottom: 24px;
+      }
+      .bottom-info {
+        display: grid;
+        gap: 2px;
+        color: var(--ink);
+        font-family: var(--en);
+        font-size: 13px;
+        font-weight: 800;
+        letter-spacing: .02em;
+        text-transform: uppercase;
+      }
+      .bottom-info a:hover { color: var(--accent); }
+
+      /* ===========================================================
+         RESPONSIVE
+         =========================================================== */
+      @media (max-width: 1080px) {
+        .overview-grid,
+        .section-head,
+        .workflow-grid { grid-template-columns: 1fr; gap: 40px; }
+        .channel-ig { width: 100%; max-width: none; }
+        .wf-visual { grid-template-columns: 120px 1fr; }
+      }
+      @media (max-width: 760px) {
+        .overview, .channel-section, .workflow, .visual-section, .carousel-section { padding: 80px 0; }
+        .channel-inner { gap: 48px; }
+        .hero-inner { padding-top: 104px; padding-bottom: 40px; }
+        .hero-title { max-width: 10ch; }
+        .carousel-slide { width: 65vw; }
+        .channel-ig {
+          width: 100%;
+          max-width: none;
+          justify-self: stretch;
+        }
+        .channel-ig .ch-label {
+          width: 100%;
+          margin: 0 0 50px;
+          padding: 0 10px 0 0;
+        }
+        .web-caption { padding: 20px; }
+        .wf-visual { grid-template-columns: 1fr; }
+
+        /* Overview — mobile 1단 재구조 */
+        .overview { align-items: flex-start; padding: 80px 0 56px; }
+        .overview-grid { gap: 0; }
+        .overview-right { gap: 40px; }
+        .desktop-brandname { display: none; }
+        .desktop-meta { display: none; }
+
+        /* Mobile: category + period chips */
+        .meta-chips {
+          display: flex;
+          gap: 8px;
+          flex-wrap: wrap;
+          margin-bottom: 14px;
+        }
+        .meta-chip {
+          font-family: var(--en);
+          font-size: 14px;
+          font-weight: 400;
+          color: var(--ink);
+        }
+
+        /* Mobile: brand name */
+        .meta-brandname {
+          display: block;
+          font-family: Georgia, "Times New Roman", serif;
+          font-size: 18px;
+          font-weight: 300;
+          letter-spacing: -.02em;
+          line-height: 1.1;
+          color: var(--ink);
+          margin: 0 0 40px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- TOPBAR — case_mium.html 동일 구조 -->
+    <header class="topbar">
+      <nav class="topbar-menu left">
+        <a href="../service.html">Service</a>
+        <a class="is-active" href="index.html">Work</a>
+        <a class="topbar-make-label" href="https://checker.krk.team" target="_blank" rel="noopener">Make Label</a>
+      </nav>
+      <a class="topbar-logo" href="../index.html" aria-label="KRK home">
+        <img src="../assets/krk-logo.svg" alt="KRK" />
+      </a>
+      <nav class="topbar-menu right">
+        <a class="topbar-make-label" href="https://checker.krk.team" target="_blank" rel="noopener">Make Label</a>
+      </nav>
+    </header>
+
+    <main>
+      <!-- 01 HERO -->
+      <section class="hero">
+        <div class="hero-media">
+          <img id="heroImage" src="" alt="" />
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="hero-inner">
+          <h1 class="hero-title fade-in" id="heroTitle"></h1>
+        </div>
+      </section>
+
+      <!-- 02 PROJECT OVERVIEW -->
+      <section class="overview">
+        <div class="container">
+          <div class="overview-grid">
+
+            <!-- Left col (desktop) / Top block (mobile) -->
+            <div class="overview-left fade-in">
+              <!-- Desktop only: category + year -->
+              <div class="desktop-meta">
+                <p class="desktop-meta-item" id="desktopCat"></p>
+                <p class="desktop-meta-item" id="desktopPeriod"></p>
+              </div>
+              <!-- Mobile only: chips + brand name -->
+              <div class="meta-chips">
+                <span class="meta-chip" id="metaCat"></span>
+                <span class="meta-chip" id="metaPeriod"></span>
+              </div>
+              <p class="meta-brandname" id="metaBrandName"></p>
+            </div>
+
+            <!-- Right col (desktop) / Below (mobile) -->
+            <div class="overview-right">
+              <!-- Desktop only: brand name at top of right column -->
+              <p class="desktop-brandname" id="desktopBrandName"></p>
+              <p class="overview-lead fade-in" id="overviewLead"></p>
+
+              <!-- Credits -->
+              <div class="credits fade-in">
+                <p class="credits-heading">Credits</p>
+                <div class="credits-cols">
+                  <div class="credits-col">
+                    <p class="credits-col-label">Clients</p>
+                    <p class="credits-col-value" id="creditsClient"></p>
+                  </div>
+                  <div class="credits-col">
+                    <p class="credits-col-label">Tools</p>
+                    <p class="credits-col-value" id="creditsTools"></p>
+                  </div>
+                </div>
+                <div class="credits-dir">
+                  <p class="credits-col-label">Direction</p>
+                  <div class="credits-dir-vals">
+                    <span class="credits-director" id="creditsDirector"></span>
+                    <span class="credits-copyright" id="creditsCopyright"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- 03 VISUAL — 2x1 / 1 / 2x1 image layout -->
+      <section class="visual-section">
+        <div class="image-layout fade-in" id="imageLayout"></div>
+      </section>
+
+      <!-- 04 CAROUSEL -->
+      <section class="carousel-section">
+        <div class="carousel-frame fade-in">
+          <div class="carousel-track" id="carouselTrack"></div>
+        </div>
+      </section>
+
+      <!-- 04 CHANNEL: Title (top) + Web (middle) + IG (bottom, centered) -->
+      <section class="channel-section">
+        <div class="channel-inner">
+          <!-- Web Landing (middle, large) -->
+          <div class="channel-web channel-block fade-in">
+            <p class="ch-label">Web Landing</p>
+            <div class="web-frame">
+              <div class="web-bar">
+                <span class="web-dot"></span>
+                <span class="web-dot"></span>
+                <span class="web-dot"></span>
+              </div>
+              <div class="web-body">
+                <img id="webImage" src="" alt="" />
+                <div class="web-caption">
+                  <h4 id="webHeadline"></h4>
+                  <p id="webSub"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Instagram Feed — channel-inner 밖, full-width -->
+        <div class="channel-ig channel-block fade-in">
+          <p class="ch-label">Instagram Reels</p>
+          <div class="ig-cards-track" id="igFeed"></div>
+        </div>
+      </section>
+
+      <!-- 05 WORKFLOW -->
+      <section class="workflow">
+        <div class="container">
+          <div class="workflow-grid">
+            <div class="fade-in">
+              <p class="eyebrow">— Workflow</p>
+              <h2 class="wf-title" id="wfTitle"></h2>
+              <p class="wf-lead" id="wfLead"></p>
+              <p class="wf-subhead">How we make it:</p>
+              <ul class="wf-checks" id="wfChecks"></ul>
+            </div>
+            <div class="wf-visual fade-in">
+              <div class="wf-anchor">
+                <img id="wfAnchor" src="" alt="anchor product" />
+              </div>
+              <div class="wf-refgrid" id="wfRefGrid"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER — case_mium.html 동일 구조 -->
+    <footer class="bottom-logo" id="contact">
+      <img src="../assets/krk-logo.svg" alt="KRK" />
+      <div class="bottom-info">
+        <span>©KRK. All rights reserved.</span>
+        <a href="mailto:contact@krk.team">contact@krk.team</a>
+      </div>
+    </footer>
+
+    <script>
+      const cases = [{
+        id: "zzl",
+        name: "ZZL",
+        en: "ZZL",
+        slogan: "Sweet dreams, on tap.<br>ZZL",
+        category: "Branding · Campaign",
+        period: "2025",
+        scope: "Brand Positioning · Campaign Visual · Motion · AI Brand OS",
+        tools: "Figma · Notion · Claude · GPT Image · Kling",
+        director: "HANNA",
+        copyright: "© All Rights krk.studio",
+        overviewLead: "ZZL(지즐)은 ZZZ(잠)와 Jelly를 합친, 자기 전에 짜먹는 수면·릴랙스 젤리입니다. 효능을 앞세운 진지한 웰니스 대신, 20대 초중반이 '귀엽고 짜먹는 재미'로 집어드는 비비드 키치 브랜드로 설계했습니다. 비비드 핑크와 민트 그린의 보색 충돌, Y2K 키치 그래픽, 밤이지만 발랄한 핑크빛 무드를 하나의 시각 언어로 고정하고, 제품 컷부터 SNS 릴스·웹 랜딩까지 같은 톤으로 확장합니다. KRK가 설계한 가상 포트폴리오 브랜드입니다.",
+        visualTitle: "Brand Campaign",
+        wfTitle: "From one anchor to a full campaign.",
+        wfLead: "한 장의 톤 마스터에서 캠페인 컷, 손동작 릴스, SNS 소재까지 같은 무드로 확장합니다.",
+        wfChecks: [
+          "파우치 단독 톤 마스터를 기준 비주얼로 고정",
+          "동일한 톤으로 AI 캠페인 시리즈 · 릴스 생성",
+          "피드 · 릴스 · 상세페이지용 소재로 확장"
+        ],
+        webHeadline: "Sweet dreams, every night.",
+        webSub: "Squeeze-to-sleep jelly, made playful.",
+        heroImage: "../assets/zzl/Hero_zzl.png",
+        sectionGrid: [
+          "../assets/zzl/Section_zzl_01.png",
+          "../assets/zzl/Section_zzl_02.png",
+          "../assets/zzl/Section_zzl_03.png",
+          "../assets/zzl/Section_zzl_04.png",
+          "../assets/zzl/Section_zzl_05.png"
+        ],
+        storyCards: [
+          "../assets/zzl/Story_zzl_01.png",
+          "../assets/zzl/Story_zzl_02.png",
+          "../assets/zzl/Story_zzl_03.png",
+          "../assets/zzl/Story_zzl_04.png",
+          "../assets/zzl/Story_zzl_05.png",
+          "../assets/zzl/Story_zzl_06.png"
+        ],
+        igGrid: [
+          "../assets/zzl/IG_zzl_01.mp4",
+          "../assets/zzl/IG_zzl_02.mp4",
+          "../assets/zzl/IG_zzl_03.mp4"
+        ],
+        webImage: "../assets/zzl/Web_zzl.png",
+        wfAnchor: "../assets/zzl/Anchor_zzl.png",
+        wfRefs: [
+          "../assets/zzl/Ref_zzl_01.png",
+          "../assets/zzl/Ref_zzl_02.png",
+          "../assets/zzl/Ref_zzl_03.png",
+          "../assets/zzl/Ref_zzl_04.png",
+          "../assets/zzl/Ref_zzl_05.png",
+          "../assets/zzl/Ref_zzl_06.png"
+        ]
+      }];
+
+      const params = new URLSearchParams(window.location.search);
+      const current = cases.find(c => c.id === params.get('case')) || cases[0];
+
+      const $ = id => document.getElementById(id);
+      const setText = (id, v) => { const el = $(id); if (el) el.textContent = v || ''; };
+      const setHTML = (id, v) => { const el = $(id); if (el) el.innerHTML = v || ''; };
+      const setImg = (id, src, alt) => { const el = $(id); if (!el) return; el.src = src || ''; el.alt = alt || ''; };
+
+      document.title = current.en + ' | KRK Work Detail';
+
+      // 01 Hero
+      setHTML('heroTitle', current.slogan);
+      $('heroTitle')?.classList.add('visible');
+      setImg('heroImage', current.heroImage, current.name);
+
+      // 02 Overview
+      setHTML('overviewLead', current.overviewLead);
+
+      // Desktop meta list
+      setHTML('metaList', [
+        ['Client',   current.name],
+        ['Category', current.category],
+        ['Period',   current.period],
+        ['Scope',    current.scope]
+      ].map(([k, v]) =>
+        `<div class="meta-item"><span class="meta-label">${k}</span><span class="meta-value">${v}</span></div>`
+      ).join(''));
+
+      // Desktop: left col (category + year) + right col brand name
+      setText('desktopCat',      current.category);
+      setText('desktopPeriod',   current.period);
+      setText('desktopBrandName', current.name);
+
+      // Mobile chips + brand name
+      setText('metaCat',      current.category);
+      setText('metaPeriod',   current.period);
+      setText('metaBrandName', current.name);
+
+      // Credits
+      setText('creditsClient',    current.name);
+      setText('creditsTools',     current.tools);
+      setText('creditsDirector',  current.director);
+      setText('creditsCopyright', current.copyright);
+
+      // 03 Visual — 2x1 / 1 / 2x1 layout (Section 5장)
+      const s = current.sectionGrid;
+      setHTML('imageLayout', `
+        <div class="image-row-2">
+          <div class="image-cell"><img src="${s[0]}" alt="${current.name} 1" loading="lazy" /></div>
+          <div class="image-cell"><img src="${s[1]}" alt="${current.name} 2" loading="lazy" /></div>
+        </div>
+        <div class="image-row-1">
+          <div class="image-cell"><img src="${s[2]}" alt="${current.name} 3" loading="lazy" /></div>
+        </div>
+        <div class="image-row-2">
+          <div class="image-cell"><img src="${s[3]}" alt="${current.name} 4" loading="lazy" /></div>
+          <div class="image-cell"><img src="${s[4]}" alt="${current.name} 5" loading="lazy" /></div>
+        </div>
+      `);
+
+      // 04 Carousel (Story 6장)
+      setHTML('carouselTrack', current.storyCards.map((src, i) =>
+        `<div class="carousel-slide"><img src="${src}" alt="${current.name} ${i + 1}" /></div>`
+      ).join(''));
+
+      // 05 Channel — IG post cards
+      const igHandle = '@' + current.id;
+      setHTML('igFeed', current.igGrid.slice(0, 3).map((src, i) =>
+        `<div class="ig-card">
+          <div class="ig-card-top">
+            <div class="ig-card-avatar"></div>
+            <span class="ig-card-handle">${igHandle}</span>
+          </div>
+          <div class="ig-card-img"><video src="${src}" poster="${src.replace(/\.mp4$/, '.png')}" autoplay muted loop playsinline preload="metadata"></video></div>
+          <div class="ig-card-bottom">
+            <div class="ig-card-dots">
+              <div class="ig-card-dot${i===0?' active':''}"></div>
+              <div class="ig-card-dot"></div>
+              <div class="ig-card-dot"></div>
+            </div>
+          </div>
+        </div>`
+      ).join(''));
+      setImg('webImage', current.webImage, '');
+      setText('webHeadline', current.webHeadline);
+      setText('webSub', current.webSub);
+
+      // 05 Workflow
+      setText('wfTitle', current.wfTitle);
+      setText('wfLead', current.wfLead);
+      setHTML('wfChecks', current.wfChecks.map(c =>
+        `<li><span class="wf-check">✓</span><span>${c}</span></li>`
+      ).join(''));
+      setImg('wfAnchor', current.wfAnchor, '');
+      setHTML('wfRefGrid', current.wfRefs.slice(0, 6).map(src =>
+        `<div><img src="${src}" alt="" /></div>`
+      ).join(''));
+
+      // Quiet motion
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
+
+      // Auto-scroll: 캠페인 캐러셀
+      (function () {
+        const track = $('carouselTrack');
+        if (!track) return;
+        const slides = track.querySelectorAll('.carousel-slide');
+        if (slides.length < 2) return;
+        let i = 0;
+        setInterval(() => {
+          i = (i + 1) % slides.length;
+          track.scrollTo({ left: slides[i].offsetLeft - 24, behavior: 'smooth' });
+        }, 4000);
+      })();
+
+      // IG 피드: 모바일에서만 자동 슬라이드
+      (function () {
+        if (window.innerWidth > 760) return;   // PC는 중앙 그리드, 슬라이드 없음
+        const track = $('igFeed');
+        if (!track) return;
+        const cards = track.querySelectorAll('.ig-card');
+        if (cards.length < 2) return;
+        let idx = 0;
+        let paused = false;
+        track.addEventListener('pointerdown', () => { paused = true; });
+        track.addEventListener('pointerup',   () => { setTimeout(() => { paused = false; }, 3000); });
+        setInterval(() => {
+          if (paused) return;
+          idx = (idx + 1) % cards.length;
+          const card = cards[idx];
+          track.scrollTo({
+            left: card.offsetLeft - parseInt(getComputedStyle(track).paddingLeft),
+            behavior: 'smooth'
+          });
+        }, 3000);
+      })();
+    </script>
+    <script src="../consult-widget.js" defer></script>
+  </body>
+</html>
