@@ -1449,7 +1449,12 @@
         applyModal.classList.remove('is-open');
         document.body.style.overflow = '';
       };
-      applyOpenBtns.forEach((btn) => btn.addEventListener('click', openModal));
+      applyOpenBtns.forEach((btn) => btn.addEventListener('click', () => {
+        if (typeof gtag === 'function') {
+          gtag('event', 'apply_open', { campaign: 'we-build-yours', location: (btn.textContent || '').trim() });
+        }
+        openModal();
+      }));
       scrollTargetBtns.forEach((btn) => {
         btn.addEventListener('click', () => {
           const target = document.getElementById(btn.dataset.scrollTarget);
@@ -1464,7 +1469,14 @@
         if (event.key === 'Escape' && applyModal.classList.contains('is-open')) closeModal();
       });
 
+      let formStarted = false;
       form.addEventListener('input', (event) => {
+        if (!formStarted) {
+          formStarted = true;
+          if (typeof gtag === 'function') {
+            gtag('event', 'form_start', { campaign: 'we-build-yours', form: 'apply' });
+          }
+        }
         if (event.target.classList.contains('is-error')) event.target.classList.remove('is-error');
       });
       form.addEventListener('change', (event) => {
