@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Contact — KRK Studio</title>
+    <meta name="description" content="무료 15분 진단. 제품과 지금 단계를 적어 주세요. 통화 뒤에 진단 1장을 보냅니다." />
+    <link rel="canonical" href="https://krk.team/contact.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Contact — KRK Studio" />
+    <meta property="og:description" content="무료 15분 진단. 통화 뒤에 진단 1장을 보냅니다." />
+    <meta property="og:image" content="https://krk.team/assets/krk-og.png" />
+    <meta property="og:site_name" content="KRK Studio" />
+    <link rel="icon" href="/assets/krk-logo.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Libre+Caslon+Text:wght@400;700&family=Noto+Sans+KR:wght@400;500;600&display=swap" />
+    <link rel="stylesheet" href="/assets/krk-site.css" />
+    <style>
+      .head { padding: 72px var(--pad) 56px; }
+      .head h1 { margin: 0 0 24px; font-family: var(--serif-display); font-weight: 400; font-size: clamp(64px, 8vw, 120px); line-height: 0.95; letter-spacing: -0.01em; }
+      .head p { margin: 0; max-width: 520px; font-size: 15px; line-height: 1.85; color: var(--ink-muted); }
+
+      .body { padding: 0 var(--pad) 96px; display: grid; grid-template-columns: 7fr 4fr; gap: clamp(48px, 7vw, 120px); align-items: start; }
+
+      form { display: flex; flex-direction: column; gap: 32px; }
+      .two { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+      .field { display: block; }
+      .field input, .field textarea {
+        width: 100%; padding: 14px 0; border: 0; border-bottom: 1px solid var(--hairline); border-radius: 0;
+        background: transparent; font-family: inherit; font-size: 15px; color: var(--ink); outline: none; transition: border-color 160ms ease;
+      }
+      .field textarea { resize: vertical; line-height: 1.7; }
+      .field input:focus, .field textarea:focus { border-bottom-color: var(--ink); }
+      .field input::placeholder, .field textarea::placeholder { color: rgba(22, 19, 17, 0.32); }
+      .field .opt { text-transform: none; letter-spacing: 0; color: rgba(22, 19, 17, 0.4); }
+      .field.is-invalid input { border-bottom-color: var(--signal-ink); }
+      .err { margin-top: 6px; font-size: 12px; color: var(--signal-ink); }
+
+      fieldset { margin: 0; padding: 0; border: 0; }
+      .choices { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+      .choice { position: relative; display: inline-flex; align-items: center; gap: 8px; padding: 9px 14px; border: 1px solid rgba(22, 19, 17, 0.24); font-size: 13px; cursor: pointer; transition: border-color 160ms ease; }
+      .choice:hover, .choice:has(input:checked) { border-color: var(--ink); }
+      .choice input { appearance: none; -webkit-appearance: none; width: 10px; height: 10px; margin: 0; border: 1px solid var(--ink); border-radius: 50%; }
+      .choice input:checked { background: var(--ink); }
+      .choice input:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+
+      .submit-row { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-top: 8px; }
+      .submit-row .note { font-size: 12px; color: var(--ink-muted); }
+      .btn {
+        padding: 12px 20px; border: 1px solid var(--ink); border-radius: 0; background: var(--ink); color: #fff;
+        font-family: var(--sans); font-weight: 500; font-size: 13px; letter-spacing: 0.02em; cursor: pointer; transition: background 160ms ease, color 160ms ease;
+      }
+      .btn:hover { background: #fff; color: var(--ink); }
+      .btn[disabled] { opacity: 0.5; cursor: progress; }
+
+      .done { display: flex; flex-direction: column; gap: 24px; padding-top: 8px; }
+      .done[hidden] { display: none; }
+      .done h2 { margin: 0; font-family: var(--serif-display); font-weight: 400; font-size: clamp(28px, 2.8vw, 40px); line-height: 1.15; }
+      .done p { margin: 0; font-size: 14px; line-height: 1.8; color: var(--ink-muted); }
+      .done .links { display: flex; flex-wrap: wrap; gap: 24px 32px; align-items: center; }
+
+      aside { display: flex; flex-direction: column; gap: 48px; }
+      .rows a, .rows div { display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; border-top: 1px solid var(--hairline); font-size: 15px; }
+      .rows > :last-child { border-bottom: 1px solid var(--hairline); }
+      .rows span:first-child { color: var(--ink-muted); }
+      .rows a:hover span:last-child { color: var(--signal-ink); }
+      .steps div { display: grid; grid-template-columns: 32px 1fr; gap: 12px; padding: 14px 0; border-top: 1px solid var(--hairline); font-size: 14px; line-height: 1.6; }
+      .steps div:last-child { border-bottom: 1px solid var(--hairline); }
+      .steps span:first-child { font-family: var(--serif-text); font-size: 12px; color: var(--ink-muted); padding-top: 3px; }
+      .steps b { font-weight: 500; }
+      .aside-note { font-size: 13px; line-height: 1.8; color: var(--ink-muted); }
+
+      .site-footer { border-top: 1px solid var(--hairline); padding-top: 72px; }
+
+      @media (max-width: 900px) {
+        .head { padding: 48px 20px 40px; }
+        .head h1 { font-size: 64px; }
+        .body { grid-template-columns: 1fr; gap: 56px; padding: 0 20px 64px; }
+        .two { grid-template-columns: 1fr; }
+        .submit-row { flex-direction: column-reverse; align-items: stretch; gap: 14px; }
+        .btn { width: 100%; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <nav aria-label="주 메뉴"><a href="/work/">Work</a></nav>
+      <a class="logo" href="/" aria-label="KRK Studio 홈"><img src="/assets/krk-logo.svg" alt="krk" /></a>
+      <nav aria-label="연락"><a href="/contact.html" aria-current="page">Contact</a></nav>
+      <button class="icon-btn menu-btn" type="button" aria-label="메뉴 열기" aria-expanded="false" data-menu-open><span></span><span></span></button>
+    </header>
+
+    <main>
+      <section class="head">
+        <h1>Contact</h1>
+        <p>제품과 지금 단계를 적어 주세요. 통화 뒤에 진단 1장을 보냅니다. 맞지 않으면 그렇게 말합니다.</p>
+      </section>
+
+      <section class="body">
+        <div>
+          <form novalidate data-form>
+            <label class="field"><span class="label">브랜드 · 제품명</span><input name="brand" type="text" autocomplete="organization" placeholder="예: Balance B — 흑임자 단백질" required /></label>
+            <div class="two">
+              <label class="field"><span class="label">이름</span><input name="name" type="text" autocomplete="name" required /></label>
+              <label class="field"><span class="label">이메일</span><input name="email" type="email" autocomplete="email" inputmode="email" required /></label>
+            </div>
+            <fieldset>
+              <legend class="label">지금 단계</legend>
+              <div class="choices">
+                <label class="choice"><input type="radio" name="stage" value="제품만 있다" />제품만 있다</label>
+                <label class="choice"><input type="radio" name="stage" value="브랜드가 있다" />브랜드가 있다</label>
+                <label class="choice"><input type="radio" name="stage" value="리뉴얼이 필요하다" />리뉴얼이 필요하다</label>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend class="label">관심 서비스</legend>
+              <div class="choices">
+                <label class="choice"><input type="radio" name="service" value="branding" data-label="Brand" />Brand</label>
+                <label class="choice"><input type="radio" name="service" value="campaign" data-label="Campaign" />Campaign</label>
+                <label class="choice"><input type="radio" name="service" value="visualclub" data-label="Visual Club" />Visual Club</label>
+                <label class="choice"><input type="radio" name="service" value="unsure" data-label="모르겠다" />모르겠다</label>
+              </div>
+            </fieldset>
+            <label class="field"><span class="label">메시지 <span class="opt">· 선택</span></span><textarea name="message" rows="3" placeholder="제품, 현재 채널, 목표 시점"></textarea></label>
+            <div class="submit-row">
+              <span class="note">1영업일 안에 답합니다. 통화 15분, 비용 없음.</span>
+              <button class="btn" type="submit">무료 15분 진단 신청 →</button>
+            </div>
+          </form>
+
+          <div class="done" hidden data-done tabindex="-1">
+            <h2>받았습니다.<br />1영업일 안에 메일로 답합니다.</h2>
+            <p>바로 통화 시간을 잡아도 됩니다. 그 전에 Work에서 케이스를 보고 오시면 통화가 짧아집니다.</p>
+            <div class="links">
+              <a class="btn" href="https://calendly.com/chaeumkorea/15min" target="_blank" rel="noopener" data-cal>15분 통화 일정 잡기 →</a>
+              <a class="cta-link" href="/work/">[Work →]</a>
+            </div>
+          </div>
+        </div>
+
+        <aside>
+          <div>
+            <p class="label" style="margin: 0 0 20px">Direct</p>
+            <div class="rows">
+              <a href="https://www.instagram.com/director.ian.krk" target="_blank" rel="noopener"><span>Instagram</span><span>@director.ian.krk</span></a>
+              <div><span>Studio</span><span>Seongdong-gu, Seoul</span></div>
+            </div>
+          </div>
+          <div>
+            <p class="label" style="margin: 0 0 20px">What happens next</p>
+            <div class="steps">
+              <div><span>01</span><span><b>15분 통화.</b> 제품과 지금 단계를 듣습니다.</span></div>
+              <div><span>02</span><span><b>진단 1장.</b> 어느 서비스가 맞는지, 안 해도 되는 것은 무엇인지.</span></div>
+              <div><span>03</span><span><b>제안 · 견적.</b> 범위 · 기간 · 수정 횟수를 문서로. 결정은 그 다음.</span></div>
+            </div>
+          </div>
+          <p class="aside-note" style="margin: 0">Brand 1~5주 · Campaign 3~7일 · Visual Club 월 구독.<br />AI Brand OS는 세 서비스 전부에 포함됩니다.</p>
+        </aside>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <img src="/assets/krk-logo.svg" alt="" aria-hidden="true" />
+      <span>©KRK. All rights reserved.</span>
+      <a href="https://www.instagram.com/director.ian.krk" target="_blank" rel="noopener">Instagram</a>
+    </footer>
+
+    <div class="menu-overlay" aria-hidden="true" data-menu>
+      <div class="menu-top">
+        <a href="/" aria-label="KRK Studio 홈"><img src="/assets/krk-logo.svg" alt="krk" /></a>
+        <button class="icon-btn is-close" type="button" aria-label="메뉴 닫기" data-menu-close><span></span><span></span></button>
+      </div>
+      <nav aria-label="모바일 메뉴"><a href="/work/">Work</a><a href="/contact.html">Contact</a></nav>
+      <div class="menu-foot">©KRK. All rights reserved.</div>
+    </div>
+
+    <script>
+      (function () {
+        // Same Make.com scenario as the consult widget (consult-widget.js) — field names kept compatible.
+        var MAKE_WEBHOOK = 'https://hook.us2.make.com/ivkfkwhkegwoalggl64mxnljhtex8sej';
+        var CALENDLY_URL = 'https://calendly.com/chaeumkorea/15min';
+        var form = document.querySelector('[data-form]');
+        var done = document.querySelector('[data-done]');
+
+        function setError(input, msg) {
+          var field = input.closest('.field');
+          var old = field.querySelector('.err');
+          if (old) old.remove();
+          field.classList.toggle('is-invalid', !!msg);
+          input.setAttribute('aria-invalid', msg ? 'true' : 'false');
+          if (msg) { var e = document.createElement('div'); e.className = 'err'; e.textContent = msg; field.appendChild(e); }
+        }
+
+        form.addEventListener('submit', function (ev) {
+          ev.preventDefault();
+          var f = form.elements;
+          var checks = [
+            [f.brand, f.brand.value.trim() ? '' : '브랜드 또는 제품명을 적어 주세요.'],
+            [f.name, f.name.value.trim() ? '' : '이름을 적어 주세요.'],
+            [f.email, /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email.value.trim()) ? '' : '답장을 받을 이메일을 적어 주세요.']
+          ];
+          var firstBad = null;
+          checks.forEach(function (c) { setError(c[0], c[1]); if (c[1] && !firstBad) firstBad = c[0]; });
+          if (firstBad) { firstBad.focus(); return; }
+
+          var svc = form.querySelector('input[name="service"]:checked');
+          var stage = form.querySelector('input[name="stage"]:checked');
+          var payload = {
+            service: svc ? svc.value : '',
+            serviceLabel: svc ? svc.getAttribute('data-label') : '',
+            name: f.name.value.trim(),
+            brand: f.brand.value.trim(),
+            stage: stage ? stage.value : '',
+            email: f.email.value.trim(),
+            message: f.message.value.trim(),
+            submittedAt: new Date().toISOString(),
+            source: 'krk.team/contact',
+            page: location.pathname
+          };
+
+          var btn = form.querySelector('.btn');
+          btn.disabled = true;
+          fetch(MAKE_WEBHOOK, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          }).catch(function (err) { console.warn('[KRK] webhook failed:', err); });
+
+          var params = new URLSearchParams({ name: payload.name, email: payload.email });
+          document.querySelector('[data-cal]').href = CALENDLY_URL + '?' + params.toString();
+          form.hidden = true;
+          done.hidden = false;
+          done.focus();
+        });
+      })();
+    </script>
+    <script src="/assets/krk-site.js" defer></script>
+  </body>
+</html>
