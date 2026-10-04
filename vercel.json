@@ -3,5 +3,9 @@
     "deploymentEnabled": {
       "main": false
     }
-  }
+  },
+  "redirects": [
+    { "source": "/we-build-yours", "destination": "/", "permanent": true },
+    { "source": "/we-build-yours.html", "destination": "/", "permanent": true }
+  ]
 }
