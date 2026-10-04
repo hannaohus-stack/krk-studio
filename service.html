@@ -1,0 +1,1634 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Service | KRK.TEAM</title>
+    <meta name="description" content="이너뷰티·식품 전문 브랜드 스튜디오 KRK. 브랜드 가이드를 넘어 AI Brand OS를 전달합니다." />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Service | KRK · Inner Beauty & Food brand studio" />
+    <meta property="og:description" content="이너뷰티·식품 전문 브랜드 스튜디오. AI Brand OS로 브랜드 운영을 시스템화합니다." />
+    <meta property="og:image" content="assets/krk-og.png" />
+    <meta property="og:locale" content="ko_KR" />
+    <meta property="og:site_name" content="KRK" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Service | KRK" />
+    <meta name="twitter:description" content="이너뷰티·식품 전문 브랜드 스튜디오. AI Brand OS로 브랜드 운영을 시스템화합니다." />
+    <meta name="twitter:image" content="assets/krk-og.png" />
+
+    <link rel="stylesheet" href="assets/krk-tokens.css" />
+
+    <style>
+      /* ============================================================
+         KRK Service · Collins-inspired · Warm tones only
+         ============================================================ */
+      :root {
+        --bg:        #f0ece4;     /* Base cream */
+        --bg-soft:   #f7f4ec;     /* Lighter alt section */
+        --bg-warm:   #ebe5d9;     /* Warmer accent section */
+        --paper:     #ffffff;
+        --ink:       #1a1816;
+        --ink-2:     #4a443c;
+        --ink-3:     #8a8275;
+        --line:      rgba(26,24,22,.12);
+        --line-soft: rgba(26,24,22,.06);
+        --serif:     Georgia, "Times New Roman", serif;
+        --sans-kr:   "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
+                     "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic",
+                     system-ui, sans-serif;
+      }
+      html { scroll-behavior: smooth; }
+      body {
+        background: var(--bg);
+        color: var(--ink);
+      }
+      ::selection { background: var(--ink); color: var(--bg); }
+
+      /* ──────── TOPBAR ──────── */
+      .topbar {
+        position: fixed; z-index: 70; top: 0; left: 0; right: 0;
+        display: grid; grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+        padding: 24px var(--pad-x);
+        background: transparent;
+        color: #fff;
+        transition: padding .25s ease, background .25s ease, color .25s ease, backdrop-filter .25s ease;
+      }
+      .topbar.scrolled {
+        padding: 16px var(--pad-x);
+        color: var(--ink);
+        background: rgba(255,255,255,.86);
+        backdrop-filter: blur(18px) saturate(140%);
+        -webkit-backdrop-filter: blur(18px) saturate(140%);
+      }
+      .topbar-logo { display: inline-flex; align-items: center; height: 24px; }
+      .topbar-logo img {
+        height: 20px;
+        width: auto;
+        filter: brightness(0) invert(1);
+        transition: filter .25s ease;
+      }
+      .topbar.scrolled .topbar-logo img { filter: none; }
+      .topbar-menu {
+        display: flex; align-items: center; gap: 32px;
+        font-family: var(--en);
+        font-size: 13px; font-weight: 600;
+        letter-spacing: -.01em;
+      }
+      .topbar-menu.left { justify-self: start; }
+      .topbar-menu.right { justify-self: end; }
+      .topbar-menu a {
+        color: rgba(255,255,255,.78);
+        opacity: 1;
+        transition: color .18s ease;
+      }
+      .topbar-menu a:hover, .topbar-menu a.is-active { color: #fff; }
+      .topbar.scrolled .topbar-menu a { color: var(--ink-2); }
+      .topbar.scrolled .topbar-menu a:hover,
+      .topbar.scrolled .topbar-menu a.is-active { color: var(--ink); }
+      /* Make Label 버튼 */
+      .topbar-make-label {
+        opacity: 1 !important;
+        padding: 7px 14px;
+        border: 1px solid currentColor;
+        border-radius: 999px;
+        font-size: 12px !important;
+        letter-spacing: .02em;
+        transition: background .18s ease, color .18s ease !important;
+      }
+      .topbar-make-label:hover {
+        background: currentColor;
+        color: var(--ink) !important;
+      }
+      .topbar.scrolled .topbar-make-label:hover {
+        background: var(--ink);
+        color: #fff !important;
+      }
+      /* PC: 왼쪽 메뉴의 Make Label 숨김 */
+      .topbar-menu.left .topbar-make-label { display: none; }
+      /* 모바일: 오른쪽 메뉴 숨기고 왼쪽 메뉴에 표시 */
+      @media (max-width: 760px) {
+        .topbar {
+          display: flex;
+          justify-content: space-between;
+          gap: 16px;
+          padding: 18px var(--pad-x);
+        }
+        .topbar-logo {
+          position: absolute;
+          top: 19px;
+          left: calc(100vw - var(--pad-x) - 34px);
+        }
+        .topbar-menu.left { gap: 16px; min-width: 0; }
+        .topbar-menu.left .topbar-make-label {
+          padding: 6px 12px;
+          font-size: 11px !important;
+        }
+        .topbar-menu.right { display: none; }
+        .topbar-menu.left .topbar-make-label { display: inline-flex; }
+      }
+
+      /* ============================================================
+         SECTION SYSTEM
+         - .section: full-width container, vertical padding
+         - .section-inner: max-width wrapper inside
+         - .section--soft: lighter cream background
+         - .section--warm: warmer cream (signature accent)
+         ============================================================ */
+      .section {
+        padding: clamp(100px, 12vw, 180px) var(--pad-x);
+      }
+      .section--soft { background: var(--bg-soft); }
+      .section--warm { background: var(--bg-warm); }
+      .section-inner {
+        max-width: var(--max);
+        margin: 0 auto;
+      }
+
+      /* ──────── SHARED SECTION HEAD ──────── */
+      .section-head {
+        max-width: 680px;
+        margin: 0 auto clamp(64px, 8vw, 100px);
+        text-align: center;
+      }
+      .section-eyebrow {
+        display: block;
+        font-family: var(--en);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: .18em;
+        text-transform: uppercase;
+        color: var(--ink-3);
+        margin: 0 0 24px;
+      }
+      .section-head h2 {
+        margin: 0 0 20px;
+        font-family: var(--serif);
+        font-weight: 400;
+        font-size: clamp(36px, 5vw, 64px);
+        line-height: 1.04;
+        letter-spacing: -.03em;
+        color: var(--ink);
+      }
+      .section-head p {
+        margin: 0;
+        font-family: var(--sans-kr);
+        font-size: clamp(15px, 1.3vw, 17px);
+        line-height: 1.65;
+        color: var(--ink-2);
+      }
+
+      /* ============================================================
+         01 — HERO
+         ============================================================ */
+      .hero-fullbleed {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        min-height: 640px;
+        overflow: hidden;
+        background: var(--bg-dark);
+        color: #fff;
+      }
+      .hero-media {
+        position: absolute;
+        inset: 0;
+      }
+      .hero-media img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .hero-scrim {
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(180deg, rgba(0,0,0,.48) 0%, rgba(0,0,0,.18) 24%, rgba(0,0,0,.10) 52%, rgba(0,0,0,.58) 100%);
+        pointer-events: none;
+      }
+      .hero-title-block {
+        position: absolute;
+        z-index: 2;
+        top: clamp(96px, 14vh, 140px);
+        left: var(--pad-x);
+        max-width: min(900px, 90vw);
+      }
+      .hero-title {
+        margin: 0;
+        color: rgba(255,255,255,.92);
+        font-family: var(--en);
+        font-size: clamp(38px, 5.6vw, 82px);
+        font-weight: 400;
+        letter-spacing: -.02em;
+        line-height: 1.08;
+      }
+      .hero-foot {
+        position: absolute;
+        z-index: 2;
+        left: var(--pad-x);
+        bottom: clamp(110px, 14vh, 150px);
+        color: rgba(255,255,255,.62);
+        font-family: var(--kr);
+        font-size: 15px;
+        line-height: 1.7;
+      }
+      .hero-foot p { margin: 0; }
+
+      /* ──────── WORK SLIDER ──────── */
+      .work-slider {
+        padding: clamp(72px, 9vw, 128px) 0 clamp(88px, 10vw, 140px);
+        background: var(--bg);
+      }
+      .work-slider-track {
+        display: flex;
+        gap: clamp(18px, 2.2vw, 30px);
+        padding: 8px calc((100vw - min(34vw, 430px)) / 2);
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+        cursor: grab;
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+      }
+      .work-slider-track::-webkit-scrollbar { display: none; }
+      .work-slider-track.is-dragging {
+        cursor: grabbing;
+        scroll-snap-type: none;
+        scroll-behavior: auto;
+      }
+      .work-slide-card {
+        flex: 0 0 auto;
+        width: min(34vw, 430px);
+        aspect-ratio: 4 / 5;
+        scroll-snap-align: center;
+        position: relative;
+        overflow: hidden;
+        border-radius: 18px;
+        background: var(--ink);
+        transition: opacity .3s ease;
+        opacity: .45;
+      }
+      .work-slide-card.is-active { opacity: 1; }
+      .work-slide-card a {
+        display: block;
+        width: 100%; height: 100%;
+        color: inherit;
+        text-decoration: none;
+      }
+      .work-slide-card img {
+        width: 100%; height: 100%;
+        object-fit: cover;
+        pointer-events: none;
+      }
+      .work-slide-meta {
+        position: absolute;
+        left: 0; right: 0; bottom: 0;
+        padding: clamp(20px, 2vw, 28px);
+        color: #fff;
+        background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,.6) 100%);
+        pointer-events: none;
+      }
+      .work-slide-meta .g-en {
+        display: block;
+        font-family: var(--en);
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: .18em;
+        text-transform: uppercase;
+        opacity: .8;
+        margin-bottom: 6px;
+      }
+      .work-slide-meta .g-name {
+        display: block;
+        font-family: var(--en);
+        font-size: clamp(15px, 1.4vw, 20px);
+        font-weight: 600;
+        letter-spacing: -.005em;
+        line-height: 1.2;
+      }
+
+      /* ============================================================
+         02 — APPROACH
+         ============================================================ */
+      .approach-centered {
+        max-width: 680px;
+        margin: 0 auto;
+        text-align: left;
+      }
+      .approach-body {
+        font-family: var(--sans-kr);
+        font-weight: 400;
+        font-size: clamp(26px, 2.8vw, 36px);
+        line-height: 1.32;
+        letter-spacing: -.02em;
+        color: var(--ink);
+      }
+      .approach-preview { margin: 0; }
+      .approach-break {
+        display: block;
+        margin-top: .08em;
+      }
+      .approach-full {
+        margin: clamp(32px, 4vw, 48px) 0 0;
+        font-family: var(--sans-kr);
+        font-size: clamp(15px, 1.3vw, 17px);
+        line-height: 1.65;
+        letter-spacing: -.01em;
+        color: var(--ink-2);
+        display: none;
+      }
+      .approach-full p { margin: 0 0 1.2em; }
+      .approach-full p:last-child { margin-bottom: 0; }
+      .approach-body.is-expanded .approach-full { display: block; }
+
+      .read-more-wrap {
+        display: flex;
+        justify-content: center;
+        margin-top: clamp(40px, 5vw, 60px);
+      }
+      .read-more {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 28px;
+        font-family: var(--en);
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--ink);
+        background: transparent;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        cursor: pointer;
+        transition: background .2s ease, color .2s ease, border-color .2s ease, transform .2s ease;
+        letter-spacing: -.005em;
+        white-space: nowrap;
+      }
+      .read-more:hover {
+        background: var(--ink);
+        color: var(--bg);
+        border-color: var(--ink);
+      }
+      .read-more:active { transform: scale(.97); }
+      .read-more .arrow {
+        display: inline-block;
+        transition: transform .25s ease;
+      }
+      .approach-body.is-expanded .read-more .arrow { transform: rotate(180deg); }
+
+      /* ============================================================
+         03 — BRAND OS (soft cream)
+         ============================================================ */
+      .os-cards {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: clamp(12px, 1.6vw, 20px);
+      }
+      .os-card {
+        padding: clamp(32px, 3vw, 44px);
+        background: var(--paper);
+        border-radius: 4px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        transition: transform .35s cubic-bezier(.19,1,.22,1), box-shadow .35s ease;
+      }
+      .os-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 24px 48px rgba(26,24,22,.08);
+      }
+      .os-card-num {
+        font-family: var(--en);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: .18em;
+        text-transform: uppercase;
+        color: var(--ink-3);
+      }
+      .os-card h3 {
+        margin: 0;
+        font-family: var(--serif);
+        font-weight: 400;
+        font-size: clamp(24px, 2.2vw, 32px);
+        line-height: 1.1;
+        letter-spacing: -.02em;
+        color: var(--ink);
+      }
+      .os-card p {
+        margin: 0;
+        font-family: var(--sans-kr);
+        font-size: 14px;
+        line-height: 1.6;
+        color: var(--ink-2);
+      }
+
+      /* ============================================================
+         04 — AGENTS
+         ============================================================ */
+      .agents-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: clamp(16px, 2vw, 24px);
+      }
+      .agent-card {
+        position: relative;
+        overflow: hidden;
+        border-radius: 6px;
+        background: var(--ink);
+        aspect-ratio: 16 / 10;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+      }
+      .agent-num {
+        font-family: var(--en);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: .18em;
+        text-transform: uppercase;
+        color: rgba(255,255,255,.55);
+      }
+      .agent-card h3 {
+        margin: 0;
+        font-family: var(--serif);
+        font-weight: 400;
+        font-size: clamp(20px, 1.8vw, 28px);
+        line-height: 1.1;
+        letter-spacing: -.02em;
+        color: #fff;
+      }
+      .agent-card p {
+        display: none;
+      }
+      .agent-learn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-family: var(--en);
+        font-size: 12px;
+        font-weight: 600;
+        color: rgba(255,255,255,.7);
+        letter-spacing: .04em;
+        width: fit-content;
+        padding: 9px 18px;
+        border: 1px solid rgba(255,255,255,.45);
+        border-radius: 999px;
+        background: transparent;
+      }
+
+      /* ============================================================
+         05 — PROCESS
+         ============================================================ */
+      .process-steps {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: clamp(12px, 1.6vw, 20px);
+        position: relative;
+      }
+      .process-steps::before {
+        content: "";
+        position: absolute;
+        top: 22px;
+        left: calc(10% + 12px);
+        right: calc(10% + 12px);
+        height: 1px;
+        background: var(--line);
+        pointer-events: none;
+      }
+      .process-step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 16px;
+        padding-top: 4px;
+      }
+      .process-num {
+        font-family: var(--en);
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: .18em;
+        text-transform: uppercase;
+        color: var(--ink-3);
+      }
+      .process-dot {
+        width: 10px; height: 10px;
+        border-radius: 50%;
+        background: var(--ink);
+        box-shadow: 0 0 0 5px var(--bg);
+        flex-shrink: 0;
+        position: relative;
+        z-index: 1;
+        margin-top: 5px;
+      }
+      .process-step h3 {
+        margin: 0;
+        font-family: var(--serif);
+        font-weight: 400;
+        font-size: clamp(20px, 1.8vw, 26px);
+        line-height: 1.1;
+        letter-spacing: -.02em;
+        color: var(--ink);
+      }
+      .process-step .duration {
+        font-family: var(--en);
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--ink-3);
+        letter-spacing: .04em;
+      }
+      .process-step p {
+        margin: 0;
+        font-family: var(--sans-kr);
+        font-size: 13px;
+        line-height: 1.55;
+        color: var(--ink-2);
+        max-width: 18ch;
+      }
+      .process-total {
+        margin: clamp(64px, 7vw, 96px) auto 0;
+        padding-top: clamp(32px, 4vw, 48px);
+        border-top: 1px solid var(--line);
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: clamp(20px, 3vw, 48px);
+        align-items: baseline;
+        max-width: 680px;
+        text-align: left;
+      }
+      .process-total-label {
+        font-family: var(--en);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: .18em;
+        text-transform: uppercase;
+        color: var(--ink-3);
+        white-space: nowrap;
+      }
+      .process-total-value {
+        font-family: var(--serif);
+        font-size: clamp(24px, 2.8vw, 40px);
+        font-weight: 400;
+        letter-spacing: -.025em;
+        color: var(--ink);
+        line-height: 1.1;
+      }
+
+      /* ============================================================
+         06 — SELECTED WORK
+         ============================================================ */
+      .work-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: clamp(12px, 1.6vw, 20px);
+      }
+      .work-card {
+        display: block;
+        position: relative;
+        overflow: hidden;
+        border-radius: 6px;
+        aspect-ratio: 4 / 5;
+        background: var(--ink);
+      }
+      .work-card img {
+        width: 100%; height: 100%;
+        object-fit: cover;
+      }
+      .work-card-meta {
+        position: absolute;
+        left: 0; right: 0; bottom: 0;
+        padding: clamp(16px, 2vw, 24px);
+        color: #fff;
+        background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,.55) 100%);
+      }
+      .work-card-meta .wc-cat {
+        display: block;
+        font-family: var(--en);
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: .18em;
+        text-transform: uppercase;
+        opacity: .8;
+        margin-bottom: 5px;
+      }
+      .work-card-meta .wc-name {
+        display: block;
+        font-family: var(--en);
+        font-size: clamp(14px, 1.3vw, 18px);
+        font-weight: 600;
+        letter-spacing: -.005em;
+      }
+      .work-all-wrap {
+        display: flex;
+        justify-content: center;
+        margin-top: clamp(48px, 6vw, 72px);
+      }
+      .work-all-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 28px;
+        font-family: var(--en);
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--ink);
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        transition: background .2s ease, color .2s ease, border-color .2s ease;
+        letter-spacing: -.005em;
+      }
+      .work-all-link:hover {
+        background: var(--ink);
+        color: var(--bg);
+        border-color: var(--ink);
+      }
+
+      /* ============================================================
+         07 — FOOTER CTA (warm)
+         ============================================================ */
+      .footer-cta {
+        background: var(--bg-warm);
+        padding: clamp(120px, 16vw, 220px) var(--pad-x);
+        text-align: center;
+      }
+      .footer-cta-title {
+        margin: 0 0 clamp(40px, 5vw, 60px);
+        font-family: var(--serif);
+        font-weight: 400;
+        font-size: clamp(48px, 8vw, 112px);
+        line-height: 1;
+        letter-spacing: -.04em;
+        color: var(--ink);
+      }
+      .footer-bottom {
+        max-width: var(--max);
+        margin: clamp(64px, 8vw, 100px) auto 0;
+        padding-top: 32px;
+        border-top: 1px solid var(--line);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-family: var(--en);
+        font-size: 12px;
+        color: var(--ink-3);
+        letter-spacing: .02em;
+      }
+      .footer-bottom a { color: var(--ink-3); transition: color .2s ease; }
+      .footer-bottom a:hover { color: var(--ink); }
+
+      /* ============================================================
+         MODAL
+         ============================================================ */
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 200;
+        background: rgba(26,24,22,.7);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity .3s ease;
+      }
+      .modal-overlay.is-open {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .modal-inner {
+        background: var(--paper);
+        border-radius: 8px;
+        padding: clamp(40px, 5vw, 64px);
+        max-width: 640px;
+        width: calc(100% - 48px);
+        max-height: 85vh;
+        overflow-y: auto;
+        position: relative;
+        transform: translateY(16px);
+        transition: transform .35s cubic-bezier(.19,1,.22,1);
+      }
+      .modal-overlay.is-open .modal-inner { transform: translateY(0); }
+      .modal-close {
+        position: absolute;
+        top: 20px; right: 20px;
+        width: 36px; height: 36px;
+        display: grid;
+        place-items: center;
+        border: none;
+        background: var(--line-soft);
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 18px;
+        color: var(--ink-2);
+        transition: background .2s ease;
+        line-height: 1;
+      }
+      .modal-close:hover { background: var(--line); }
+      .modal-kicker {
+        font-family: var(--en);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: .18em;
+        text-transform: uppercase;
+        color: var(--ink-3);
+        margin: 0 0 14px;
+        display: block;
+      }
+      .modal-title {
+        margin: 0 0 24px;
+        font-family: var(--serif);
+        font-weight: 400;
+        font-size: clamp(28px, 3vw, 40px);
+        line-height: 1.05;
+        letter-spacing: -.025em;
+        color: var(--ink);
+      }
+      .modal-divider {
+        height: 1px;
+        background: var(--line-soft);
+        margin: 0 0 28px;
+        border: none;
+      }
+      .modal-body {
+        font-family: var(--sans-kr);
+        font-size: 15px;
+        line-height: 1.7;
+        color: var(--ink-2);
+      }
+      .modal-body p { margin: 0 0 1em; }
+      .modal-body p:last-child { margin-bottom: 0; }
+      .modal-list {
+        list-style: none;
+        padding: 0;
+        margin: 20px 0 0;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .modal-list li {
+        display: grid;
+        grid-template-columns: 16px 1fr;
+        gap: 10px;
+        font-family: var(--sans-kr);
+        font-size: 14px;
+        color: var(--ink-2);
+        line-height: 1.5;
+      }
+      .modal-list li::before {
+        content: "✓";
+        color: var(--ink);
+        font-weight: 700;
+        font-size: 12px;
+        padding-top: 1px;
+      }
+      .modal-meta-row {
+        display: grid;
+        grid-template-columns: 80px 1fr;
+        gap: 8px 20px;
+        margin: 20px 0;
+        font-family: var(--sans-kr);
+        font-size: 14px;
+        align-items: baseline;
+      }
+      .modal-meta-row dt {
+        font-weight: 600;
+        color: var(--ink);
+      }
+      .modal-meta-row dd {
+        margin: 0;
+        color: var(--ink-2);
+      }
+
+      /* ============================================================
+         REVEAL
+         ============================================================ */
+      .reveal {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity .8s cubic-bezier(.19,1,.22,1), transform .8s cubic-bezier(.19,1,.22,1);
+      }
+      .reveal.in { opacity: 1; transform: none; }
+      .reveal.stagger > * {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity .7s cubic-bezier(.19,1,.22,1), transform .7s cubic-bezier(.19,1,.22,1);
+      }
+      .reveal.in.stagger > * { opacity: 1; transform: none; }
+      .reveal.in.stagger > *:nth-child(1) { transition-delay: 0ms; }
+      .reveal.in.stagger > *:nth-child(2) { transition-delay: 80ms; }
+      .reveal.in.stagger > *:nth-child(3) { transition-delay: 160ms; }
+      .reveal.in.stagger > *:nth-child(4) { transition-delay: 240ms; }
+      .reveal.in.stagger > *:nth-child(5) { transition-delay: 320ms; }
+
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+          animation-duration: .001ms !important;
+          transition-duration: .001ms !important;
+        }
+        .reveal, .reveal.stagger > * { opacity: 1; transform: none; }
+      }
+
+
+
+      /* ============================================================
+         SERVICE V2 REFINEMENT PATCH
+         ============================================================ */
+      .hero {
+        padding-bottom: clamp(96px, 11vw, 160px);
+      }
+      .section {
+        padding-top: clamp(120px, 12vw, 180px);
+        padding-bottom: clamp(120px, 12vw, 180px);
+        position: relative;
+        overflow: clip;
+      }
+      .section-inner {
+        position: relative;
+        z-index: 1;
+      }
+      .section-head {
+        margin-bottom: clamp(64px, 7vw, 104px);
+      }
+      .work-slider-track {
+        scroll-padding-inline: calc((100vw - min(34vw, 430px)) / 2);
+      }
+      .agent-image {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+      }
+      .agent-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      .agent-image::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(0,0,0,.02) 0%, rgba(0,0,0,.58) 100%);
+        pointer-events: none;
+      }
+      .agent-content {
+        position: absolute;
+        z-index: 2;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        padding: clamp(20px, 2.4vw, 32px);
+      }
+      .agent-content .agent-num {
+        display: none;
+      }
+      .process-steps {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: clamp(14px, 1.6vw, 22px);
+      }
+      .process-steps::before,
+      .process-dot,
+      .process-total {
+        display: none !important;
+      }
+      .process-step {
+        min-height: 260px;
+        align-items: flex-start;
+        text-align: left;
+        gap: 18px;
+        padding: clamp(30px, 3vw, 44px);
+        background: #fff;
+        border-radius: 6px;
+        transition: transform .35s cubic-bezier(.19,1,.22,1), box-shadow .35s ease;
+      }
+      .process-step:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 24px 48px rgba(26,24,22,.08);
+      }
+      .process-step h3 {
+        font-size: clamp(24px, 2.2vw, 34px);
+      }
+      .process-step p {
+        max-width: none;
+        font-size: 14px;
+      }
+      @media (max-width: 1080px) {
+        .process-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      }
+      @media (max-width: 760px) {
+        .section { padding-top: 92px; padding-bottom: 92px; }
+        .hero-fullbleed { min-height: 620px; }
+        .process-steps { grid-template-columns: 1fr; }
+        .process-step { min-height: 220px; }
+        .agents-grid { grid-template-columns: 1fr; }
+        .agent-card { aspect-ratio: 16 / 9; }
+      }
+
+      /* ============================================================
+         RESPONSIVE
+         ============================================================ */
+      @media (max-width: 1080px) {
+        .work-slide-card { width: min(54vw, 390px); }
+        .work-slider-track { padding: 8px calc((100vw - min(54vw, 390px)) / 2); }
+        .agents-grid { grid-template-columns: repeat(2, 1fr); }
+        .process-steps { grid-template-columns: repeat(2, 1fr); }
+        .process-steps::before { display: none; }
+        .work-grid { grid-template-columns: repeat(2, 1fr); }
+      }
+      @media (max-width: 760px) {
+        .hero-title { font-size: clamp(34px, 9vw, 52px); }
+        .hero-foot { font-size: 13px; bottom: 130px; }
+        .work-slide-card { width: min(74vw, 320px); }
+        .work-slider-track { padding: 8px calc((100vw - min(74vw, 320px)) / 2); }
+        .work-slide-meta { padding: 16px 18px; }
+        .approach-centered { max-width: 100%; }
+        .approach-break { display: inline; }
+        .approach-body { font-size: clamp(20px, 5vw, 26px); line-height: 1.38; }
+        .os-cards { grid-template-columns: 1fr; }
+        .process-steps { grid-template-columns: 1fr; }
+        .process-total { grid-template-columns: 1fr; gap: 8px; }
+        .work-grid { grid-template-columns: 1fr; }
+        .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+        .modal-inner { padding: 40px 24px; margin: 16px; border-radius: 12px; }
+      }
+
+
+      /* Final placement guards */
+      @media (max-width: 760px) {
+        .hero-fullbleed { min-height: 620px !important; }
+        .section { padding-top: 92px !important; padding-bottom: 92px !important; }
+      }
+
+
+
+      /* Horizontal card layout correction */
+      .process-steps {
+        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+        max-width: none !important;
+      }
+      @media (max-width: 1080px) {
+        .process-steps {
+          grid-template-columns: repeat(4, minmax(220px, 1fr)) !important;
+          overflow-x: auto;
+          padding-bottom: 12px;
+          scroll-snap-type: x mandatory;
+        }
+        .process-step {
+          min-width: 220px;
+          scroll-snap-align: start;
+        }
+      }
+      @media (max-width: 760px) {
+        .process-steps {
+          grid-template-columns: repeat(4, minmax(68vw, 1fr)) !important;
+        }
+        .process-step {
+          min-width: 68vw;
+          min-height: 210px !important;
+        }
+      }
+
+
+      /* Services layout correction */
+      .agents-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+      }
+      @media (max-width: 1080px) and (min-width: 761px) {
+        .agents-grid {
+          grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        }
+      }
+      @media (max-width: 760px) {
+        .agents-grid {
+          grid-template-columns: 1fr !important;
+        }
+      }
+
+
+
+      /* Selected Work — PC grid + frosted overlay */
+      .work-grid {
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: clamp(16px, 2vw, 24px) !important;
+        width: 100% !important;
+        margin-left: 0 !important;
+        padding-right: 0 !important;
+        overflow: visible !important;
+      }
+      /* 태블릿도 3열 유지 — overlay가 grid-column:3 사용하므로 */
+      @media (max-width: 1080px) and (min-width: 761px) {
+        .work-grid {
+          grid-template-columns: repeat(3, 1fr) !important;
+        }
+      }
+      /* work-more-card: 독립 3열 카드 */
+      .work-more-card {
+        aspect-ratio: 4 / 5;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(26, 24, 22, 0.04);
+        border: 1px solid var(--line);
+        font-family: var(--en);
+        font-size: clamp(16px, 1.6vw, 22px);
+        font-weight: 600;
+        color: var(--ink);
+        letter-spacing: -.02em;
+        text-decoration: none;
+      }
+      .work-all-wrap {
+        display: none !important;
+      }
+      @media (max-width: 760px) {
+        .work-grid {
+          display: flex !important;
+          overflow-x: auto !important;
+          overflow-y: hidden !important;
+          scroll-snap-type: x mandatory !important;
+          -webkit-overflow-scrolling: touch !important;
+          gap: clamp(14px, 4vw, 20px) !important;
+          padding-bottom: 12px !important;
+          scrollbar-width: none !important;
+        }
+        .work-grid::-webkit-scrollbar { display: none; }
+        .work-card,
+        .work-more-card {
+          flex: 0 0 76vw !important;
+          scroll-snap-align: start !important;
+          grid-column: auto !important;
+          grid-row: auto !important;
+        }
+        .work-more-card {
+          background: rgba(26, 24, 22, 0.04) !important;
+          border: 1px solid var(--line) !important;
+        }
+      }
+
+
+
+      /* Rail spacing — mobile only */
+      @media (max-width: 760px) {
+        .work-grid {
+          scroll-behavior: smooth;
+          overscroll-behavior-x: contain;
+        }
+      }
+
+
+
+      /* Requested color, copy, and footer corrections */
+      :root {
+        --bg: #ffffff;
+        --bg-soft: #ffffff;
+        --bg-warm: #ffffff;
+        --hero-bg: #f3f3f1;
+      }
+      body {
+        background: #fff !important;
+      }
+
+      .section,
+      .section--soft,
+      .section--warm {
+        background: #fff !important;
+      }
+      .section-head h2 {
+        margin-bottom: 18px;
+      }
+      .krk-footer {
+        background: #fff;
+        padding: clamp(92px, 11vw, 150px) var(--pad-x) clamp(54px, 7vw, 90px);
+      }
+      .krk-footer-inner {
+        max-width: var(--max);
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: end;
+        gap: 24px;
+      }
+      .krk-footer-logo {
+        grid-column: 2;
+        width: min(44vw, 520px);
+        height: auto;
+        display: block;
+      }
+      .krk-footer-info {
+        grid-column: 1 / -1;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: clamp(28px, 4vw, 54px);
+        font-family: var(--en);
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: .02em;
+        color: var(--ink);
+      }
+      .krk-footer-info a {
+        color: var(--ink);
+      }
+      @media (max-width: 760px) {
+        .hero-title {
+          font-size: clamp(40px, 12vw, 65px) !important;
+        }
+        .krk-footer-inner {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+        }
+        .krk-footer-logo {
+          width: min(78vw, 420px);
+          order: 1;
+        }
+        .krk-footer-info {
+          order: 2;
+          margin-top: 22px;
+          flex-direction: column;
+          gap: 2px;
+          font-size: 14px;
+          line-height: 1.1;
+        }
+      }
+
+
+
+      /* Flow spacing correction */
+      .work-slider + .section {
+        background: #fff !important;
+      }
+      .section {
+        padding-top: clamp(72px, 8vw, 120px) !important;
+        padding-bottom: clamp(72px, 8vw, 120px) !important;
+      }
+      .section-head {
+        margin-bottom: clamp(40px, 5vw, 72px) !important;
+      }
+      .approach-full {
+        margin-top: clamp(24px, 3vw, 36px) !important;
+      }
+      .read-more-wrap {
+        margin-top: clamp(28px, 3.5vw, 42px) !important;
+      }
+      @media (max-width: 760px) {
+        .section {
+          padding-top: 64px !important;
+          padding-bottom: 64px !important;
+        }
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <header class="topbar">
+      <nav class="topbar-menu left">
+        <a class="is-active" href="service.html">Service</a>
+        <a href="work/index.html">Work</a>
+      </nav>
+      <a class="topbar-logo" href="index.html" aria-label="KRK home">
+        <img src="assets/krk-logo.svg" alt="KRK" />
+      </a>
+      <nav class="topbar-menu right">
+      </nav>
+    </header>
+
+    <main>
+      <!-- ── 01 HERO ── -->
+      <section class="hero-fullbleed">
+        <div class="hero-media">
+          <img src="assets/index-urbanpure.png" alt="KRK food brand consulting work" />
+          <div class="hero-scrim"></div>
+        </div>
+
+        <div class="hero-title-block">
+          <h1 class="hero-title">
+            Food brand<br />
+            all-in-one<br />
+            consulting studio.
+          </h1>
+        </div>
+
+        <div class="hero-foot">
+          <p>식품 브랜드 개발 컨설팅 스튜디오</p>
+          <p>아이디어부터 출시까지, 한 호흡으로</p>
+          <p>브랜딩 · 패키지 · 사진 · 상세페이지 · 유통</p>
+        </div>
+      </section>
+
+      <section class="work-slider reveal" aria-label="Featured work">
+        <div class="work-slider-track" id="workSliderTrack" tabindex="0"></div>
+      </section>
+
+      <!-- ── 02 APPROACH ── -->
+      <section class="section reveal">
+        <div class="section-inner">
+          <div class="approach-centered">
+            <div class="approach-body" id="approachBody">
+              <p class="approach-preview">이너뷰티·식품 카테고리는 카피와 시각의 유사성이 높습니다.<span class="approach-break"></span>KRK는 그 안에서 브랜드의 첫 인상부터 운영까지, AI Brand OS로 일관된 전략을 설계합니다.</p>
+              <div class="approach-full">
+                <p>대부분의 브랜딩 작업은 디자인 가이드 전달에서 끝납니다. 그러나 가이드만으로는 매일의 콘텐츠, 캠페인, 시즌 운영이 같은 결로 유지되기 어렵습니다.</p>
+                <p>KRK는 브랜드의 톤·비주얼 큐·카테고리 언어를 AI Brand OS로 시스템화합니다. 그 시스템 위에서 AI Agent가 매일의 운영 콘텐츠를 같은 톤으로 만들어내고, 브랜드는 매번 처음부터 다시 설명되지 않습니다.</p>
+                <p>결과적으로 KRK의 작업은 한 번의 브랜딩이 아니라, 운영 가능한 브랜드 시스템입니다.</p>
+              </div>
+              <div class="read-more-wrap">
+                <button class="read-more" type="button" aria-expanded="false" aria-controls="approachBody">
+                  <span class="read-more-text">Read the full story</span>
+                  <span class="arrow" aria-hidden="true">↓</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 03 BRAND OS (soft cream) ── -->
+      <section class="section section--soft reveal">
+        <div class="section-inner">
+          <div class="section-head">
+            <h2>AI Brand OS</h2>
+            <p>브랜드의 기준을 운영 가능한 구조로 정리합니다.<br />콘텐츠, 캠페인, 상세페이지가 같은 톤으로 이어집니다.<br />AI Agent가 반복 가능한 브랜드 실행을 돕습니다.</p>
+          </div>
+          <div class="os-cards reveal stagger">
+            <article class="os-card">
+              <span class="os-card-num">01 · Define</span>
+              <h3>Brand Frame</h3>
+              <p>톤, 비주얼 큐, 카테고리 언어를 하나의 기준으로 정리합니다. 모든 자산이 이 위에서 만들어집니다.</p>
+            </article>
+            <article class="os-card">
+              <span class="os-card-num">02 · Memory</span>
+              <h3>Repeatable Scenes</h3>
+              <p>피드, 캠페인, 상세페이지에서 반복 가능한 장면 단위로 시각 자산을 구성합니다.</p>
+            </article>
+            <article class="os-card">
+              <span class="os-card-num">03 · Generate</span>
+              <h3>AI Workflow</h3>
+              <p>정의된 기준 위에서 AI Agent가 매일의 운영 콘텐츠를 같은 결로 빠르게 확장합니다.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 04 AGENTS (warm cream) ── -->
+      <section class="section section--warm reveal">
+        <div class="section-inner">
+          <div class="section-head">
+            <h2>Services</h2>
+            <p>Brand OS 위에서 매일 작동하는 세 명의 AI Agent. 브랜드는 처음부터 다시 설명되지 않습니다.</p>
+          </div>
+          <div class="agents-grid reveal stagger">
+            <article class="agent-card" data-agent="ax" tabindex="0" role="button" aria-haspopup="dialog">
+              <div class="agent-image">
+                <img src="assets/index-balanceb.png" alt="Brand Team AX" loading="lazy" draggable="false" />
+              </div>
+              <div class="agent-content">
+                <span class="agent-num">01</span>
+                <h3>Brand Team AX</h3>
+                <p>브랜드의 일관성을 매일 체크하고, 흐트러지지 않도록 잡아주는 운영 총괄 에이전트.</p>
+                <span class="agent-learn">Read more →</span>
+              </div>
+            </article>
+            <article class="agent-card" data-agent="branding" tabindex="0" role="button" aria-haspopup="dialog">
+              <div class="agent-image">
+                <img src="assets/index-mium.png" alt="Branding Agent" loading="lazy" draggable="false" />
+              </div>
+              <div class="agent-content">
+                <span class="agent-num">02</span>
+                <h3>Branding Agent</h3>
+                <p>인스타그램, 웹사이트, 캠페인 이미지를 같은 브랜드 결로 만드는 디자인 에이전트.</p>
+                <span class="agent-learn">Read more →</span>
+              </div>
+            </article>
+            <article class="agent-card" data-agent="campaign" tabindex="0" role="button" aria-haspopup="dialog">
+              <div class="agent-image">
+                <img src="assets/index-urbanpure.png" alt="Campaign Agent" loading="lazy" draggable="false" />
+              </div>
+              <div class="agent-content">
+                <span class="agent-num">03</span>
+                <h3>Campaign Agent</h3>
+                <p>시즌 캠페인, 콘텐츠 카피, 이벤트 메시지를 같은 톤으로 운영하는 콘텐츠 에이전트.</p>
+                <span class="agent-learn">Read more →</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 05 PROCESS ── -->
+      <section class="section reveal">
+        <div class="section-inner">
+          <div class="section-head">
+            <h2>How we work</h2>
+            <p>제안부터 브랜드 시스템 인계까지, 한 호흡으로 흐르는 작업 구조입니다.</p>
+          </div>
+          <div class="process-steps reveal stagger">
+            <div class="process-step">
+              <span class="process-num">Step 1</span>
+              <h3>Discover</h3>
+              <span class="duration">Brief</span>
+              <p>브랜드 상황과 목표를 정리합니다.</p>
+            </div>
+            <div class="process-step">
+              <span class="process-num">Step 2</span>
+              <h3>Define</h3>
+              <span class="duration">Strategy</span>
+              <p>포지셔닝과 브랜드 기준을 설계합니다.</p>
+            </div>
+            <div class="process-step">
+              <span class="process-num">Step 3</span>
+              <h3>Build</h3>
+              <span class="duration">Assets</span>
+              <p>패키지, 상세페이지, 캠페인 자산을 제작합니다.</p>
+            </div>
+            <div class="process-step">
+              <span class="process-num">Step 4</span>
+              <h3>Operate</h3>
+              <span class="duration">Brand OS</span>
+              <p>AI Agent와 운영 가이드를 연결합니다.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 07 FOOTER ── -->
+      <footer class="bottom-logo">
+        <img src="assets/krk-logo.svg" alt="KRK" />
+        <div class="bottom-info">
+          <span>©KRK. All rights reserved.</span>
+        </div>
+      </footer>
+    </main>
+
+    <!-- ── AGENT MODAL ── -->
+    <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-inner">
+        <button class="modal-close" id="modalClose" type="button" aria-label="Close">×</button>
+        <span class="modal-kicker" id="modalKicker"></span>
+        <h2 class="modal-title" id="modalTitle"></h2>
+        <hr class="modal-divider" />
+        <div class="modal-body" id="modalBody"></div>
+      </div>
+    </div>
+
+    <script>
+      // 1) Reveal on scroll
+      const reveals = document.querySelectorAll('.reveal');
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+      reveals.forEach((el) => io.observe(el));
+
+      // 2) Topbar scrolled state
+      const topbar = document.querySelector('.topbar');
+      const syncTopbar = () => {
+        if (!topbar) return;
+        topbar.classList.toggle('scrolled', window.scrollY > 8);
+      };
+      syncTopbar();
+      window.addEventListener('scroll', syncTopbar, { passive: true });
+
+      // 3) Approach toggle
+      const approachBody = document.getElementById('approachBody');
+      const readMoreBtn = approachBody?.querySelector('.read-more');
+      const readMoreText = approachBody?.querySelector('.read-more-text');
+      if (approachBody && readMoreBtn) {
+        readMoreBtn.addEventListener('click', () => {
+          const expanded = approachBody.classList.toggle('is-expanded');
+          readMoreBtn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+          if (readMoreText) {
+            readMoreText.textContent = expanded ? 'Close' : 'Read the full story';
+          }
+        });
+      }
+
+      // 4) Work slider
+      (function initWorkSlider() {
+        const track = document.getElementById('workSliderTrack');
+        if (!track) return;
+
+        const works = [
+          { en: 'Balance B', cat: 'Inner Beauty · Branding', link: 'work/case_balanceb.html', thumb: 'assets/index-balanceb.png' },
+          { en: 'Mium', cat: 'Inner Beauty · Branding', link: 'work/case_mium.html', thumb: 'assets/index-mium.png' },
+          { en: 'UrbanPure', cat: 'Inner Beauty · Campaign', link: 'work/case_urbanpure.html', thumb: 'assets/index-urbanpure.png' },
+        ];
+
+        track.innerHTML = works.map((w, i) => `
+          <article class="work-slide-card${i === 0 ? ' is-active' : ''}" data-idx="${i}">
+            <a href="${w.link}" aria-label="${w.en}">
+              <img src="${w.thumb}" alt="${w.en}" ${i === 0 ? 'loading="eager"' : 'loading="lazy"'} draggable="false" />
+              <div class="work-slide-meta">
+                <span class="g-en">${w.cat}</span>
+                <span class="g-name">${w.en}</span>
+              </div>
+            </a>
+          </article>
+        `).join('');
+
+        const cards = Array.from(track.querySelectorAll('.work-slide-card'));
+        let currentIdx = 0;
+        let isDown = false;
+        let startX = 0;
+        let scrollStart = 0;
+        let dragDistance = 0;
+        const DRAG_THRESHOLD = 6;
+
+        const findActiveIdx = () => {
+          const trackRect = track.getBoundingClientRect();
+          const center = trackRect.left + trackRect.width / 2;
+          let nearest = 0;
+          let nearestDist = Infinity;
+          cards.forEach((card, i) => {
+            const r = card.getBoundingClientRect();
+            const dist = Math.abs((r.left + r.width / 2) - center);
+            if (dist < nearestDist) {
+              nearestDist = dist;
+              nearest = i;
+            }
+          });
+          return nearest;
+        };
+
+        const updateActive = () => {
+          currentIdx = findActiveIdx();
+          cards.forEach((card, i) => card.classList.toggle('is-active', i === currentIdx));
+        };
+
+        const scrollToIdx = (idx) => {
+          const clamped = Math.max(0, Math.min(cards.length - 1, idx));
+          const card = cards[clamped];
+          if (!card) return;
+          const left = card.offsetLeft - (track.clientWidth - card.clientWidth) / 2;
+          track.scrollTo({ left, behavior: 'smooth' });
+        };
+
+        let scrollTimer;
+        track.addEventListener('scroll', () => {
+          clearTimeout(scrollTimer);
+          scrollTimer = setTimeout(updateActive, 80);
+        }, { passive: true });
+
+        let wheelTimer;
+        track.addEventListener('wheel', (e) => {
+          const isHorizontalIntent = Math.abs(e.deltaX) > Math.abs(e.deltaY);
+          const delta = isHorizontalIntent ? e.deltaX : e.deltaY;
+          if (Math.abs(delta) < 8 || wheelTimer) return;
+
+          if (isHorizontalIntent) e.preventDefault();
+          scrollToIdx(currentIdx + (delta > 0 ? 1 : -1));
+          wheelTimer = window.setTimeout(() => {
+            wheelTimer = null;
+          }, 360);
+        }, { passive: false });
+
+        track.addEventListener('mousedown', (e) => {
+          isDown = true;
+          dragDistance = 0;
+          track.classList.add('is-dragging');
+          startX = e.pageX;
+          scrollStart = track.scrollLeft;
+        });
+        track.addEventListener('mousemove', (e) => {
+          if (!isDown) return;
+          const walk = e.pageX - startX;
+          dragDistance = Math.abs(walk);
+          if (dragDistance > 3) {
+            e.preventDefault();
+            track.scrollLeft = scrollStart - walk;
+          }
+        });
+        document.addEventListener('mouseup', () => {
+          if (!isDown) return;
+          isDown = false;
+          track.classList.remove('is-dragging');
+          setTimeout(() => scrollToIdx(findActiveIdx()), 50);
+        });
+
+        cards.forEach((card, i) => {
+          const link = card.querySelector('a');
+          link?.addEventListener('click', (e) => {
+            if (dragDistance > DRAG_THRESHOLD) {
+              e.preventDefault();
+              dragDistance = 0;
+              return;
+            }
+            if (i !== currentIdx) {
+              e.preventDefault();
+              scrollToIdx(i);
+            }
+          });
+        });
+
+        updateActive();
+      })();
+
+      // 5) Agent Modals
+      const agentData = {
+        ax: {
+          kicker: '01 · Brand Team AX',
+          title: 'Brand Team AX',
+          body: `
+            <p>브랜드의 일관성을 매일 체크하고, 흐트러지지 않도록 잡아주는 운영 총괄 에이전트입니다.</p>
+            <p>Brand OS의 기준 위에서 팀의 작업물이 올바른 방향인지 실시간으로 검증합니다.</p>
+            <dl class="modal-meta-row">
+              <dt>Role</dt><dd>운영 총괄 · 브랜드 일관성 검증</dd>
+              <dt>Works with</dt><dd>Branding Agent · Campaign Agent</dd>
+            </dl>
+            <ul class="modal-list">
+              <li>브랜드 가이드라인 실시간 관리</li>
+              <li>매일 콘텐츠 톤 체크</li>
+              <li>팀 작업물 일관성 검증</li>
+              <li>Brand OS 업데이트 반영</li>
+            </ul>
+          `,
+        },
+        branding: {
+          kicker: '02 · Branding Agent',
+          title: 'Branding Agent',
+          body: `
+            <p>인스타그램 피드, 웹사이트, 캠페인 이미지를 같은 브랜드 결로 만드는 디자인 에이전트입니다.</p>
+            <p>Brand OS의 비주얼 큐를 바탕으로 매번 처음부터 다시 설명하지 않아도 됩니다.</p>
+            <dl class="modal-meta-row">
+              <dt>Role</dt><dd>디자인 일관성 · 비주얼 자산 생성</dd>
+              <dt>Used by</dt><dd>Balance B, Mium</dd>
+            </dl>
+            <ul class="modal-list">
+              <li>인스타그램 피드 이미지 생성</li>
+              <li>웹사이트 비주얼 일관성 유지</li>
+              <li>캠페인 시각 자산 확장</li>
+              <li>상세페이지 비주얼 연결</li>
+            </ul>
+          `,
+        },
+        campaign: {
+          kicker: '03 · Campaign Agent',
+          title: 'Campaign Agent',
+          body: `
+            <p>시즌 캠페인, 콘텐츠 카피, 이벤트 메시지를 같은 톤으로 운영하는 콘텐츠 에이전트입니다.</p>
+            <p>Brand OS의 보이스 기준 위에서 매번 같은 결의 콘텐츠를 빠르게 생성합니다.</p>
+            <dl class="modal-meta-row">
+              <dt>Role</dt><dd>콘텐츠 운영 · 캠페인 자동화</dd>
+              <dt>Status</dt><dd>Balance B 적용 중</dd>
+            </dl>
+            <ul class="modal-list">
+              <li>시즌 캠페인 콘텐츠 자동 생성</li>
+              <li>인스타그램 카피 작성</li>
+              <li>이벤트 메시지 일관성 유지</li>
+              <li>Brand OS 보이스 기준 적용</li>
+            </ul>
+          `,
+        },
+      };
+
+      const overlay = document.getElementById('modalOverlay');
+      const modalKicker = document.getElementById('modalKicker');
+      const modalTitle = document.getElementById('modalTitle');
+      const modalBody = document.getElementById('modalBody');
+      const modalClose = document.getElementById('modalClose');
+
+      const openModal = (key) => {
+        const d = agentData[key];
+        if (!d || !overlay) return;
+        modalKicker.textContent = d.kicker;
+        modalTitle.textContent = d.title;
+        modalBody.innerHTML = d.body;
+        overlay.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+        modalClose.focus();
+      };
+
+      const closeModal = () => {
+        overlay?.classList.remove('is-open');
+        document.body.style.overflow = '';
+      };
+
+      document.querySelectorAll('.agent-card').forEach(card => {
+        const key = card.dataset.agent;
+        card.addEventListener('click', () => openModal(key));
+        card.addEventListener('keydown', e => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(key); }
+        });
+      });
+
+      modalClose?.addEventListener('click', closeModal);
+      overlay?.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+    </script>
+    <script src="consult-widget.js" defer></script>
+  </body>
+</html>

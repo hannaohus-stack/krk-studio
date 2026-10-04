@@ -1,0 +1,43 @@
+{
+  "works": [
+    {
+      "id": "case_balanceb",
+      "slug": "case_balanceb",
+      "name": "밸런스 비",
+      "en": "Balance B",
+      "cat": "Branding",
+      "status": "Published",
+      "order": 1,
+      "link": "case_balanceb.html",
+      "summary": "Inner Beauty branding project.",
+      "thumb": "../assets/work_balanceb.png",
+      "gallery": []
+    },
+    {
+      "id": "case_mium",
+      "slug": "case_mium",
+      "name": "미음",
+      "en": "Mium",
+      "cat": "Branding",
+      "status": "Published",
+      "order": 2,
+      "link": "case_mium.html",
+      "summary": "Inner Beauty branding project.",
+      "thumb": "../assets/work_mium.png",
+      "gallery": []
+    },
+    {
+      "id": "case_urbanpure",
+      "slug": "case_urbanpure",
+      "name": "어반퓨어",
+      "en": "UrbanPure",
+      "cat": "Campaign",
+      "status": "Published",
+      "order": 3,
+      "link": "case_urbanpure.html",
+      "summary": "Food brand campaign project.",
+      "thumb": "../assets/work_urbanpure.png",
+      "gallery": []
+    }
+  ]
+}
