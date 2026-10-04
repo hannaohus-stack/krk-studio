@@ -5,7 +5,21 @@
     }
   },
   "redirects": [
-    { "source": "/we-build-yours", "destination": "/", "permanent": true },
-    { "source": "/we-build-yours.html", "destination": "/", "permanent": true }
+    {
+      "source": "/we-build-yours",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/we-build-yours.html",
+      "destination": "/",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/contact",
+      "destination": "/contact.html"
+    }
   ]
 }
