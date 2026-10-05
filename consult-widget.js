@@ -6,11 +6,10 @@
    This script auto-injects:
    - CSS into <head>
    - Floating trigger button + chatbot panel into <body>
-   - 3-step flow: Service → Info → Calendly
+   - 3-step flow: Service → Info (+ privacy consent) → Done (담당자 메일 안내)
 
    Config (edit below):
    - MAKE_WEBHOOK : Make.com webhook URL (silent background submit)
-   - CALENDLY_URL : Calendly event type URL
    ============================================================ */
 
 (function () {
@@ -22,7 +21,6 @@
 
   // ── CONFIG ────────────────────────────────────────────────
   const MAKE_WEBHOOK = 'https://hook.us2.make.com/ivkfkwhkegwoalggl64mxnljhtex8sej';
-  const CALENDLY_URL = 'https://calendly.com/chaeumkorea/15min';
 
   // ── CSS ───────────────────────────────────────────────────
   const css = `
@@ -104,10 +102,27 @@
     .krk-c-input.is-error, .krk-c-select.is-error { border-bottom-color: var(--signal-ink); }
     .krk-c-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 
-    /* CALENDLY */
-    .krk-c-cal-wrap { position: relative; min-height: 420px; background: var(--mist); }
-    .krk-c-cal-wrap iframe { width: 100%; height: 520px; border: 0; display: block; }
-    .krk-c-cal-loading { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+    /* CONSENT */
+    .krk-c-consent { display: flex; align-items: flex-start; gap: 10px; margin-top: 4px; font-size: 12px; line-height: 1.6; color: var(--muted); cursor: pointer; }
+    .krk-c-consent input { appearance: none; -webkit-appearance: none; flex: 0 0 auto; width: 14px; height: 14px; margin: 3px 0 0; border: 1px solid var(--ink); border-radius: 0; background: #fff; cursor: pointer; }
+    .krk-c-consent input:checked { background: var(--ink); box-shadow: inset 0 0 0 3px #fff; }
+    .krk-c-consent input:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+    .krk-c-consent em { font-style: normal; color: var(--signal-ink); margin-right: 2px; }
+    .krk-c-consent.is-error { color: var(--signal-ink); }
+    .krk-c-consent.is-error input { border-color: var(--signal-ink); }
+    .krk-c-consent details { display: inline; }
+    .krk-c-consent summary { display: inline; cursor: pointer; list-style: none; color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+    .krk-c-consent summary::-webkit-details-marker { display: none; }
+    .krk-c-consent-body { display: none; }
+    .krk-c-consent details[open] .krk-c-consent-body { display: block; margin-top: 8px; padding: 10px 12px; background: var(--mist); font-size: 11.5px; line-height: 1.65; }
+
+    /* DONE */
+    .krk-c-done { padding: 18px 16px 20px; background: var(--mist); }
+    .krk-c-done-main { margin: 0 0 10px; font-size: 15px; font-weight: 500; line-height: 1.5; color: var(--ink); }
+    .krk-c-done-sub { margin: 0 0 12px; font-size: 12.5px; line-height: 1.6; color: var(--muted); }
+    .krk-c-done-sub:empty { display: none; }
+    .krk-c-done-note { margin: 0; font-size: 12px; line-height: 1.6; color: var(--muted); }
+    a.krk-c-btn-back { text-decoration: none; display: inline-block; }
 
     /* ACTIONS */
     .krk-c-actions { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 20px; }
@@ -223,23 +238,31 @@
               <label for="krkCEmail">Email <em>*</em></label>
               <input class="krk-c-input" id="krkCEmail" type="email" placeholder="메일 주소" />
             </div>
+            <label class="krk-c-consent" id="krkCConsentWrap">
+              <input type="checkbox" id="krkCConsent" />
+              <span><em>*</em>개인정보 수집 · 이용에 동의합니다.
+                <details><summary>내용 보기</summary><span class="krk-c-consent-body">수집 항목: 성함 · 브랜드명 · 현재 단계 · 메일 주소 / 목적: 상담 예약 안내 및 제안 / 보관: 문의일로부터 1년, 요청 시 즉시 삭제 / 처리: 채움코리아(KRK Studio). 동의하지 않으면 신청이 접수되지 않습니다.</span></details>
+              </span>
+            </label>
           </div>
           <div class="krk-c-actions">
             <button type="button" class="krk-c-btn-back is-visible" id="krkCBack1">← 이전</button>
-            <button type="button" class="krk-c-btn-next" id="krkCNext1">예약하기 →</button>
+            <button type="button" class="krk-c-btn-next" id="krkCNext1">신청하기 →</button>
           </div>
         </div>
 
         <!-- Step 3 -->
         <div class="krk-c-step" data-step="2">
           <div class="krk-c-step-label">Step 03</div>
-          <p class="krk-c-step-q">15분 미팅 시간을 예약해주세요.</p>
-          <div class="krk-c-cal-wrap">
-            <div class="krk-c-cal-loading" id="krkCCalLoading">불러오는 중</div>
-            <div id="krkCCalEmbed"></div>
+          <p class="krk-c-step-q">신청이 접수되었습니다.</p>
+          <div class="krk-c-done">
+            <p class="krk-c-done-main">1~2 영업일 내 담당자가 상담 예약을 위해<br>메일을 보내드립니다.</p>
+            <p class="krk-c-done-sub" id="krkCDoneSub"></p>
+            <p class="krk-c-done-note">그 전에 Work에서 케이스를 보고 오시면 통화가 짧아집니다.</p>
           </div>
           <div class="krk-c-actions">
-            <button type="button" class="krk-c-btn-back is-visible" id="krkCBack2">← 이전</button>
+            <a class="krk-c-btn-back is-visible" href="/work/">Work 보기 →</a>
+            <button type="button" class="krk-c-btn-next" id="krkCDone">닫기</button>
           </div>
         </div>
       </div>
@@ -290,6 +313,7 @@
         el.value = '';
         el.classList.remove('is-error');
       });
+      if (fConsent) { fConsent.checked = false; consentWrap.classList.remove('is-error'); }
       next0.disabled = true;
       renderStep(0);
     };
@@ -353,6 +377,10 @@
     const fBrand = document.getElementById('krkCBrand');
     const fStage = document.getElementById('krkCStage');
     const fEmail = document.getElementById('krkCEmail');
+    const fConsent = document.getElementById('krkCConsent');
+    const consentWrap = document.getElementById('krkCConsentWrap');
+    fConsent.addEventListener('change', () => consentWrap.classList.remove('is-error'));
+    consentWrap.querySelector('summary').addEventListener('click', (e) => e.stopPropagation());
     const clearError = (el) => el.classList.remove('is-error');
     [fName, fBrand, fEmail].forEach((el) => el.addEventListener('input', () => clearError(el)));
     fStage.addEventListener('change', () => clearError(fStage));
@@ -374,11 +402,14 @@
       check(fBrand, state.brand);
       check(fStage, state.stage);
       check(fEmail, state.email && /\S+@\S+\.\S+/.test(state.email));
+      consentWrap.classList.toggle('is-error', !fConsent.checked);
+      if (!firstErr && !fConsent.checked) firstErr = fConsent;
       if (firstErr) { firstErr.focus(); return; }
 
       // Webhook
       const payload = {
         ...state,
+        privacyConsent: true,
         submittedAt: new Date().toISOString(),
         source: 'krk.team/widget',
         page: location.pathname,
@@ -390,31 +421,12 @@
         body: JSON.stringify(payload),
       }).catch((err) => console.warn('[KRK] webhook failed:', err));
 
-      loadCalendly(state);
+      document.getElementById('krkCDoneSub').textContent = state.email ? state.email + ' 로 안내드립니다.' : '';
       renderStep(2);
     });
 
     // Step 3
-    document.getElementById('krkCBack2').addEventListener('click', () => renderStep(1));
-
-    function loadCalendly(s) {
-      const params = new URLSearchParams({
-        embed_domain: location.hostname || 'krk.team',
-        embed_type: 'Inline',
-        hide_gdpr_banner: '1',
-      });
-      if (s.name)  params.set('name',  s.name);
-      if (s.email) params.set('email', s.email);
-
-      const embed = document.getElementById('krkCCalEmbed');
-      embed.innerHTML = `<iframe src="${CALENDLY_URL}?${params}" loading="lazy"></iframe>`;
-
-      const iframe = embed.querySelector('iframe');
-      const loading = document.getElementById('krkCCalLoading');
-      iframe.addEventListener('load', () => {
-        if (loading) loading.style.display = 'none';
-      });
-    }
+    document.getElementById('krkCDone').addEventListener('click', closePanel);
 
     renderStep(0);
     if (location.hash === '#consult') { openPanel(); history.replaceState(null, '', location.pathname + location.search); }
