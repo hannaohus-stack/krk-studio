@@ -33,12 +33,12 @@
     .krk-c-trigger {
       position: fixed; right: 28px; bottom: 28px; z-index: 9900;
       display: inline-flex; align-items: center; gap: 10px; height: 44px; padding: 0 18px 0 16px;
-      border: 1px solid var(--ink); border-radius: 0; background: var(--ink); color: #fff;
+      border: 1px solid var(--ink); border-radius: 0; background: #fff; color: var(--ink);
       font-family: inherit; font-size: 13px; font-weight: 500; letter-spacing: 0.02em; cursor: pointer;
       transition: background .18s ease, color .18s ease;
     }
-    .krk-c-trigger:hover { background: #fff; color: var(--ink); }
-    .krk-c-trigger .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--signal); animation: krk-dot-pulse 2s ease-in-out infinite; }
+    .krk-c-trigger:hover { background: var(--mist); color: var(--ink); }
+    .krk-c-trigger .dot { width: 6px; height: 6px; border-radius: 50%; background: #22a06b; animation: krk-dot-pulse 2s ease-in-out infinite; }
     @keyframes krk-dot-pulse { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
     @keyframes krk-c-shake { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
     .krk-c-services.is-shake { animation: krk-c-shake .3s ease; }

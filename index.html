@@ -3,694 +3,224 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>KRK · Food brand all-in-one consulting studio</title>
-    <meta name="description" content="KRK는 식품 브랜드 개발 컨설팅 스튜디오입니다. 아이디어부터 출시까지, 브랜딩 · 패키지 · 사진 · 상세페이지 · 유통을 한 호흡으로 진행합니다." />
-
+    <title>KRK Studio — Inner Beauty &amp; Food Brand Studio</title>
+    <meta name="description" content="제품만 있는 식품 창업자를 위한 브랜드 스튜디오. 전략부터 비주얼, 판매 세팅까지 한 번에 — 떠난 뒤에도 직접 운영할 AI Brand OS를 남깁니다." />
+    <link rel="canonical" href="https://www.krk-studio.kr/" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="KRK · Food brand all-in-one consulting studio" />
-    <meta property="og:description" content="식품 브랜드 개발 컨설팅 스튜디오. 아이디어부터 출시까지, 한 호흡으로." />
-    <meta property="og:image" content="assets/krk-og.png" />
+    <meta property="og:title" content="KRK Studio — Inner Beauty & Food Brand Studio" />
+    <meta property="og:description" content="전략부터 비주얼, 판매 세팅까지 한 번에. 떠난 뒤에도 직접 운영할 AI Brand OS를 남깁니다." />
+    <meta property="og:image" content="https://www.krk-studio.kr/assets/krk-og.png" />
+    <meta property="og:url" content="https://www.krk-studio.kr/" />
     <meta property="og:locale" content="ko_KR" />
-    <meta property="og:site_name" content="KRK" />
-
+    <meta property="og:site_name" content="KRK Studio" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="KRK · Food brand all-in-one consulting studio" />
-    <meta name="twitter:description" content="식품 브랜드 개발 컨설팅 스튜디오. 아이디어부터 출시까지, 한 호흡으로." />
-    <meta name="twitter:image" content="assets/krk-og.png" />
-
-    <link rel="stylesheet" href="assets/krk-tokens.css" />
+    <link rel="icon" href="/assets/krk-logo.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Libre+Caslon+Text:wght@400;700&family=Noto+Sans+KR:wght@400;500;600&display=swap" />
+    <link rel="stylesheet" href="/assets/krk-site.css" />
     <style>
-      body {
-        background: #fff;
+      html, body { height: 100%; }
+      body { overflow: hidden; }
+
+      .stage { position: relative; height: 100vh; height: 100svh; min-height: 720px; overflow: hidden; }
+
+      .pager {
+        position: absolute; z-index: 50; top: calc(52% - 281px); left: 50%;
+        transform: translateX(-50%); display: flex; align-items: center; gap: 24px; width: 300px;
+        color: var(--ink-muted); font-size: 11px; font-weight: 500; letter-spacing: 0.12em; pointer-events: none;
       }
+      .pager::before { content: ""; height: 1px; flex: 1; background: var(--ink-muted); }
 
-      .topbar-menu.left .topbar-make-label { display: none; }
-      .topbar-menu.right { justify-self: end; }
-      .topbar-make-label {
-        opacity: 1 !important;
-        padding: 7px 14px;
-        border: 1px solid var(--ink, #161311);
-        border-radius: 999px;
-        font-size: 12px !important;
-        letter-spacing: .02em;
-        transition: background .18s ease, color .18s ease !important;
+      .bg-mark { position: absolute; z-index: 1; left: 10%; top: 52%; transform: translateY(-50%); width: 744px; pointer-events: none; }
+      .bg-mark img { width: 100%; height: auto; }
+
+      .rail {
+        position: absolute; z-index: 10; top: 52%; left: 0; right: 0; height: 394px; transform: translateY(-50%);
+        perspective: 1400px; perspective-origin: 50% 50%; touch-action: pan-y; user-select: none; -webkit-user-select: none; cursor: grab;
       }
-      .topbar-make-label:hover {
-        background: var(--ink, #161311);
-        color: #fff !important;
+      .rail.is-dragging { cursor: grabbing; }
+      .rail:focus-visible { outline: 2px solid var(--ink); outline-offset: -6px; }
+      .track { position: absolute; inset: 0; transform-style: preserve-3d; }
+      .card {
+        position: absolute; top: 0; left: 50%; width: 300px; margin-left: -150px; display: block;
+        transform-origin: 50% 50%; will-change: transform; backface-visibility: hidden; -webkit-backface-visibility: hidden;
+        transition: transform 640ms cubic-bezier(.22, 1, .36, 1), opacity 400ms ease;
       }
+      .rail.is-dragging .card { transition: none; }
+      .card .ph { aspect-ratio: 4 / 5.25; overflow: hidden; background: #181818; }
+      .card img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; -webkit-user-drag: none; }
 
-      .desktop-main {
-        display: block;
-        min-height: 100vh;
-        overflow: hidden;
-        background: #fff;
-        color: var(--ink);
+      .stage-foot {
+        position: absolute; z-index: 30; left: var(--pad); right: var(--pad); bottom: 28px;
+        display: flex; justify-content: space-between; align-items: center;
+        font-size: 12px; font-weight: 600; letter-spacing: 0.02em;
       }
+      .stage-foot a { letter-spacing: 0.08em; text-transform: uppercase; }
+      .stage-foot { padding-right: 150px; } /* room for the floating 문의하기 button */
 
-      .desktop-stage {
-        --slide-width: clamp(290px, 31vw, 430px);
-        position: relative;
-        height: 100vh;
-        min-height: 640px;
-        overflow: hidden;
-      }
-
-      .desktop-pager {
-        position: absolute;
-        z-index: 20;
-        top: clamp(88px, 12vh, 124px);
-        left: 50%;
-        display: flex;
-        width: min(300px, calc(100vw - 56px));
-        transform: translateX(-50%);
-        align-items: center;
-        gap: 24px;
-        color: rgba(0,0,0,.32);
-        font-family: var(--en);
-        font-size: 11px;
-        font-weight: 500;
-        letter-spacing: .12em;
-      }
-
-      .desktop-pager::before {
-        content: "";
-        height: 1px;
-        flex: 1;
-        background: rgba(0,0,0,.32);
-      }
-
-      .desktop-rail {
-        position: relative;
-        height: 100%;
-        touch-action: pan-y;
-        user-select: none;
-      }
-
-      .desktop-rail.dragging {
-        cursor: grabbing;
-      }
-
-      .logo-slide,
-      .intro-slide,
-      .desktop-card {
-        position: absolute;
-        top: clamp(150px, 23vh, 210px);
-        left: 50%;
-        width: var(--slide-width);
-      }
-
-      .logo-slide {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-end;
-        gap: 6px;
-        height: min(44vw, 560px);
-        overflow: visible;
-        pointer-events: none;
-      }
-
-      .logo-slide img {
-        width: min(34vw, 430px);
-        max-width: none;
-        filter: none;
-        opacity: 1;
-      }
-
-      .logo-info {
-        display: grid;
-        gap: 0;
-        justify-items: center;
-        color: var(--ink);
-        font-family: var(--en);
-        font-size: 12px;
-        font-weight: 800;
-        letter-spacing: .02em;
-        line-height: .96;
-        text-align: center;
-        text-transform: uppercase;
-      }
-
-      .logo-info a {
-        pointer-events: auto;
-      }
-
-      .desktop-card {
-        cursor: grab;
-      }
-
-      .desktop-over-label {
-        position: absolute;
-        z-index: 10;
-        top: 24px;
-        left: 50%;
-        margin: 0;
-        transform: translateX(-50%);
-        white-space: nowrap;
-        color: #fff;
-        font-family: var(--en);
-        font-size: 12px;
-        font-weight: 600;
-        letter-spacing: .26em;
-        text-transform: uppercase;
-        text-shadow: 0 1px 8px rgba(0,0,0,.38);
-      }
-
-      .desktop-image,
-      .intro-card {
-        position: relative;
-        aspect-ratio: 4 / 5.25;
-        overflow: hidden;
-        border-radius: 18px;
-        background: #181818;
-        box-shadow: 0 28px 90px rgba(0,0,0,.32);
-      }
-
-      .desktop-image img {
-        display: block;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        pointer-events: none;
-        user-select: none;
-      }
-
-      .intro-card {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 32px;
-        text-align: center;
-        color: #fff;
-        background:
-          radial-gradient(circle at 24% 0%, rgba(255,255,255,.24), transparent 34%),
-          linear-gradient(135deg, rgba(255,255,255,.16), rgba(255,255,255,.04) 28%, rgba(255,255,255,.11) 56%, rgba(255,255,255,.03)),
-          #101010;
-      }
-
-      .intro-card::before {
-        content: "";
-        position: absolute;
-        inset: -20%;
-        background: linear-gradient(110deg, transparent 18%, rgba(255,255,255,.22) 42%, transparent 62%);
-        transform: translateX(-26%) rotate(8deg);
-        filter: blur(14px);
-        opacity: .72;
-      }
-
-      .intro-card > * {
-        position: relative;
-        z-index: 1;
-      }
-
-      .intro-card .desktop-over-label {
-        position: relative;
-        top: auto;
-        left: auto;
-        transform: none;
-        margin-bottom: 14px;
-      }
-
-      .intro-card h1 {
-        margin: 0;
-        font-family: Georgia, "Times New Roman", serif;
-        font-size: clamp(44px, 4.6vw, 64px);
-        font-weight: 300;
-        letter-spacing: -.04em;
-        line-height: .96;
-      }
-
-      .intro-card p {
-        margin: 26px 0 0;
-        color: rgba(255,255,255,.62);
-        font-family: var(--kr);
-        font-size: 16px;
-        line-height: 1.65;
-      }
-
-      .start-button {
-        display: inline-flex;
-        align-items: center;
-        gap: 12px;
-        margin-top: 34px;
-        border: 1px solid rgba(255,255,255,.35);
-        border-radius: 999px;
-        padding: 14px 28px;
-        color: #fff;
-        font-family: var(--kr);
-        font-size: 15px;
-        font-weight: 650;
-        transition: background 180ms ease, color 180ms ease;
-      }
-
-      .start-button:hover {
-        background: #fff;
-        color: #000;
-      }
-
-      .mobile-main {
-        display: none;
-      }
-
-      .stage-footer {
-        display: none;
-      }
-
-      .stage-footer-logo {
-        display: none;
-      }
-
-      @media (max-width: 760px) {
-        .topbar-menu.right { display: none; }
-        .topbar-menu.left .topbar-make-label { display: inline-flex; }
-
-        .desktop-main {
-          display: none;
-        }
-
-        .mobile-main {
-          display: block;
-          position: relative;
-          min-height: 100vh;
-          overflow: hidden;
-          padding-top: 118px;
-          background: #fff;
-          color: var(--ink);
-        }
-
-        .mobile-pager {
-          display: flex;
-          width: min(230px, calc(100vw - 56px));
-          margin: 0 auto;
-          align-items: center;
-          justify-content: center;
-          gap: 16px;
-          font-family: var(--en);
-        }
-
-        .mobile-pager .current-line {
-          height: 1px;
-          flex: 1;
-          background: rgba(0,0,0,.32);
-        }
-
-        .mobile-pager span {
-          min-width: 42px;
-          color: rgba(0,0,0,.32);
-          font-size: 9px;
-          font-weight: 500;
-          letter-spacing: .1em;
-        }
-
-        .mobile-pager span em {
-          color: rgba(0,0,0,.28);
-          font-style: normal;
-        }
-
-        .mobile-stage {
-          --case-card-width: min(69vw, 340px);
-          --case-gap: -18px;
-          position: relative;
-          z-index: 10;
-          margin-top: 48px;
-        }
-
-        .mobile-rail {
-          display: flex;
-          align-items: flex-start;
-          gap: var(--case-gap);
-          transform: translate3d(
-            calc(50vw - (var(--case-card-width) / 2) - (var(--active-index) * (var(--case-card-width) + var(--case-gap))) + var(--drag-x)),
-            0,
-            0
-          );
-          transition: transform 560ms cubic-bezier(.16, 1, .3, 1);
-          touch-action: pan-y;
-          user-select: none;
-          will-change: transform;
-        }
-
-        .mobile-slide {
-          width: var(--case-card-width);
-          flex: 0 0 var(--case-card-width);
-          cursor: grab;
-          transition: opacity 420ms ease, transform 560ms cubic-bezier(.16, 1, .3, 1);
-        }
-
-        .mobile-label {
-          margin-bottom: 28px;
-          text-align: center;
-        }
-
-        .mobile-label p {
-          margin: 0;
-          color: rgba(0,0,0,.82);
-          font-family: var(--en);
-          font-size: 11px;
-          font-weight: 600;
-          letter-spacing: .22em;
-          text-transform: uppercase;
-        }
-
-        .mobile-image,
-        .mobile-intro {
-          aspect-ratio: 4 / 5.25;
-          overflow: hidden;
-          border-radius: 18px;
-          background: #181818;
-        }
-
-        .mobile-image img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          pointer-events: none;
-          user-select: none;
-        }
-
-        .mobile-intro {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          padding: 28px;
-          text-align: center;
-          color: #fff;
-        }
-
-        .mobile-intro h1 {
-          margin: 0;
-          font-family: Georgia, "Times New Roman", serif;
-          font-size: 44px;
-          font-weight: 300;
-          letter-spacing: -.04em;
-          line-height: .98;
-        }
-
-        .mobile-intro p {
-          margin: 22px 0 0;
-          color: rgba(255,255,255,.62);
-          font-size: 14px;
-          line-height: 1.7;
-        }
-
-        .mobile-intro .start-button {
-          margin-top: 28px;
-          padding: 12px 22px;
-          font-size: 14px;
-        }
-
-        .mobile-logo-section {
-          position: relative;
-          z-index: 0;
-          display: grid;
-          gap: 8px;
-          justify-items: center;
-          margin-top: 10px;
-          overflow: hidden;
-          text-align: center;
-        }
-
-        .mobile-logo-section img {
-          width: 74vw;
-          max-width: 420px;
-          margin: 0 auto;
-          filter: none;
-          opacity: 1;
-        }
-
-        .mobile-logo-section .logo-info {
-          margin-top: 0;
-          transform: none;
-          font-size: 11px;
-          text-shadow: none;
-        }
-
-        .stage-footer {
-          display: none;
-        }
-
-        .stage-footer-logo {
-          display: none;
-        }
+      @media (max-width: 900px) {
+        .stage { min-height: 600px; }
+        .pager { top: 14%; width: 192px; }
+        .bg-mark { left: 50%; top: 62.5%; transform: translateX(-50%); width: 292px; }
+        .rail { top: 32.5%; height: 252px; transform: none; }
+        .card { width: 192px; margin-left: -96px; }
+        .stage-foot { left: 20px; right: 20px; bottom: 48px; padding-right: 0; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 500; }
+        .stage-foot a { letter-spacing: 0.02em; text-transform: none; }
       }
     </style>
   </head>
   <body>
-    <header class="topbar is-light">
-      <nav class="topbar-menu left">
-        <a href="service.html">Service</a>
-        <a href="work/index.html">Work</a>
-      </nav>
-      <a href="index.html" class="topbar-logo" aria-label="KRK home">
-        <img src="assets/krk-logo.svg" alt="KRK" />
-      </a>
-      <nav class="topbar-menu right">
-      </nav>
-    </header>
+    <main class="stage">
+      <header class="site-header is-overlay">
+        <nav aria-label="주 메뉴"><a href="/work/">Work</a></nav>
+        <a class="logo" href="/" aria-label="KRK Studio 홈"><img src="/assets/krk-logo.svg" alt="krk" /></a>
+        <nav aria-label="연락"><a href="#consult">Contact</a></nav>
+        <button class="icon-btn menu-btn" type="button" aria-label="메뉴 열기" aria-expanded="false" data-menu-open><span></span><span></span></button>
+      </header>
 
-    <main class="desktop-main" id="desktopMain">
-      <section class="desktop-stage">
-        <div class="desktop-pager" id="desktopPager"></div>
-        <div class="desktop-rail rail" id="desktopRail">
-          <div class="logo-slide desktop-layer" data-slide-index="-1">
-            <img src="assets/krk-logo.svg" alt="" aria-hidden="true" />
-            <div class="logo-info">
-              <span>©KRK. All rights reserved.</span>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
+      <div class="pager"><span aria-live="polite" data-pager>1 / 4</span></div>
 
-    <main class="mobile-main">
-      <div class="mobile-pager">
-        <div class="current-line"></div>
-        <span id="mobilePager"></span>
+      <div class="bg-mark" aria-hidden="true"><img src="/assets/krk-logo.svg" alt="" /></div>
+
+      <div class="rail" tabindex="0" role="region" aria-roledescription="carousel" aria-label="케이스 스터디" data-rail>
+        <div class="track" data-track></div>
       </div>
-      <section class="mobile-stage">
-        <div class="mobile-rail rail" id="mobileRail"></div>
-      </section>
-      <section class="mobile-logo-section">
-        <img src="assets/krk-logo.svg" alt="" aria-hidden="true" />
-        <div class="logo-info">
-          <span>©KRK. All rights reserved.</span>
-        </div>
-      </section>
+
+      <div class="stage-foot">
+        <span>©KRK. All rights reserved.</span>
+        <a href="https://www.instagram.com/director.ian.krk" target="_blank" rel="noopener">Instagram</a>
+      </div>
     </main>
+
+    <div class="menu-overlay" aria-hidden="true" data-menu>
+      <div class="menu-top">
+        <a href="/" aria-label="KRK Studio 홈"><img src="/assets/krk-logo.svg" alt="krk" /></a>
+        <button class="icon-btn is-close" type="button" aria-label="메뉴 닫기" data-menu-close><span></span><span></span></button>
+      </div>
+      <nav aria-label="모바일 메뉴">
+        <a href="/work/">Work</a>
+        <a href="#consult">Contact</a>
+      </nav>
+      <div class="menu-foot">©KRK. All rights reserved.</div>
+    </div>
 
     <script>
-      const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
-      const cases = [
-        {
-          name: 'Balance B',
-          label: 'Case Study 01',
-          thumbnail: 'assets/index-balanceb.png',
-          link: 'work/case_balanceb.html'
-        },
-        {
-          name: 'Mium',
-          label: 'Case Study 02',
-          thumbnail: 'assets/index-mium.png',
-          link: 'work/case_mium.html'
-        },
-        {
-          name: 'UrbanPure',
-          label: 'Case Study 03',
-          thumbnail: 'assets/index-urbanpure.png',
-          link: 'work/case_urbanpure.html'
-        },
-        {
-          name: 'ZZL',
-          label: 'Case Study 04',
-          thumbnail: 'assets/index-zzl.png',
-          link: 'work/case_zzl.html'
+      (function () {
+        var CASES = [
+          { name: 'Balance B', img: '/assets/index-balanceb.png', link: '/work/case_balanceb.html' },
+          { name: 'Mium', img: '/assets/index-mium.png', link: '/work/case_mium.html' },
+          { name: 'UrbanPure', img: '/assets/index-urbanpure.png', link: '/work/case_urbanpure.html' },
+          { name: 'ZZL', img: '/assets/index-zzl.png', link: '/work/case_zzl.html' }
+        ];
+        var last = CASES.length - 1;
+        var rail = document.querySelector('[data-rail]');
+        var track = document.querySelector('[data-track]');
+        var pager = document.querySelector('[data-pager]');
+        var mq = window.matchMedia('(max-width: 900px)');
+
+        var cards = CASES.map(function (c, i) {
+          var a = document.createElement('a');
+          a.className = 'card';
+          a.href = c.link;
+          a.setAttribute('data-i', i);
+          a.setAttribute('aria-label', c.name);
+          a.draggable = false;
+          a.innerHTML = '<div class="ph"><img src="' + c.img + '" alt="' + c.name + '" draggable="false"' + (i > 1 ? ' loading="lazy"' : '') + ' /></div>';
+          track.appendChild(a);
+          return a;
+        });
+
+        var index = 0, dragX = 0, dragging = false;
+
+        // Reference coverflow rule, uncapped: [offset, rotateY, scale, z]
+        var K = [[0, 0, 1.50, 100], [1, 34, 1.23, 47], [2, 89, 1.00, 0], [3, 120, 1.00, 0]];
+        function kf(e) {
+          var s = e < 0 ? -1 : 1, a = Math.abs(e), tx, ry, sc, z;
+          if (a >= 3) { tx = a; ry = 120; sc = 1; z = 0; }
+          else {
+            var i = Math.floor(a), t = a - i, A = K[i], B = K[i + 1];
+            tx = A[0] + (B[0] - A[0]) * t; ry = A[1] + (B[1] - A[1]) * t;
+            sc = A[2] + (B[2] - A[2]) * t; z = A[3] + (B[3] - A[3]) * t;
+          }
+          return [tx * s, -ry * s, sc, z];
         }
-      ];
+        function base() { return mq.matches ? 192 : 300; }
 
-      const introSlide = {
-        type: 'intro',
-        id: 'krk-service',
-        label: 'Food Brand Consulting',
-        link: 'service.html'
-      };
-      const slides = [...cases.slice(0, 2), introSlide, ...cases.slice(2)];
-      const totalSlides = slides.length;
-      const desktopMain = document.getElementById('desktopMain');
-      const desktopRail = document.getElementById('desktopRail');
-      const mobileRail = document.getElementById('mobileRail');
-      const desktopPager = document.getElementById('desktopPager');
-      const mobilePager = document.getElementById('mobilePager');
-      let currentIndex = 0;
-      let dragX = 0;
-      let isDragging = false;
-      let wheelLocked = false;
-      let pointerState = { startX: 0, startedAt: 0, moved: false, pointerId: null, link: null };
-
-      slides.forEach((item, slideIndex) => {
-        if (item.type === 'intro') {
-          desktopRail.insertAdjacentHTML('beforeend', `
-            <section class="intro-slide desktop-layer" data-slide-index="${slideIndex}" data-link="${item.link}">
-              <div class="intro-card">
-                <p class="desktop-over-label" style="color: rgba(255,255,255,.72); text-shadow: none">${item.label}</p>
-                <h1>Food brand<br />all-in-one</h1>
-                <p>아이디어부터 출시까지, 한 호흡으로 설계하는 식품 브랜드 컨설팅 스튜디오</p>
-                <a class="start-button" href="${item.link}">Service <span>→</span></a>
-              </div>
-            </section>
-          `);
-          mobileRail.insertAdjacentHTML('beforeend', `
-            <section class="mobile-slide" data-link="${item.link}">
-              <div class="mobile-label"><p>${item.label}</p></div>
-              <div class="mobile-intro">
-                <h1>Food brand<br />all-in-one</h1>
-                <p>아이디어부터 출시까지, 한 호흡으로 설계합니다.</p>
-                <a class="start-button" href="${item.link}">Service <span>→</span></a>
-              </div>
-            </section>
-          `);
-          return;
+        function render() {
+          var BASE = base(), p = dragX / (BASE * 1.5);
+          cards.forEach(function (el, i) {
+            var e = (i - index) - p, v = kf(e), ae = Math.abs(e);
+            el.style.transform = 'translate3d(' + (v[0] * BASE).toFixed(1) + 'px,0,0) rotateY(' + v[1].toFixed(2) + 'deg) scale(' + v[2].toFixed(3) + ')';
+            el.style.zIndex = Math.round(v[3]) + 1;
+            el.style.pointerEvents = ae < 1.5 ? 'auto' : 'none';
+            el.setAttribute('aria-hidden', ae < 0.5 ? 'false' : 'true');
+            el.tabIndex = ae < 0.5 ? 0 : -1;
+          });
+          pager.textContent = (index + 1) + ' / ' + CASES.length;
         }
+        function go(dir) { index = Math.min(Math.max(index + dir, 0), last); dragX = 0; render(); }
 
-        desktopRail.insertAdjacentHTML('beforeend', `
-          <article class="desktop-card desktop-layer" data-slide-index="${slideIndex}" data-link="${item.link}">
-            <div class="desktop-image">
-              <p class="desktop-over-label">${item.label}</p>
-              <img src="${item.thumbnail}" alt="${item.name}" draggable="false" />
-            </div>
-          </article>
-        `);
-        mobileRail.insertAdjacentHTML('beforeend', `
-          <article class="mobile-slide" data-link="${item.link}">
-            <div class="mobile-label"><p>${item.label}</p></div>
-            <div class="mobile-image">
-              <img src="${item.thumbnail}" alt="${item.name}" draggable="false" />
-            </div>
-          </article>
-        `);
-      });
-
-      function moveSlide(direction) {
-        dragX = 0;
-        isDragging = false;
-        currentIndex = direction === 'next'
-          ? Math.min(currentIndex + 1, totalSlides - 1)
-          : Math.max(currentIndex - 1, 0);
-        render();
-      }
-
-      function render() {
-        desktopRail.style.setProperty('--active-index', currentIndex);
-        desktopRail.style.setProperty('--drag-x', `${dragX}px`);
-        mobileRail.style.setProperty('--active-index', currentIndex);
-        mobileRail.style.setProperty('--drag-x', `${dragX}px`);
-        desktopRail.classList.toggle('dragging', isDragging);
-        mobileRail.classList.toggle('dragging', isDragging);
-        desktopPager.textContent = `${currentIndex + 1} / ${totalSlides}`;
-        mobilePager.innerHTML = `${currentIndex + 1}<em> / ${totalSlides}</em>`;
-
-        desktopRail.querySelectorAll('.desktop-layer').forEach((card) => {
-          const slideIndex = Number(card.dataset.slideIndex);
-          const offset = slideIndex - currentIndex;
-          const distance = clamp(Math.abs(offset), 0, 2);
-          const isActive = offset === 0;
-          const visible = Math.abs(offset) <= 2;
-          const isLogo = card.classList.contains('logo-slide');
-          card.style.opacity = visible ? (isLogo ? 1 : (isActive ? 1 : .42 - distance * .08)) : 0;
-          card.style.filter = isLogo ? 'none' : (isActive ? 'blur(0px) saturate(1)' : `blur(${1.6 + distance * .9}px) saturate(.75)`);
-          card.style.transform = isLogo
-            ? `translateX(calc(-50% + ${offset * 64}%)) translateY(${-122 + distance * 8}px) scale(.92)`
-            : `translateX(calc(-50% + ${offset * 64}% + ${dragX}px)) translateY(${isActive ? 0 : 30 + distance * 10}px) scale(${isActive ? 1 : .93 - distance * .025})`;
-          card.style.zIndex = isLogo ? 2 : (isActive ? 30 : 10 - distance);
-          card.style.pointerEvents = visible ? 'auto' : 'none';
-          card.style.transition = isDragging
-            ? 'none'
-            : `opacity 560ms ease, ${isLogo ? '' : 'filter 720ms ease, '}transform 920ms cubic-bezier(.19,1,.22,1)`;
+        // Pointer: drag to move, tap side card to focus it, tap centre card to open.
+        var sx = 0, st = 0, moved = false, pid = null, tap = null;
+        rail.addEventListener('click', function (e) { if (e.target.closest('.card')) e.preventDefault(); });
+        rail.addEventListener('pointerdown', function (e) {
+          if (e.button > 0) return;
+          var hit = e.target.closest('[data-i]');
+          tap = hit ? Number(hit.getAttribute('data-i')) : null;
+          sx = e.clientX; st = performance.now(); moved = false; pid = e.pointerId;
+          try { rail.setPointerCapture(e.pointerId); } catch (_) {}
+          dragging = true; dragX = 0; rail.classList.add('is-dragging');
         });
-
-        mobileRail.querySelectorAll('.mobile-slide').forEach((card, index) => {
-          const distance = clamp(Math.abs(index - currentIndex), 0, 2);
-          card.style.opacity = index === currentIndex ? 1 : .78 - distance * .12;
-          card.style.transform = `translateY(${index === currentIndex ? 0 : 34}px)`;
-          card.style.transition = isDragging
-            ? 'none'
-            : 'opacity 420ms ease, transform 560ms cubic-bezier(.16,1,.3,1)';
+        rail.addEventListener('pointermove', function (e) {
+          if (!dragging || e.pointerId !== pid) return;
+          var dx = e.clientX - sx;
+          if (Math.abs(dx) > 6) moved = true;
+          if ((index === 0 && dx > 0) || (index === last && dx < 0)) dx *= 0.3;
+          dragX = dx; render();
         });
-      }
-
-      desktopMain.addEventListener('wheel', (event) => {
-        if (window.innerWidth < 900 || wheelLocked || Math.abs(event.deltaY) < 24) return;
-        event.preventDefault();
-        wheelLocked = true;
-        moveSlide(event.deltaY > 0 ? 'next' : 'prev');
-        window.setTimeout(() => {
-          wheelLocked = false;
-        }, 980);
-      }, { passive: false });
-
-      function bindDrag(rail) {
-        rail.addEventListener('pointerdown', (event) => {
-          if (event.button > 0) return;
-          const card = event.target.closest('[data-link]');
-          pointerState = {
-            startX: event.clientX,
-            startedAt: performance.now(),
-            moved: false,
-            pointerId: event.pointerId,
-            link: card?.dataset.link || null
-          };
-          rail.setPointerCapture(event.pointerId);
-          isDragging = true;
-        });
-        rail.addEventListener('pointermove', (event) => {
-          if (!isDragging || pointerState.pointerId !== event.pointerId) return;
-          const rawDistance = event.clientX - pointerState.startX;
-          pointerState.moved = Math.abs(rawDistance) > 8;
-          dragX = Math.sign(rawDistance) * Math.min(Math.abs(rawDistance), 260);
-          render();
-        });
-        rail.addEventListener('pointerup', (event) => {
-          if (!isDragging || pointerState.pointerId !== event.pointerId) return;
-          const distance = event.clientX - pointerState.startX;
-          const elapsed = Math.max(performance.now() - pointerState.startedAt, 1);
-          const velocity = distance / elapsed;
-          const shouldSwipe = Math.abs(distance) > 82 || Math.abs(velocity) > .42;
-          rail.releasePointerCapture(event.pointerId);
-
-          if (!pointerState.moved) {
-            isDragging = false;
+        function end(e, cancelled) {
+          if (!dragging) return;
+          dragging = false; rail.classList.remove('is-dragging');
+          var dx = cancelled ? 0 : e.clientX - sx;
+          var v = dx / Math.max(performance.now() - st, 1);
+          var W = base() * 1.5;
+          if (!cancelled && !moved) {
             dragX = 0;
-            if (pointerState.link) window.location.href = pointerState.link;
+            if (tap !== null && tap !== index) { index = tap; render(); return; }
             render();
+            if (tap !== null) window.location.href = CASES[tap].link;
             return;
           }
+          if (!cancelled && (Math.abs(dx) > W * 0.18 || Math.abs(v) > 0.4)) go(dx < 0 ? 1 : -1);
+          else { dragX = 0; render(); }
+        }
+        rail.addEventListener('pointerup', function (e) { end(e, false); });
+        rail.addEventListener('pointercancel', function (e) { end(e, true); });
 
-          if (shouldSwipe) moveSlide(distance < 0 ? 'next' : 'prev');
-          else {
-            isDragging = false;
-            dragX = 0;
-            render();
-          }
+        rail.addEventListener('keydown', function (e) {
+          if (e.key === 'ArrowRight') { e.preventDefault(); go(1); }
+          if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
+          if (e.key === 'Enter') { window.location.href = CASES[index].link; }
         });
-        rail.addEventListener('pointercancel', () => {
-          isDragging = false;
-          dragX = 0;
-          render();
-        });
-      }
 
-      bindDrag(desktopRail);
-      bindDrag(mobileRail);
+        // Wheel / trackpad: one step per gesture.
+        var acc = 0, lastWheel = 0, lockUntil = 0;
+        window.addEventListener('wheel', function (e) {
+          var now = performance.now();
+          if (now - lastWheel > 220) acc = 0;
+          lastWheel = now;
+          if (now < lockUntil) return;
+          var d = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+          acc += d;
+          if (Math.abs(acc) > 40) { var dir = acc > 0 ? 1 : -1; acc = 0; lockUntil = now + 700; go(dir); }
+        }, { passive: true });
 
-      document.addEventListener('keydown', (event) => {
-        if (event.key === 'ArrowRight') moveSlide('next');
-        if (event.key === 'ArrowLeft') moveSlide('prev');
-      });
-
-      render();
+        (mq.addEventListener ? mq.addEventListener('change', render) : mq.addListener(render));
+        render();
+      })();
     </script>
-    <script src="consult-widget.js" defer></script>
+    <script src="/assets/krk-site.js" defer></script>
+    <script src="/consult-widget.js" defer></script>
   </body>
 </html>

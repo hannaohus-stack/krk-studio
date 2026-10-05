@@ -5,7 +5,25 @@
     }
   },
   "redirects": [
-    { "source": "/we-build-yours", "destination": "/", "permanent": true },
-    { "source": "/we-build-yours.html", "destination": "/", "permanent": true }
+    {
+      "source": "/we-build-yours",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/we-build-yours.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/contact",
+      "destination": "/#consult",
+      "permanent": false
+    },
+    {
+      "source": "/contact.html",
+      "destination": "/#consult",
+      "permanent": false
+    }
   ]
 }
