@@ -28,6 +28,13 @@
     </header>
 
     <main>
+      <div class="m-detail" data-mdetail>
+        <button class="m-detail-bar" type="button" aria-expanded="false" aria-controls="m-detail-panel">
+          <span class="m-detail-name" data-mname></span>
+          <span class="m-detail-toggle">Detail <span class="plus" aria-hidden="true">+</span></span>
+        </button>
+        <div class="m-detail-panel" id="m-detail-panel" data-mpanel hidden></div>
+      </div>
       <section class="m-slider" data-slider aria-label="이미지">
         <div class="m-track"></div>
         <div class="m-meta"><span class="m-hint">Swipe</span><span class="m-count" aria-live="polite"></span></div>

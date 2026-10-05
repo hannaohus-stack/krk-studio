@@ -117,6 +117,37 @@
   }
   document.querySelector('[data-media]').insertAdjacentHTML('afterbegin', m);
 
+  // ── Mobile sticky "Detail +" ────────────────────────────
+  var md = document.querySelector('[data-mdetail]');
+  if (md) {
+    document.querySelector('[data-mname]').textContent = name;
+    var panel = document.querySelector('[data-mpanel]');
+    var pt = '';
+    pt += '<div class="meta-row label"><span>' + esc(metaLeft) + '</span><span>Work ' + String(pos + 1).padStart(2, '0') + ' / ' + String(ORDER.length).padStart(2, '0') + '</span></div>';
+    if (sloganLine) pt += '<p class="case-slogan">' + esc(sloganLine) + '</p>';
+    if (filled(c.overviewLead)) pt += '<p class="case-lead">' + esc(c.overviewLead) + '</p>';
+    if (credits.length || hasWf) {
+      pt += '<div class="credits">';
+      credits.forEach(function (r) { pt += '<div class="credit"><span class="k">' + r[0] + '</span><span>' + esc(r[1]) + '</span></div>'; });
+      if (hasWf) {
+        pt += '<div class="credit"><span class="k">Workflow</span><div>';
+        if (filled(c.wfTitle)) pt += '<p class="wf-title" style="margin: 0 0 6px">' + esc(c.wfTitle) + '</p>';
+        if (filled(c.wfLead)) pt += '<p class="wf-lead" style="margin: 0 0 8px">' + esc(c.wfLead) + '</p>';
+        if (checks.length) pt += '<ol class="wf-list">' + checks.map(function (x, i) { return '<li><span>' + String(i + 1).padStart(2, '0') + '</span><span>' + esc(x) + '</span></li>'; }).join('') + '</ol>';
+        pt += '</div></div>';
+      }
+      pt += '</div>';
+    }
+    panel.innerHTML = pt;
+    var bar = md.querySelector('.m-detail-bar');
+    bar.addEventListener('click', function () {
+      var open = bar.getAttribute('aria-expanded') === 'true';
+      bar.setAttribute('aria-expanded', open ? 'false' : 'true');
+      panel.hidden = open;
+      md.classList.toggle('is-open', !open);
+    });
+  }
+
   // ── Mobile slider (4:3, manual swipe) ───────────────────
   var all = [];
   SLOT_ORDER.forEach(function (slot) { srcs(c[slot]).forEach(function (s) { all.push(s); }); });
