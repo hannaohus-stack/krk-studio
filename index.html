@@ -75,7 +75,7 @@
       <header class="site-header is-overlay">
         <nav aria-label="주 메뉴"><a href="/work/">Work</a></nav>
         <a class="logo" href="/" aria-label="KRK Studio 홈"><img src="/assets/krk-logo.svg" alt="krk" /></a>
-        <nav aria-label="연락"><a href="#consult">Contact</a></nav>
+        <nav aria-label="연락"><a href="#visual-club" data-visual-club aria-haspopup="dialog">Visual Club</a></nav>
         <button class="icon-btn menu-btn" type="button" aria-label="메뉴 열기" aria-expanded="false" data-menu-open><span></span><span></span></button>
       </header>
 
@@ -100,7 +100,7 @@
       </div>
       <nav aria-label="모바일 메뉴">
         <a href="/work/">Work</a>
-        <a href="#consult">Contact</a>
+        <a href="#visual-club" data-visual-club aria-haspopup="dialog">Visual Club</a>
       </nav>
       <div class="menu-foot">©KRK. All rights reserved.</div>
     </div>
@@ -222,5 +222,33 @@
     </script>
     <script src="/assets/krk-site.js" defer></script>
     <script src="/consult-widget.js" defer></script>
+
+    <style>
+      .visual-club-modal { width:min(360px,calc(100vw - 40px)); padding:36px 28px; border:1px solid #161311; background:#fff; color:#161311; text-align:center; }
+      .visual-club-modal::backdrop { background:rgba(0,0,0,.35); }
+      .visual-club-modal h2 { margin:0 0 12px; font-size:22px; }
+      .visual-club-modal p { margin:0 0 24px; font-size:14px; line-height:1.7; }
+      .visual-club-modal button { padding:10px 28px; border:1px solid #161311; background:#fff; color:#161311; font:inherit; cursor:pointer; }
+    </style>
+    <dialog class="visual-club-modal" id="visual-club-modal" aria-labelledby="visual-club-title">
+      <h2 id="visual-club-title">Visual Club</h2>
+      <p>준비중입니다.<br>곧 새로운 모습으로 만나요.</p>
+      <form method="dialog"><button>확인</button></form>
+    </dialog>
+    <script>
+      (function () {
+        var modal = document.getElementById('visual-club-modal');
+        document.querySelectorAll('[data-visual-club]').forEach(function(link) {
+          link.addEventListener('click', function(event) {
+            event.preventDefault();
+            modal.showModal();
+          });
+        });
+        modal.addEventListener('click', function(event) {
+          var rect = modal.getBoundingClientRect();
+          if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) modal.close();
+        });
+      })();
+    </script>
   </body>
 </html>
