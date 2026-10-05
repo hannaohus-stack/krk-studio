@@ -26,371 +26,113 @@
 
   // ── CSS ───────────────────────────────────────────────────
   const css = `
+    /* KRK Studio system: white ground · ink #161311 · radius 0 · fills instead of rules · Noto Sans KR */
     .krk-c-root, .krk-c-root * { box-sizing: border-box; }
+    .krk-c-root { --ink: #161311; --muted: #4a4f52; --mist: #f1f2f0; --mist-2: #e8eae7; --hair: rgba(22,19,17,.16); --signal: #eb5328; --signal-ink: #a8330c;
+      font-family: 'Noto Sans KR', system-ui, -apple-system, 'Apple SD Gothic Neo', sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; }
 
     /* TRIGGER */
     .krk-c-trigger {
-      position: fixed;
-      right: 28px;
-      bottom: 28px;
-      z-index: 9900;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      height: 44px;
-      padding: 0 20px;
-      border-radius: 999px;
-      border: 1px solid rgba(26,24,22,.12);
-      background: #ffffff;
-      color: #1a1816;
-      font-family: -apple-system, BlinkMacSystemFont, "Inter", "Helvetica Neue", sans-serif;
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: -.01em;
-      cursor: pointer;
-      box-shadow: 0 8px 32px rgba(26,24,22,.12);
-      transition: transform .25s cubic-bezier(.19,1,.22,1), box-shadow .25s ease;
+      position: fixed; right: 28px; bottom: 28px; z-index: 9900;
+      display: inline-flex; align-items: center; gap: 10px; height: 44px; padding: 0 18px 0 16px;
+      border: 1px solid var(--ink); border-radius: 0; background: var(--ink); color: #fff;
+      font-family: inherit; font-size: 13px; font-weight: 500; letter-spacing: 0.02em; cursor: pointer;
+      transition: background .18s ease, color .18s ease;
     }
-    .krk-c-trigger:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 16px 40px rgba(26,24,22,.16);
-    }
-    .krk-c-trigger .dot {
-      width: 7px; height: 7px;
-      border-radius: 50%;
-      background: #3ecf6b;
-      flex-shrink: 0;
-      box-shadow: 0 0 0 2px rgba(62,207,107,.25);
-      animation: krk-dot-pulse 2.4s ease-in-out infinite;
-    }
-    @keyframes krk-dot-pulse {
-      0%, 100% { box-shadow: 0 0 0 2px rgba(62,207,107,.25); }
-      50%       { box-shadow: 0 0 0 4px rgba(62,207,107,.12); }
-    }
-    @keyframes krk-c-shake {
-      0%, 100% { transform: translateX(0); }
-      20%       { transform: translateX(-5px); }
-      40%       { transform: translateX(5px); }
-      60%       { transform: translateX(-4px); }
-      80%       { transform: translateX(4px); }
-    }
-    .krk-c-services.is-shake {
-      animation: krk-c-shake .35s cubic-bezier(.19,1,.22,1) both;
-    }
+    .krk-c-trigger:hover { background: #fff; color: var(--ink); }
+    .krk-c-trigger .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--signal); animation: krk-dot-pulse 2s ease-in-out infinite; }
+    @keyframes krk-dot-pulse { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
+    @keyframes krk-c-shake { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
+    .krk-c-services.is-shake { animation: krk-c-shake .3s ease; }
 
     /* PANEL */
     .krk-c-panel {
-      position: fixed;
-      right: 28px;
-      bottom: 84px;
-      z-index: 9901;
-      width: min(400px, calc(100vw - 56px));
-      max-height: min(600px, calc(100vh - 120px));
-      background: #ffffff;
-      border: 1px solid rgba(26,24,22,.12);
-      border-radius: 12px;
-      box-shadow: 0 24px 80px rgba(26,24,22,.16);
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(12px) scale(.98);
-      transform-origin: bottom right;
-      transition: opacity .28s cubic-bezier(.19,1,.22,1),
-                  transform .28s cubic-bezier(.19,1,.22,1);
-      font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
-                   "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic",
-                   system-ui, sans-serif;
-      color: #1a1816;
+      position: fixed; right: 28px; bottom: 84px; z-index: 9901; width: 400px; max-height: calc(100vh - 112px);
+      display: flex; flex-direction: column; background: #fff; border: 1px solid var(--ink); border-radius: 0;
+      box-shadow: 0 24px 64px rgba(22,19,17,.14);
+      opacity: 0; visibility: hidden; transform: translateY(12px); transition: opacity .22s ease, transform .22s ease, visibility 0s linear .22s;
     }
-    .krk-c-panel.is-open {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateY(0) scale(1);
-    }
+    .krk-c-panel.is-open { opacity: 1; visibility: visible; transform: translateY(0); transition: opacity .22s ease, transform .22s ease; }
 
-    /* TOP (progress + close) */
-    .krk-c-top {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 16px 16px 12px 20px;
-      flex-shrink: 0;
-    }
-    .krk-c-progress {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      flex: 1;
-    }
-    .krk-c-progress-step {
-      flex: 1;
-      height: 2px;
-      border-radius: 999px;
-      background: rgba(26,24,22,.12);
-      transition: background .3s ease;
-    }
-    .krk-c-progress-step.is-done { background: #1a1816; }
-    .krk-c-progress-step.is-active { background: rgba(26,24,22,.4); }
+    .krk-c-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 20px 0; }
+    .krk-c-progress { display: flex; gap: 6px; flex: 1; max-width: 160px; }
+    .krk-c-progress-step { height: 2px; flex: 1; background: var(--mist-2); transition: background .2s ease; }
+    .krk-c-progress-step.is-done { background: var(--ink); }
+    .krk-c-progress-step.is-active { background: var(--ink); }
     .krk-c-close {
-      width: 26px; height: 26px;
-      display: grid; place-items: center;
-      background: transparent;
-      border: 1px solid rgba(26,24,22,.12);
-      border-radius: 50%;
-      color: #4a443c;
-      font-size: 14px; line-height: 1;
-      cursor: pointer;
-      flex-shrink: 0;
-      padding: 0;
-      transition: background .18s ease, border-color .18s ease;
+      width: 32px; height: 32px; border: 0; border-radius: 0; background: transparent; color: var(--muted);
+      font-family: 'Libre Caslon Text', Georgia, serif; font-size: 22px; line-height: 1; cursor: pointer; transition: color .15s ease;
     }
-    .krk-c-close:hover {
-      background: rgba(26,24,22,.06);
-      border-color: #4a443c;
-    }
+    .krk-c-close:hover { color: var(--ink); }
 
-    /* BODY */
-    .krk-c-body {
-      padding: 16px 20px 20px;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-      flex: 1;
-      min-height: 0;
-    }
+    .krk-c-body { padding: 20px 20px 22px; overflow: auto; }
     .krk-c-step { display: none; }
-    .krk-c-step.is-active {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      animation: krk-c-fadein .25s cubic-bezier(.19,1,.22,1) both;
-    }
-    @keyframes krk-c-fadein {
-      from { opacity: 0; transform: translateY(6px); }
-      to   { opacity: 1; transform: none; }
-    }
+    .krk-c-step.is-active { display: block; animation: krk-c-fadein .22s ease; }
+    @keyframes krk-c-fadein { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
 
-    .krk-c-step-label {
-      font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-      color: #8a8275;
-      margin-bottom: 4px;
-    }
-    .krk-c-step-q {
-      font-size: 15px;
-      font-weight: 600;
-      line-height: 1.4;
-      letter-spacing: -.02em;
-      color: #1a1816;
-      margin: 0 0 4px;
-    }
+    .krk-c-step-label { font-size: 10px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+    .krk-c-step-q { margin: 0 0 18px; font-size: 18px; font-weight: 500; line-height: 1.35; letter-spacing: -.01em; }
 
-    /* SERVICE CARDS */
-    .krk-c-services {
-      display: grid;
-      gap: 7px;
-    }
+    /* SERVICES — filled cards, no borders */
+    .krk-c-services { display: flex; flex-direction: column; gap: 6px; }
     .krk-c-service {
-      display: grid;
-      grid-template-columns: 24px 1fr;
-      gap: 10px;
-      align-items: start;
-      padding: 14px 16px;
-      background: #faf8f3;
-      border: 1px solid rgba(26,24,22,.12);
-      border-radius: 8px;
-      text-align: left;
-      cursor: pointer;
-      transition: border-color .18s ease, background .18s ease, transform .25s cubic-bezier(.19,1,.22,1);
-      font-family: inherit;
-      color: inherit;
+      display: grid; grid-template-columns: 28px 1fr; gap: 10px; align-items: start; width: 100%; padding: 14px 16px;
+      border: 0; border-radius: 0; background: var(--mist); color: var(--ink); text-align: left; font-family: inherit; cursor: pointer;
+      transition: background .15s ease, color .15s ease;
     }
-    .krk-c-service:hover {
-      border-color: #4a443c;
-      transform: translateX(2px);
-    }
-    .krk-c-service.is-selected {
-      background: #1a1816;
-      border-color: #1a1816;
-      color: #faf8f3;
-    }
-    .krk-c-service .snum {
-      font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: .1em;
-      color: #8a8275;
-      padding-top: 2px;
-      transition: color .18s ease;
-    }
-    .krk-c-service.is-selected .snum { color: rgba(250,248,243,.45); }
-    .krk-c-service .sbody h4 {
-      margin: 0 0 3px;
-      font-size: 14px;
-      font-weight: 600;
-      letter-spacing: -.015em;
-      line-height: 1.2;
-    }
-    .krk-c-service .sbody p {
-      margin: 0;
-      font-size: 12px;
-      line-height: 1.5;
-      color: #4a443c;
-      transition: color .18s ease;
-    }
-    .krk-c-service.is-selected .sbody p { color: rgba(250,248,243,.6); }
+    .krk-c-service:hover { background: var(--mist-2); }
+    .krk-c-service.is-selected { background: var(--ink); color: #fff; }
+    .krk-c-service .snum { font-family: 'Libre Caslon Text', Georgia, serif; font-size: 12px; color: var(--muted); padding-top: 2px; }
+    .krk-c-service.is-selected .snum { color: rgba(255,255,255,.55); }
+    .krk-c-service .sbody h4 { margin: 0 0 3px; font-size: 14px; font-weight: 500; letter-spacing: -.005em; }
+    .krk-c-service .sbody p { margin: 0; font-size: 12px; line-height: 1.55; color: var(--muted); }
+    .krk-c-service.is-selected .sbody p { color: rgba(255,255,255,.7); }
 
-    /* FORM */
-    .krk-c-fields {
-      display: grid;
-      gap: 12px;
-    }
-    .krk-c-field {
-      display: grid;
-      gap: 6px;
-    }
-    .krk-c-field label {
-      font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: .15em;
-      text-transform: uppercase;
-      color: #8a8275;
-    }
-    .krk-c-field label em {
-      font-style: normal;
-      color: #b94040;
-      margin-left: 2px;
-    }
+    /* FIELDS — bottom hairline only */
+    .krk-c-fields { display: flex; flex-direction: column; gap: 18px; }
+    .krk-c-field { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+    .krk-c-field label { font-size: 10px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+    .krk-c-field label em { font-style: normal; color: var(--signal-ink); margin-left: 2px; }
     .krk-c-input, .krk-c-select {
-      width: 100%;
-      border: 1px solid rgba(26,24,22,.12);
-      background: #faf8f3;
-      height: 40px;
-      padding: 0 12px;
-      border-radius: 6px;
-      font-family: inherit;
-      font-size: 13px;
-      color: #1a1816;
-      transition: border-color .16s ease, box-shadow .16s ease;
+      width: 100%; padding: 11px 0; border: 0; border-bottom: 1px solid var(--hair); border-radius: 0; background: transparent;
+      font-family: inherit; font-size: 14px; color: var(--ink); outline: none; appearance: none; -webkit-appearance: none; transition: border-color .15s ease;
     }
-    .krk-c-input::placeholder { color: #8a8275; }
-    .krk-c-input:focus, .krk-c-select:focus {
-      outline: none;
-      border-color: rgba(26,24,22,.4);
-      box-shadow: 0 0 0 3px rgba(26,24,22,.06);
-    }
-    .krk-c-input.is-error, .krk-c-select.is-error {
-      border-color: rgba(185,64,64,.5);
-      box-shadow: 0 0 0 3px rgba(185,64,64,.07);
-    }
-    .krk-c-row {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-    }
+    .krk-c-select { background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+      background-position: calc(100% - 9px) 55%, calc(100% - 4px) 55%; background-size: 5px 5px; background-repeat: no-repeat; padding-right: 20px; cursor: pointer; }
+    .krk-c-input::placeholder { color: rgba(22,19,17,.32); }
+    .krk-c-input:focus, .krk-c-select:focus { border-bottom-color: var(--ink); }
+    .krk-c-input.is-error, .krk-c-select.is-error { border-bottom-color: var(--signal-ink); }
+    .krk-c-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 
     /* CALENDLY */
-    .krk-c-cal-wrap {
-      border-radius: 8px;
-      overflow: hidden;
-      border: 1px solid rgba(26,24,22,.12);
-      background: #faf8f3;
-      min-height: 380px;
-      position: relative;
-    }
-    .krk-c-cal-wrap iframe {
-      width: 100%;
-      height: 480px;
-      border: 0;
-      display: block;
-    }
-    .krk-c-cal-loading {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-      color: #8a8275;
-      pointer-events: none;
-    }
+    .krk-c-cal-wrap { position: relative; min-height: 420px; background: var(--mist); }
+    .krk-c-cal-wrap iframe { width: 100%; height: 520px; border: 0; display: block; }
+    .krk-c-cal-loading { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
 
     /* ACTIONS */
-    .krk-c-actions {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      margin-top: 4px;
-    }
-    .krk-c-btn-back {
-      font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
-      font-size: 12px;
-      font-weight: 500;
-      color: #8a8275;
-      cursor: pointer;
-      padding: 0;
-      background: none;
-      border: none;
-      transition: color .16s ease;
-      visibility: hidden;
-    }
+    .krk-c-actions { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 20px; }
+    .krk-c-btn-back { visibility: hidden; padding: 10px 0; border: 0; background: transparent; font-family: inherit; font-size: 12px; letter-spacing: .04em; color: var(--muted); cursor: pointer; transition: color .15s ease; }
     .krk-c-btn-back.is-visible { visibility: visible; }
-    .krk-c-btn-back:hover { color: #1a1816; }
+    .krk-c-btn-back:hover { color: var(--ink); }
     .krk-c-btn-next {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      height: 38px;
-      padding: 0 20px;
-      border-radius: 999px;
-      background: #1a1816;
-      color: #faf8f3;
-      font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: -.005em;
-      cursor: pointer;
-      border: none;
-      transition: background .18s ease, transform .25s cubic-bezier(.19,1,.22,1);
-      margin-left: auto;
+      padding: 12px 18px; border: 1px solid var(--ink); border-radius: 0; background: var(--ink); color: #fff;
+      font-family: inherit; font-size: 13px; font-weight: 500; letter-spacing: .02em; cursor: pointer; transition: background .15s ease, color .15s ease;
     }
-    .krk-c-btn-next:hover { background: #4a443c; transform: translateY(-1px); }
-    .krk-c-btn-next:active { transform: scale(.97); }
-    .krk-c-btn-next:disabled { opacity: .4; cursor: not-allowed; transform: none; }
+    .krk-c-btn-next:hover { background: #fff; color: var(--ink); }
+    .krk-c-btn-next:disabled { opacity: .35; cursor: not-allowed; background: var(--ink); color: #fff; }
 
-    /* MOBILE: ≤450px */
+    /* MOBILE */
     @media (max-width: 450px) {
       .krk-c-trigger { right: 16px; bottom: 16px; }
       .krk-c-panel {
-        right: 0; left: 0; bottom: 0;
-        width: 100%;
-        max-height: 85vh;
-        border-radius: 16px 16px 0 0;
-        border-bottom: none;
-        transform-origin: bottom center;
-        transform: translateY(20px);
+        right: 0; left: 0; bottom: 0; width: 100%; max-height: 88vh; border-left: 0; border-right: 0; border-bottom: 0;
+        transform: translateY(100%); box-shadow: 0 -16px 48px rgba(22,19,17,.12);
       }
       .krk-c-panel.is-open { transform: translateY(0); }
+      .krk-c-row { grid-template-columns: 1fr; }
     }
-
-    /* TABLET: 451–900px */
     @media (min-width: 451px) and (max-width: 900px) {
-      .krk-c-panel {
-        right: 20px;
-        bottom: 76px;
-        width: min(380px, calc(100vw - 40px));
-        max-height: min(580px, calc(100vh - 100px));
-      }
+      .krk-c-panel { right: 16px; bottom: 76px; width: min(400px, calc(100vw - 32px)); }
     }
   `;
 
@@ -417,32 +159,32 @@
           <div class="krk-c-step-label">Step 01</div>
           <p class="krk-c-step-q">어떤 서비스가 필요하세요?</p>
           <div class="krk-c-services">
-            <button type="button" class="krk-c-service" data-service="ax" data-label="Brand Team AX">
+            <button type="button" class="krk-c-service" data-service="branding" data-label="Branding">
               <span class="snum">01</span>
               <span class="sbody">
-                <h4>Brand Team AX</h4>
-                <p>Brand OS 도입, 운영 시스템화.</p>
-              </span>
-            </button>
-            <button type="button" class="krk-c-service" data-service="branding" data-label="Branding">
-              <span class="snum">02</span>
-              <span class="sbody">
                 <h4>Branding</h4>
-                <p>패키지·상세·매대·피드 등 브랜드 자산 제작.</p>
+                <p>제품은 있고 브랜드가 없을 때. 전략 · 아이덴티티 · 패키지 · AI Brand OS까지 한 번에.</p>
               </span>
             </button>
             <button type="button" class="krk-c-service" data-service="campaign" data-label="Campaign">
-              <span class="snum">03</span>
+              <span class="snum">02</span>
               <span class="sbody">
                 <h4>Campaign</h4>
-                <p>시즌 캠페인·신제품 런칭·리포지셔닝 운영.</p>
+                <p>브랜드가 있을 때. 신제품 · 시즌 비주얼 세트 — 컨셉 1개 · 이미지 15컷 · 숏폼 2편.</p>
+              </span>
+            </button>
+            <button type="button" class="krk-c-service" data-service="visualclub" data-label="Visual Club">
+              <span class="snum">03</span>
+              <span class="sbody">
+                <h4>Visual Club</h4>
+                <p>월 구독. 매달 같은 톤의 이미지 20컷 · 숏폼 2편.</p>
               </span>
             </button>
             <button type="button" class="krk-c-service" data-service="funding" data-label="정부자금 브랜딩">
               <span class="snum">04</span>
               <span class="sbody">
                 <h4>정부자금 브랜딩</h4>
-                <p>확보한 지원사업 예산 매칭 작업.</p>
+                <p>확보한 지원사업 예산에 맞춰 범위를 설계합니다.</p>
               </span>
             </button>
           </div>
@@ -506,6 +248,12 @@
 
   // ── INJECT ────────────────────────────────────────────────
   function inject() {
+    // Font (skip if the page already loads Noto Sans KR)
+    if (!document.querySelector('link[href*="Noto+Sans+KR"]')) {
+      const l = document.createElement('link'); l.rel = 'stylesheet';
+      l.href = 'https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500&family=Libre+Caslon+Text&display=swap';
+      document.head.appendChild(l);
+    }
     // CSS
     const styleEl = document.createElement('style');
     styleEl.setAttribute('data-krk-consult', '');
