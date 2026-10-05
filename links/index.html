@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#FFFFFF">
+  <title>KRK · 아이디어부터 출시까지</title>
+  <meta name="description" content="이너뷰티·푸드 브랜드를 위한 브랜딩과 AI 비주얼. KRK의 포트폴리오와 프로젝트 상담을 만나보세요.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="KRK · 아이디어부터 출시까지">
+  <meta property="og:description" content="이너뷰티·푸드 브랜드의 시작부터 새로운 캠페인까지 함께 만듭니다.">
+  <meta property="og:image" content="/assets/krk-og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/assets/krk-logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/krk-tokens.css">
+  <style>
+    body { background:#fff; }
+    .link-page { width:min(100%,480px); margin:auto; padding:48px 24px 28px; }
+    .profile { text-align:center; }
+    .profile-logo { width:112px; height:auto; margin:0 auto 28px; }
+    .eyebrow { font-family:var(--en); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-2); }
+    h1 { font-family:var(--en); font-size:19px; letter-spacing:-.04em; margin:8px 0 18px; }
+    .intro { font-size:22px; line-height:1.45; font-weight:600; letter-spacing:-.055em; margin:0; }
+    .intro-small { margin:12px 0 28px; font-size:12px; color:var(--ink-2); }
+    .links { display:grid; gap:10px; }
+    .link { display:flex; align-items:center; gap:15px; width:100%; padding:18px; background:#fff; border:1px solid rgba(22,19,17,.06); border-radius:16px; text-align:left; transition:transform .18s,box-shadow .18s; }
+    .link:hover { transform:translateY(-2px); box-shadow:0 8px 22px rgba(22,19,17,.06); }
+    .link:focus-visible,.email:focus-visible { outline:3px solid #8b563a; outline-offset:4px; }
+    .primary { background:var(--ink); color:white; min-height:88px; }
+    .primary .label { color:rgba(255,255,255,.6); }
+    .icon { width:44px; height:44px; border-radius:10px; background:var(--soft); display:grid; place-items:center; flex-shrink:0; font-family:var(--en); font-size:18px; }
+    .primary .icon { background:rgba(255,255,255,.1); }
+    .icon img { width:27px; }
+    .copy { flex:1; }
+    .label { display:block; font-family:var(--en); font-size:9px; letter-spacing:.13em; color:var(--ink-3); margin-bottom:5px; }
+    .title { display:block; font-size:15px; font-weight:600; letter-spacing:-.035em; }
+    .arrow { font-size:20px; font-weight:400; }
+    .work-icon { padding:0; overflow:hidden; }
+    .work-icon img { width:100%; height:100%; object-fit:cover; }
+    .project-strip { display:grid; grid-template-columns:repeat(3,1fr); gap:6px; margin:24px 0 0; }
+    .project-strip a { overflow:hidden; border-radius:10px; aspect-ratio:1; }
+    .project-strip img { width:100%; height:100%; object-fit:cover; transition:transform .25s; }
+    .project-strip a:hover img { transform:scale(1.04); }
+    .caption { font-family:var(--en); font-size:9px; color:var(--ink-3); letter-spacing:.1em; margin-top:10px; text-align:center; }
+    footer { text-align:center; padding-top:24px; }
+    .email { font-family:var(--en); font-size:12px; border-bottom:1px solid var(--ink-4); padding-bottom:3px; }
+    .copyright { font-family:var(--en); font-size:9px; color:var(--ink-3); letter-spacing:.08em; margin:20px 0 0; }
+    /* Keep consultation access in the link list on this compact page. */
+    .krk-c-trigger { display:none!important; }
+    @media(min-width:700px) { .link-page { padding-top:60px; padding-bottom:40px; } }
+    @media(prefers-reduced-motion:reduce) { .link,.project-strip img { transition:none; } }
+  </style>
+</head>
+<body>
+  <main class="link-page">
+    <header class="profile">
+      <img class="profile-logo" src="../assets/krk-logo.svg" alt="KRK">
+      <h1 class="intro">이너뷰티·푸드 브랜드를 위한<br>브랜딩과 AI 비주얼.</h1>
+      <p class="intro-small">브랜드의 시작부터, 새로운 캠페인까지.</p>
+    </header>
+    <nav class="links" aria-label="KRK 주요 링크">
+      <a class="link primary" id="consult-link" href="mailto:marketing@chaeum.cloud?subject=KRK%20프로젝트%20상담" aria-haspopup="dialog">
+        <span class="icon" aria-hidden="true">↗</span>
+        <span class="copy"><span class="label">LET’S BUILD YOURS</span><span class="title">내 브랜드, 어디서부터 시작할까요?</span></span>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="link" href="https://www.krk-studio.kr/"><span class="icon" aria-hidden="true"><img src="../assets/krk-logo.svg" alt=""></span><span class="copy"><span class="label">ABOUT KRK</span><span class="title">KRK 스튜디오 홈페이지</span></span><span class="arrow" aria-hidden="true">↗</span></a>
+      <a class="link" href="https://www.krk-studio.kr/work/"><span class="icon work-icon" aria-hidden="true"><img src="../assets/index-balanceb.png" alt=""></span><span class="copy"><span class="label">SELECTED WORK</span><span class="title">함께 만든 식품 브랜드들</span></span><span class="arrow" aria-hidden="true">↗</span></a>
+    </nav>
+    <div class="project-strip" aria-label="프로젝트 미리보기">
+      <a href="https://www.krk-studio.kr/work/case_balanceb.html" aria-label="밸런스비 프로젝트 보기"><img src="../assets/index-balanceb.png" alt="밸런스비 식품 브랜드 디자인" loading="lazy"></a>
+      <a href="https://www.krk-studio.kr/work/case_mium.html" aria-label="미음 프로젝트 보기"><img src="../assets/index-mium.png" alt="미음 식품 브랜드 디자인" loading="lazy"></a>
+      <a href="https://www.krk-studio.kr/work/case_urbanpure.html" aria-label="어반퓨어 프로젝트 보기"><img src="../assets/index-urbanpure.png" alt="어반퓨어 식품 브랜드 디자인" loading="lazy"></a>
+    </div>
+    <p class="caption">A FEW BRANDS WE’VE BUILT TOGETHER</p>
+    <footer><a class="email" href="mailto:marketing@chaeum.cloud">marketing@chaeum.cloud</a><p class="copyright">© <span id="year">2026</span> KRK</p></footer>
+  </main>
+  <script src="consult-widget.js?v=7aa7b7c1" defer></script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    document.getElementById('consult-link').addEventListener('click', function(event) {
+      var trigger = document.getElementById('krkCTrigger');
+      if (trigger) { event.preventDefault(); trigger.click(); }
+    });
+  </script>
+</body>
+</html>
