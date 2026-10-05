@@ -121,7 +121,6 @@
     .krk-c-done-main { margin: 0 0 10px; font-size: 15px; font-weight: 500; line-height: 1.5; color: var(--ink); }
     .krk-c-done-sub { margin: 0 0 12px; font-size: 12.5px; line-height: 1.6; color: var(--muted); }
     .krk-c-done-sub:empty { display: none; }
-    .krk-c-done-note { margin: 0; font-size: 12px; line-height: 1.6; color: var(--muted); }
     a.krk-c-btn-back { text-decoration: none; display: inline-block; }
 
     /* ACTIONS */
@@ -258,7 +257,6 @@
           <div class="krk-c-done">
             <p class="krk-c-done-main">1~2 영업일 내 담당자가 상담 예약을 위해<br>메일을 보내드립니다.</p>
             <p class="krk-c-done-sub" id="krkCDoneSub"></p>
-            <p class="krk-c-done-note">그 전에 Work에서 케이스를 보고 오시면 통화가 짧아집니다.</p>
           </div>
           <div class="krk-c-actions">
             <a class="krk-c-btn-back is-visible" href="/work/">Work 보기 →</a>
@@ -411,7 +409,7 @@
         ...state,
         privacyConsent: true,
         submittedAt: new Date().toISOString(),
-        source: 'krk.team/widget',
+        source: 'www.krk-studio.kr/widget',
         page: location.pathname,
       };
       fetch(MAKE_WEBHOOK, {
@@ -421,7 +419,7 @@
         body: JSON.stringify(payload),
       }).catch((err) => console.warn('[KRK] webhook failed:', err));
 
-      document.getElementById('krkCDoneSub').textContent = state.email ? state.email + ' 로 안내드립니다.' : '';
+      document.getElementById('krkCDoneSub').textContent = 'marketing@chaeum.cloud 로 안내드립니다.';
       renderStep(2);
     });
 
