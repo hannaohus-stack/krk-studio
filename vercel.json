@@ -14,12 +14,16 @@
       "source": "/we-build-yours.html",
       "destination": "/",
       "permanent": true
-    }
-  ],
-  "rewrites": [
+    },
     {
       "source": "/contact",
-      "destination": "/contact.html"
+      "destination": "/#consult",
+      "permanent": false
+    },
+    {
+      "source": "/contact.html",
+      "destination": "/#consult",
+      "permanent": false
     }
   ]
 }

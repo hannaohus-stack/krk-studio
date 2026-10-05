@@ -57,6 +57,7 @@
         font-size: 12px; font-weight: 600; letter-spacing: 0.02em;
       }
       .stage-foot a { letter-spacing: 0.08em; text-transform: uppercase; }
+      .stage-foot { padding-right: 150px; } /* room for the floating 문의하기 button */
 
       @media (max-width: 900px) {
         .stage { min-height: 600px; }
@@ -64,7 +65,7 @@
         .bg-mark { left: 50%; top: 62.5%; transform: translateX(-50%); width: 292px; }
         .rail { top: 32.5%; height: 252px; transform: none; }
         .card { width: 192px; margin-left: -96px; }
-        .stage-foot { left: 20px; right: 20px; bottom: 48px; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 500; }
+        .stage-foot { left: 20px; right: 20px; bottom: 48px; padding-right: 0; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 500; }
         .stage-foot a { letter-spacing: 0.02em; text-transform: none; }
       }
     </style>
@@ -74,7 +75,7 @@
       <header class="site-header is-overlay">
         <nav aria-label="주 메뉴"><a href="/work/">Work</a></nav>
         <a class="logo" href="/" aria-label="KRK Studio 홈"><img src="/assets/krk-logo.svg" alt="krk" /></a>
-        <nav aria-label="연락"><a href="/contact.html">Contact</a></nav>
+        <nav aria-label="연락"><a href="#consult">Contact</a></nav>
         <button class="icon-btn menu-btn" type="button" aria-label="메뉴 열기" aria-expanded="false" data-menu-open><span></span><span></span></button>
       </header>
 
@@ -99,7 +100,7 @@
       </div>
       <nav aria-label="모바일 메뉴">
         <a href="/work/">Work</a>
-        <a href="/contact.html">Contact</a>
+        <a href="#consult">Contact</a>
       </nav>
       <div class="menu-foot">©KRK. All rights reserved.</div>
     </div>
@@ -220,5 +221,6 @@
       })();
     </script>
     <script src="/assets/krk-site.js" defer></script>
+    <script src="/consult-widget.js" defer></script>
   </body>
 </html>

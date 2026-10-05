@@ -554,6 +554,16 @@
     };
     trigger.addEventListener('click', openPanel);
     closeBtn.addEventListener('click', closePanel);
+    // Any <a href="#consult"> / [data-consult-open] on the page opens the panel (header Contact, CTAs).
+    document.addEventListener('click', (e) => {
+      const el = e.target.closest('[data-consult-open], a[href="#consult"]');
+      if (!el) return;
+      e.preventDefault();
+      const menu = document.querySelector('[data-menu].is-open');
+      if (menu) { const c = menu.querySelector('[data-menu-close]'); if (c) c.click(); }
+      openPanel();
+    });
+    window.KRKConsult = { open: openPanel, close: closePanel };
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && panel.classList.contains('is-open')) closePanel();
     });
@@ -659,6 +669,7 @@
     }
 
     renderStep(0);
+    if (location.hash === '#consult') { openPanel(); history.replaceState(null, '', location.pathname + location.search); }
   }
 
   // Inject when DOM is ready
