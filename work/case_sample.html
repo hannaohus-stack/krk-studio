@@ -27,15 +27,26 @@
       <button class="icon-btn menu-btn" type="button" aria-label="메뉴 열기" aria-expanded="false" data-menu-open><span></span><span></span></button>
     </header>
 
-    <main class="split">
-      <div class="pane-img" data-media>
-        <footer class="site-footer">
-          <img src="/assets/krk-logo.svg" alt="" aria-hidden="true" />
-          <span>©KRK. All rights reserved.</span>
-          <a href="https://www.instagram.com/director.ian.krk" target="_blank" rel="noopener">Instagram</a>
-        </footer>
+    <main>
+      <section class="m-slider" data-slider aria-label="이미지">
+        <div class="m-track"></div>
+        <div class="m-meta"><span class="m-hint">Swipe</span><span class="m-count" aria-live="polite"></span></div>
+      </section>
+      <div class="split">
+        <div class="pane-img" data-media>
+          <footer class="site-footer">
+            <img src="/assets/krk-logo.svg" alt="" aria-hidden="true" />
+            <span>©KRK. All rights reserved.</span>
+            <a href="https://www.instagram.com/director.ian.krk" target="_blank" rel="noopener">Instagram</a>
+          </footer>
+        </div>
+        <aside class="pane-text" data-text></aside>
       </div>
-      <aside class="pane-text" data-text></aside>
+      <footer class="site-footer m-only">
+        <img src="/assets/krk-logo.svg" alt="" aria-hidden="true" />
+        <span>©KRK. All rights reserved.</span>
+        <a href="https://www.instagram.com/director.ian.krk" target="_blank" rel="noopener">Instagram</a>
+      </footer>
     </main>
 
     <div class="menu-overlay" aria-hidden="true" data-menu>
