@@ -42,9 +42,6 @@
       .card:hover .bar, .card:focus-visible .bar { transform: translateY(0); }
       .card:hover .nm span, .card:focus-visible .nm span { transform: translateX(0); opacity: 1; }
 
-      .close { display: flex; justify-content: space-between; align-items: end; gap: 24px; padding: 80px var(--pad) 96px; border-top: 1px solid var(--hairline); }
-      .close h2 { margin: 0; font-family: var(--serif-display); font-weight: 400; font-size: var(--t-title); line-height: 1.2; }
-
       @media (hover: none) {
         /* Touch: show the name bar permanently instead of on hover. */
         .card .bar { transform: none; }
@@ -55,7 +52,6 @@
         .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; padding: 8px 20px 64px; }
         .card .bar { padding: 8px 10px; }
         .card .meta { display: none; }
-        .close { flex-direction: column; align-items: flex-start; padding: 56px 20px 64px; }
       }
     </style>
   </head>
@@ -149,10 +145,6 @@
         </a>
       </section>
 
-      <section class="close">
-        <h2>다음 케이스는 당신의 브랜드.</h2>
-        <a class="cta-link" href="#consult">무료 15분 진단 →</a>
-      </section>
     </main>
 
     <footer class="site-footer">
