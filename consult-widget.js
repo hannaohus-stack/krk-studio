@@ -93,7 +93,7 @@
     .krk-c-field label em { font-style: normal; color: var(--signal-ink); margin-left: 2px; }
     .krk-c-input, .krk-c-select {
       width: 100%; padding: 11px 0; border: 0; border-bottom: 1px solid var(--hair); border-radius: 0; background: transparent;
-      font-family: inherit; font-size: 14px; color: var(--ink); outline: none; appearance: none; -webkit-appearance: none; transition: border-color .15s ease;
+      font-family: inherit; font-size: 16px; color: var(--ink); outline: none; appearance: none; -webkit-appearance: none; transition: border-color .15s ease;
     }
     .krk-c-select { background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%);
       background-position: calc(100% - 9px) 55%, calc(100% - 4px) 55%; background-size: 5px 5px; background-repeat: no-repeat; padding-right: 20px; cursor: pointer; }
