@@ -34,7 +34,7 @@
       position: fixed; right: 28px; bottom: 28px; z-index: 9900;
       display: inline-flex; align-items: center; gap: 10px; height: 44px; padding: 0 18px 0 16px;
       border: 1px solid var(--ink); border-radius: 0; background: #fff; color: var(--ink);
-      font-family: inherit; font-size: 13px; font-weight: 500; letter-spacing: 0.02em; cursor: pointer;
+      font-family: inherit; font-size: var(--t-body, 13px); font-weight: 500; letter-spacing: 0.02em; cursor: pointer;
       transition: background .18s ease, color .18s ease;
     }
     .krk-c-trigger:hover { background: var(--mist); color: var(--ink); }
@@ -68,8 +68,8 @@
     .krk-c-step.is-active { display: block; animation: krk-c-fadein .22s ease; }
     @keyframes krk-c-fadein { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
 
-    .krk-c-step-label { font-size: 10px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
-    .krk-c-step-q { margin: 0 0 18px; font-size: 18px; font-weight: 500; line-height: 1.35; letter-spacing: -.01em; }
+    .krk-c-step-label { font-size: var(--t-small, 11px); font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+    .krk-c-step-q { margin: 0 0 18px; font-size: var(--t-name, 18px); font-weight: 500; line-height: 1.35; letter-spacing: -.01em; }
 
     /* SERVICES — filled cards, no borders */
     .krk-c-services { display: flex; flex-direction: column; gap: 6px; }
@@ -80,16 +80,16 @@
     }
     .krk-c-service:hover { background: var(--mist-2); }
     .krk-c-service.is-selected { background: var(--ink); color: #fff; }
-    .krk-c-service .snum { font-family: 'Libre Caslon Text', Georgia, serif; font-size: 12px; color: var(--muted); padding-top: 2px; }
+    .krk-c-service .snum { font-family: 'Libre Caslon Text', Georgia, serif; font-size: var(--t-body, 13px); color: var(--muted); padding-top: 2px; }
     .krk-c-service.is-selected .snum { color: rgba(255,255,255,.55); }
-    .krk-c-service .sbody h4 { margin: 0 0 3px; font-size: 14px; font-weight: 500; letter-spacing: -.005em; }
-    .krk-c-service .sbody p { margin: 0; font-size: 12px; line-height: 1.55; color: var(--muted); }
+    .krk-c-service .sbody h4 { margin: 0 0 3px; font-size: var(--t-body, 13px); font-weight: 500; letter-spacing: -.005em; }
+    .krk-c-service .sbody p { margin: 0; font-size: var(--t-body, 13px); line-height: 1.55; color: var(--muted); }
     .krk-c-service.is-selected .sbody p { color: rgba(255,255,255,.7); }
 
     /* FIELDS — bottom hairline only */
     .krk-c-fields { display: flex; flex-direction: column; gap: 18px; }
     .krk-c-field { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-    .krk-c-field label { font-size: 10px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+    .krk-c-field label { font-size: var(--t-small, 11px); font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
     .krk-c-field label em { font-style: normal; color: var(--signal-ink); margin-left: 2px; }
     .krk-c-input, .krk-c-select {
       width: 100%; padding: 11px 0; border: 0; border-bottom: 1px solid var(--hair); border-radius: 0; background: transparent;
@@ -103,7 +103,7 @@
     .krk-c-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 
     /* CONSENT */
-    .krk-c-consent { display: flex; align-items: flex-start; gap: 10px; margin-top: 4px; font-size: 12px; line-height: 1.6; color: var(--muted); cursor: pointer; }
+    .krk-c-consent { display: flex; align-items: flex-start; gap: 10px; margin-top: 4px; font-size: var(--t-body, 13px); line-height: 1.6; color: var(--muted); cursor: pointer; }
     .krk-c-consent input { appearance: none; -webkit-appearance: none; flex: 0 0 auto; width: 14px; height: 14px; margin: 3px 0 0; border: 1px solid var(--ink); border-radius: 0; background: #fff; cursor: pointer; }
     .krk-c-consent input:checked { background: var(--ink); box-shadow: inset 0 0 0 3px #fff; }
     .krk-c-consent input:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
@@ -114,23 +114,23 @@
     .krk-c-consent summary { display: inline; cursor: pointer; list-style: none; color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
     .krk-c-consent summary::-webkit-details-marker { display: none; }
     .krk-c-consent-body { display: none; }
-    .krk-c-consent details[open] .krk-c-consent-body { display: block; margin-top: 8px; padding: 10px 12px; background: var(--mist); font-size: 11.5px; line-height: 1.65; }
+    .krk-c-consent details[open] .krk-c-consent-body { display: block; margin-top: 8px; padding: 10px 12px; background: var(--mist); font-size: var(--t-body, 13px); line-height: 1.65; }
 
     /* DONE */
     .krk-c-done { padding: 18px 16px 20px; background: var(--mist); }
-    .krk-c-done-main { margin: 0 0 10px; font-size: 15px; font-weight: 500; line-height: 1.5; color: var(--ink); }
-    .krk-c-done-sub { margin: 0 0 12px; font-size: 12.5px; line-height: 1.6; color: var(--muted); }
+    .krk-c-done-main { margin: 0 0 10px; font-size: var(--t-body, 13px); font-weight: 500; line-height: 1.5; color: var(--ink); }
+    .krk-c-done-sub { margin: 0 0 12px; font-size: var(--t-body, 13px); line-height: 1.6; color: var(--muted); }
     .krk-c-done-sub:empty { display: none; }
     a.krk-c-btn-back { text-decoration: none; display: inline-block; }
 
     /* ACTIONS */
     .krk-c-actions { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 20px; }
-    .krk-c-btn-back { visibility: hidden; padding: 10px 0; border: 0; background: transparent; font-family: inherit; font-size: 12px; letter-spacing: .04em; color: var(--muted); cursor: pointer; transition: color .15s ease; }
+    .krk-c-btn-back { visibility: hidden; padding: 10px 0; border: 0; background: transparent; font-family: inherit; font-size: var(--t-body, 13px); letter-spacing: .04em; color: var(--muted); cursor: pointer; transition: color .15s ease; }
     .krk-c-btn-back.is-visible { visibility: visible; }
     .krk-c-btn-back:hover { color: var(--ink); }
     .krk-c-btn-next {
       padding: 12px 18px; border: 1px solid var(--ink); border-radius: 0; background: var(--ink); color: #fff;
-      font-family: inherit; font-size: 13px; font-weight: 500; letter-spacing: .02em; cursor: pointer; transition: background .15s ease, color .15s ease;
+      font-family: inherit; font-size: var(--t-body, 13px); font-weight: 500; letter-spacing: .02em; cursor: pointer; transition: background .15s ease, color .15s ease;
     }
     .krk-c-btn-next:hover { background: #fff; color: var(--ink); }
     .krk-c-btn-next:disabled { opacity: .35; cursor: not-allowed; background: var(--ink); color: #fff; }

@@ -28,7 +28,7 @@
       .pager {
         position: absolute; z-index: 50; top: calc(52% - 281px); left: 50%;
         transform: translateX(-50%); display: flex; align-items: center; gap: 24px; width: 300px;
-        color: var(--ink-muted); font-size: 11px; font-weight: 500; letter-spacing: 0.12em; pointer-events: none;
+        color: var(--ink-muted); font-size: var(--t-small); font-weight: 500; letter-spacing: var(--ls-caps); pointer-events: none;
       }
       .pager::before { content: ""; height: 1px; flex: 1; background: var(--ink-muted); }
 
@@ -54,9 +54,9 @@
       .stage-foot {
         position: absolute; z-index: 30; left: var(--pad); right: var(--pad); bottom: 28px;
         display: flex; justify-content: space-between; align-items: center;
-        font-size: 12px; font-weight: 600; letter-spacing: 0.02em;
+        font-size: var(--t-small); font-weight: 600; letter-spacing: 0.02em;
       }
-      .stage-foot a { letter-spacing: 0.08em; text-transform: uppercase; }
+      .stage-foot a { letter-spacing: var(--ls-caps); text-transform: uppercase; }
       .stage-foot { padding-right: 150px; } /* room for the floating 문의하기 button */
 
       @media (max-width: 900px) {
@@ -65,7 +65,7 @@
         .bg-mark { left: 50%; top: 62.5%; transform: translateX(-50%); width: 292px; }
         .rail { top: 32.5%; height: 252px; transform: none; }
         .card { width: 192px; margin-left: -96px; }
-        .stage-foot { left: 20px; right: 20px; bottom: 48px; padding-right: 0; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 500; }
+        .stage-foot { left: 20px; right: 20px; bottom: 48px; padding-right: 0; flex-direction: column; gap: 6px; font-size: var(--t-small); font-weight: 500; }
         .stage-foot a { letter-spacing: 0.02em; text-transform: none; }
       }
     </style>
@@ -248,8 +248,8 @@
     <style>
       .visual-club-modal { width:min(360px,calc(100vw - 40px)); padding:36px 28px; border:1px solid #161311; background:#fff; color:#161311; text-align:center; }
       .visual-club-modal::backdrop { background:rgba(0,0,0,.35); }
-      .visual-club-modal h2 { margin:0 0 12px; font-size:22px; }
-      .visual-club-modal p { margin:0 0 24px; font-size:14px; line-height:1.7; }
+      .visual-club-modal h2 { margin:0 0 12px; font-size:var(--t-title); }
+      .visual-club-modal p { margin:0 0 24px; font-size:var(--t-body); line-height:1.7; }
       .visual-club-modal button { padding:10px 28px; border:1px solid #161311; background:#fff; color:#161311; font:inherit; cursor:pointer; }
     </style>
     <dialog class="visual-club-modal" id="visual-club-modal" aria-labelledby="visual-club-title">
