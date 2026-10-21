@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hong Shinae Cooking Studio — KRK Studio Work</title>
+    <meta name="description" content="접시 위 허브 한 줌에서 시작한 쿠킹 스튜디오 — Hong Shinae Cooking Studio 케이스." />
+    <link rel="canonical" href="https://www.krk-studio.kr/work/case_hongshinae.html" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Hong Shinae Cooking Studio — KRK Studio Work" />
+    <meta property="og:description" content="접시 위 허브 한 줌에서 시작한 쿠킹 스튜디오 — Hong Shinae Cooking Studio 케이스." />
+    <meta property="og:image" content="https://www.krk-studio.kr/assets/hongshinae/Hero_hongshinae.jpg" />
+    <meta property="og:site_name" content="KRK Studio" />
+    <link rel="icon" href="/assets/krk-logo.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Libre+Caslon+Text:wght@400;700&family=Noto+Sans+KR:wght@400;500;600&display=swap" />
+    <link rel="stylesheet" href="/assets/krk-site.css" />
+    <link rel="stylesheet" href="/work/case.css" />
+  </head>
+  <body>
+    <header class="site-header has-rule">
+      <nav aria-label="주 메뉴"><a href="/work/" aria-current="page">Work</a></nav>
+      <a class="logo" href="/" aria-label="KRK Studio 홈"><img src="/assets/krk-logo.svg" alt="krk" /></a>
+      <nav aria-label="연락"><a href="/#consult">Contact</a></nav>
+      <button class="icon-btn menu-btn" type="button" aria-label="메뉴 열기" aria-expanded="false" data-menu-open><span></span><span></span></button>
+    </header>
+
+    <main>
+      <div class="m-detail" data-mdetail>
+        <button class="m-detail-bar" type="button" aria-expanded="false" aria-controls="m-detail-panel">
+          <span class="m-detail-name" data-mname></span>
+          <span class="m-detail-toggle">Detail <span class="plus" aria-hidden="true">+</span></span>
+        </button>
+        <div class="m-detail-panel" id="m-detail-panel" data-mpanel hidden></div>
+      </div>
+      <section class="m-slider" data-slider aria-label="이미지">
+        <div class="m-track"></div>
+        <div class="m-meta"><span class="m-hint">Swipe</span><span class="m-count" aria-live="polite"></span></div>
+      </section>
+      <div class="split">
+        <div class="pane-img" data-media>
+          <footer class="site-footer">
+            <img src="/assets/krk-logo.svg" alt="" aria-hidden="true" />
+            <span>©KRK. All rights reserved.</span>
+            <a href="https://www.instagram.com/director.ian.krk" target="_blank" rel="noopener">Instagram</a>
+          </footer>
+        </div>
+        <aside class="pane-text" data-text></aside>
+      </div>
+      <footer class="site-footer m-only">
+        <img src="/assets/krk-logo.svg" alt="" aria-hidden="true" />
+        <span>©KRK. All rights reserved.</span>
+        <a href="https://www.instagram.com/director.ian.krk" target="_blank" rel="noopener">Instagram</a>
+      </footer>
+    </main>
+
+    <div class="menu-overlay" aria-hidden="true" data-menu>
+      <div class="menu-top">
+        <a href="/" aria-label="KRK Studio 홈"><img src="/assets/krk-logo.svg" alt="krk" /></a>
+        <button class="icon-btn is-close" type="button" aria-label="메뉴 닫기" data-menu-close><span></span><span></span></button>
+      </div>
+      <nav aria-label="모바일 메뉴"><a href="/work/">Work</a><a href="/#consult">Contact</a></nav>
+      <div class="menu-foot">©KRK. All rights reserved.</div>
+    </div>
+
+    <script>
+      const cases = [{
+        id:       "hongshinae",          // assets/{brandid}/ 폴더명과 동일하게
+        name:     "Hong Shinae Cooking Studio",
+        en:       "Hong Shinae Cooking Studio",
+        category: "Branding",
+        period:   "2022",
+        thesis:   "One pot, one studio.",
+        lead:     "요리연구가 홍신애의 쿠킹 스튜디오를 브랜딩했습니다. 두 손잡이가 달린 냄비 모양 로고에서 시작해, 도마 위 허브와 티라미수를 만드는 손길, 주방 안의 모습까지 스튜디오의 일상을 콘텐츠로 이었습니다.",
+        client:   "Hong Shinae Cooking Studio",
+        role:     "Branding · Design · Contents · Product",
+        scope:    "Identity · Studio Contents",
+
+        // ── Edit layout: 6~8장, ['full', 파일] — 한 장씩 ──
+        layout: [
+          ["full", "Hero_hongshinae.jpg"],
+          ["full", "Section_hongshinae_01.jpg"],
+          ["full", "Section_hongshinae_02.jpg"],
+          ["full", "Section_hongshinae_03.jpg"],
+          ["full", "Section_hongshinae_04.jpg"],
+          ["full", "Section_hongshinae_05.jpg"]
+        ]
+      }];
+    </script>
+    <script src="/work/case.js"></script>
+    <script src="/assets/krk-site.js" defer></script>
+  </body>
+</html>
