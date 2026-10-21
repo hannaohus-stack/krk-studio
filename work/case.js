@@ -20,6 +20,7 @@
     { id: 'anjuvillage', name: 'Anju Village' },
     { id: 'eathlibrary', name: 'EATH LIBRARY' },
     { id: 'eathkakao', name: 'EATH LIBRARY × KAKAO GIFT' },
+    { id: 'thereisthehouse', name: 'There The House' },
     { id: 'balanceb', name: 'Balance B' },
     { id: 'mium', name: 'Mium' },
     { id: 'urbanpure', name: 'UrbanPure' },
