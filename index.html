@@ -107,12 +107,34 @@
 
     <script>
       (function () {
-        var CASES = [
-          { name: 'Balance B', img: '/assets/index-balanceb.png', link: '/work/case_balanceb.html' },
-          { name: 'Mium', img: '/assets/index-mium.png', link: '/work/case_mium.html' },
-          { name: 'UrbanPure', img: '/assets/index-urbanpure.png', link: '/work/case_urbanpure.html' },
-          { name: 'ZZL', img: '/assets/index-zzl.png', link: '/work/case_zzl.html' }
+        // 홈 카드: 이 순서대로, /assets/index-{slug}.jpg(.png) 가 있는 것만 노출됩니다.
+        var ALL = [
+          { slug: 'matchacha-dior', name: 'Matchacha × Dior' },
+          { slug: 'islibrary', name: 'Is Library' },
+          { slug: 'thereisthehouse', name: 'There The House' },
+          { slug: 'thebutterpantry', name: 'The Butter Pantry' },
+          { slug: 'dukhwa', name: 'Dukhwa Myeongran' },
+          { slug: 'bito', name: 'Bito' },
+          { slug: 'urbanpure', name: 'UrbanPure', link: '/work/case_urbanpure.html' },
+          { slug: 'balanceb', name: 'Balance B', link: '/work/case_balanceb.html' }
         ];
+        function probe(c) {
+          return new Promise(function (done) {
+            var exts = ['.jpg', '.png'];
+            (function next(i) {
+              if (i >= exts.length) return done(null);
+              var im = new Image(), src = '/assets/index-' + c.slug + exts[i];
+              im.onload = function () { done({ name: c.name, img: src, link: c.link || '/work/' }); };
+              im.onerror = function () { next(i + 1); };
+              im.src = src;
+            })(0);
+          });
+        }
+        Promise.all(ALL.map(probe)).then(function (found) { init(found.filter(Boolean)); });
+      })();
+
+      function init(CASES) {
+        if (!CASES.length) return;
         var last = CASES.length - 1;
         var rail = document.querySelector('[data-rail]');
         var track = document.querySelector('[data-track]');
@@ -218,7 +240,7 @@
 
         (mq.addEventListener ? mq.addEventListener('change', render) : mq.addListener(render));
         render();
-      })();
+      }
     </script>
     <script src="/assets/krk-site.js" defer></script>
     <script src="/consult-widget.js" defer></script>
