@@ -16,6 +16,7 @@
 (function () {
   var ORDER = [
     { id: 'memoparis', name: 'Matchacha × Memo Paris' },
+    { id: 'armani', name: 'Matchacha × Armani Privé' },
     { id: 'balanceb', name: 'Balance B' },
     { id: 'mium', name: 'Mium' },
     { id: 'urbanpure', name: 'UrbanPure' },
