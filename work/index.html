@@ -33,6 +33,11 @@
       .card .nm span { display: inline-block; transform: translateX(-100%); opacity: 0; transition: transform 0.4s cubic-bezier(.16, 1, .3, 1) .06s, opacity 0.3s .06s; }
       .card .meta { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted); white-space: nowrap; }
       .card .num { position: absolute; left: 12px; bottom: 10px; font-family: var(--serif-text); font-size: 11px; color: rgba(255, 255, 255, 0.9); text-shadow: 0 0 8px rgba(0, 0, 0, 0.25); }
+      .grid { counter-reset: case; }
+      .card:not([hidden]) { counter-increment: case; }
+      .card .num::before { content: counter(case, decimal-leading-zero); }
+      .card[hidden] { display: none; }
+      .card.is-static { cursor: default; }
       .card:hover img, .card:focus-visible img { transform: scale(1.06); }
       .card:hover .bar, .card:focus-visible .bar { transform: translateY(0); }
       .card:hover .nm span, .card:focus-visible .nm span { transform: translateX(0); opacity: 1; }
@@ -68,29 +73,81 @@
       <section class="intro">
         <h1 class="label" style="margin: 0 0 16px">Work</h1>
         <p>제품만 있던 창업자를, 브랜드가 있는 창업자로.<br />전략부터 비주얼, AI Brand OS까지 — 한 번에.</p>
-        <p class="count">Currently 4 cases</p>
+        <p class="count">Currently <span data-case-count>4</span> cases</p>
       </section>
 
       <section class="grid" aria-label="케이스 목록">
+        <div class="card is-static" data-thumb="index-matchacha-dior" hidden>
+          <span class="bar"><span class="nm"><span>Matchacha × Dior</span></span><span class="meta">Collaboration · 2026</span></span>
+          <span class="num"></span>
+        </div>
+        <div class="card is-static" data-thumb="index-urbanpure-handsome" hidden>
+          <span class="bar"><span class="nm"><span>UrbanPure × Handsome</span></span><span class="meta">Collaboration · 2026</span></span>
+          <span class="num"></span>
+        </div>
+        <div class="card is-static" data-thumb="index-matchacha-galleria" hidden>
+          <span class="bar"><span class="nm"><span>Matchacha × Galleria</span></span><span class="meta">Pop-up · 2026</span></span>
+          <span class="num"></span>
+        </div>
+        <div class="card is-static" data-thumb="index-gongcha" hidden>
+          <span class="bar"><span class="nm"><span>Gong cha</span></span><span class="meta">Brand · 2026</span></span>
+          <span class="num"></span>
+        </div>
+        <div class="card is-static" data-thumb="index-dukhwa" hidden>
+          <span class="bar"><span class="nm"><span>Dukhwa Myeongran</span></span><span class="meta">Brand · 2026</span></span>
+          <span class="num"></span>
+        </div>
+        <div class="card is-static" data-thumb="index-hongshinae" hidden>
+          <span class="bar"><span class="nm"><span>Hong Shin-ae Cooking Lab</span></span><span class="meta">Brand · 2026</span></span>
+          <span class="num"></span>
+        </div>
+        <div class="card is-static" data-thumb="index-thereisthehouse" hidden>
+          <span class="bar"><span class="nm"><span>There The House</span></span><span class="meta">Brand · 2026</span></span>
+          <span class="num"></span>
+        </div>
+        <div class="card is-static" data-thumb="index-islibrary" hidden>
+          <span class="bar"><span class="nm"><span>Is Library</span></span><span class="meta">Brand · 2026</span></span>
+          <span class="num"></span>
+        </div>
+        <div class="card is-static" data-thumb="index-bito" hidden>
+          <span class="bar"><span class="nm"><span>Bito</span></span><span class="meta">Brand · 2026</span></span>
+          <span class="num"></span>
+        </div>
+        <div class="card is-static" data-thumb="index-thebutterpantry" hidden>
+          <span class="bar"><span class="nm"><span>The Butter Pantry</span></span><span class="meta">Brand · 2026</span></span>
+          <span class="num"></span>
+        </div>
+        <div class="card is-static" data-thumb="index-matchacha" hidden>
+          <span class="bar"><span class="nm"><span>Matchacha</span></span><span class="meta">Brand · 2026</span></span>
+          <span class="num"></span>
+        </div>
+        <div class="card is-static" data-thumb="index-gongjubami" hidden>
+          <span class="bar"><span class="nm"><span>Gongju Bami Yanggaeng</span></span><span class="meta">Brand · 2026</span></span>
+          <span class="num"></span>
+        </div>
+        <div class="card is-static" data-thumb="index-melon" hidden>
+          <span class="bar"><span class="nm"><span>Melon</span></span><span class="meta">Brand · 2026</span></span>
+          <span class="num"></span>
+        </div>
         <a class="card" href="/work/case_balanceb.html">
-          <img src="/assets/index-balanceb.png" alt="Balance B" />
+          <img src="/assets/index-balanceb.png" alt="Balance B" loading="lazy" />
           <span class="bar"><span class="nm"><span>Balance B</span></span><span class="meta">Inner Beauty · 2025</span></span>
-          <span class="num">01</span>
+          <span class="num"></span>
         </a>
         <a class="card" href="/work/case_mium.html">
-          <img src="/assets/index-mium.png" alt="Mium" />
+          <img src="/assets/index-mium.png" alt="Mium" loading="lazy" />
           <span class="bar"><span class="nm"><span>Mium</span></span><span class="meta">Wellness Food · 2025</span></span>
-          <span class="num">02</span>
+          <span class="num"></span>
         </a>
         <a class="card" href="/work/case_urbanpure.html">
           <img src="/assets/index-urbanpure.png" alt="UrbanPure" loading="lazy" />
           <span class="bar"><span class="nm"><span>UrbanPure</span></span><span class="meta">Inner Beauty · 2026</span></span>
-          <span class="num">03</span>
+          <span class="num"></span>
         </a>
         <a class="card" href="/work/case_zzl.html">
           <img src="/assets/index-zzl.png" alt="ZZL" loading="lazy" />
           <span class="bar"><span class="nm"><span>ZZL</span></span><span class="meta">Branding · Campaign · 2025</span></span>
-          <span class="num">04</span>
+          <span class="num"></span>
         </a>
       </section>
 
@@ -114,6 +171,24 @@
       <nav aria-label="모바일 메뉴"><a href="/work/">Work</a><a href="#visual-club" data-visual-club aria-haspopup="dialog">Visual Club</a></nav>
       <div class="menu-foot">©KRK. All rights reserved.</div>
     </div>
+    <script>
+      // 썸네일 자동 노출: /assets/index-{slug}.jpg 또는 .png 가 있으면 카드가 나타납니다.
+      (function () {
+        var grid = document.querySelector('.grid'), countEl = document.querySelector('[data-case-count]');
+        function recount() { countEl.textContent = grid.querySelectorAll('.card:not([hidden])').length; }
+        grid.querySelectorAll('[data-thumb]').forEach(function (card) {
+          var base = '/assets/' + card.dataset.thumb, exts = ['.jpg', '.png'], name = card.querySelector('.nm span').textContent;
+          (function tryNext(i) {
+            if (i >= exts.length) return;
+            var img = new Image();
+            img.onload = function () { img.alt = name; img.loading = 'lazy'; card.prepend(img); card.hidden = false; recount(); };
+            img.onerror = function () { tryNext(i + 1); };
+            img.src = base + exts[i];
+          })(0);
+        });
+        recount();
+      })();
+    </script>
     <script src="/assets/krk-site.js" defer></script>
     <script src="/consult-widget.js" defer></script>
     <style>
