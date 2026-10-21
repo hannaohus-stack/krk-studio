@@ -19,7 +19,7 @@
     { id: 'armani', name: 'Armani Privé' },
     { id: 'anjuvillage', name: 'Anju Village' },
     { id: 'eathlibrary', name: 'EATH LIBRARY' },
-    { id: 'dior', name: 'DIOR 2026 SS Campaign' },
+    { id: 'dior', name: 'DIOR 2025 FW Campaign' },
     { id: 'eathkakao', name: 'EATH LIBRARY × KAKAO GIFT' },
     { id: 'thereisthehouse', name: 'There The House' },
     { id: 'thebutterpantry', name: 'The Butter Pantry' },
