@@ -42,11 +42,9 @@
       .card:hover .bar, .card:focus-visible .bar { transform: translateY(0); }
       .card:hover .nm span, .card:focus-visible .nm span { transform: translateX(0); opacity: 1; }
 
-      @media (hover: none) {
-        /* Touch: show the name bar permanently instead of on hover. */
-        .card .bar { transform: none; }
-        .card .nm span { transform: none; opacity: 1; }
-      }
+      /* Touch: first tap reveals the name bar, second tap opens the case. */
+      .card.is-active .bar { transform: translateY(0); }
+      .card.is-active .nm span { transform: translateX(0); opacity: 1; }
       @media (max-width: 900px) {
         .intro { padding: 36px 20px 24px; }
         .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; padding: 8px 20px 64px; }
@@ -207,6 +205,17 @@
           })(0);
         });
         recount();
+        if (window.matchMedia('(hover: none)').matches) {
+          grid.addEventListener('click', function (e) {
+            var card = e.target.closest('a.card');
+            if (!card) return;
+            if (!card.classList.contains('is-active')) {
+              e.preventDefault();
+              grid.querySelectorAll('.card.is-active').forEach(function (c) { c.classList.remove('is-active'); });
+              card.classList.add('is-active');
+            }
+          });
+        }
       })();
     </script>
     <script src="/assets/krk-site.js" defer></script>
