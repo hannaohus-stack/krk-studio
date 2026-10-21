@@ -111,20 +111,29 @@
 }
 
 /* ── Edit layout (Case Page Rules v1 · 261021) ──────────────
-   Curated 6–8 images, thesis + short lead, Client / Role / Scope. No Tools, no Workflow.
-   Mobile: title → images stacked → lead → credits → next. */
+   Curated 6–8 images, thesis + short lead, Category / Client / Role / Scope. No Tools, no Workflow.
+   Desktop: text pane = title, thesis, lead, credits table, Index / Next (no rules).
+   Mobile: title + thesis + Detail (opens lead and credits) → images stacked → Index / Next. */
 .case-edit .m-head { display: none; }
-.case-thesis { margin: 0; font-family: var(--serif-display); font-weight: 400; font-size: 22px; line-height: 1.3; color: var(--ink); }
+.case-edit .case-title { margin: 0 0 8px; font-size: 30px; line-height: 1.1; }
+.case-edit .case-thesis { margin: 0; font-family: var(--sans); font-weight: 400; font-size: 14px; line-height: 1.5; color: var(--ink-muted); }
 .case-edit .pane-img figure.r-free img { display: block; height: auto; }
+.case-edit .case-nav { padding-top: 0; border-top: 0; }
+.case-edit .case-nav a { font-family: var(--sans); font-size: 12px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink); transition: color 160ms ease; }
+.case-edit .case-nav a:hover { color: var(--signal-ink); }
 @media (max-width: 900px) {
   .case-edit .m-detail, .case-edit .m-slider { display: none; }
   .case-edit .pane-img { display: flex; width: 100%; flex: none; }
-  .case-edit .m-head { display: flex; flex-direction: column; gap: 14px; padding: 24px 20px 28px; }
-  .case-edit .m-head .case-title { font-size: 38px; }
-  .case-edit .case-thesis { font-size: 19px; }
-  .case-edit .pane-text { padding: 32px 20px 0; gap: 24px; }
-  .case-edit .pane-text > * { display: block; }
-  .case-edit .pane-text > .t-head { display: none; }
-  .case-edit .pane-text > .case-nav { display: flex; }
   .case-edit .pane-img > .site-footer { display: none; }
+  .case-edit .m-head { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; padding: 24px 20px; }
+  .case-edit .m-head .case-title { margin: 0; font-size: 28px; }
+  .case-edit .m-more { display: inline-flex; align-items: center; gap: 8px; padding: 6px 0 0; border: 0; background: transparent; font: inherit; font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-muted); cursor: pointer; }
+  .case-edit .m-more .plus { font-family: var(--serif-text); font-size: 18px; line-height: 1; color: var(--ink); transition: transform 240ms ease; }
+  .case-edit .m-more[aria-expanded="true"] .plus { transform: rotate(45deg); }
+  .case-edit .m-more-panel { display: flex; flex-direction: column; gap: 16px; width: 100%; padding-top: 6px; }
+  .case-edit .m-more-panel[hidden] { display: none; }
+  .case-edit .m-more-panel .case-lead { font-size: 14px; line-height: 1.8; }
+  .case-edit .pane-text { padding: 28px 20px 0; gap: 0; }
+  .case-edit .pane-text > :not(.case-nav) { display: none; }
+  .case-edit .pane-text > .case-nav { display: flex; margin-top: 0; padding: 0 0 8px; border: 0; }
 }

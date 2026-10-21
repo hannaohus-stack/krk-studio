@@ -11,14 +11,16 @@
 - 압축: 긴 변 2000px 이하, jpg, 장당 약 500KB 이하.
 
 ## 2. 텍스트
-- 순서: Category · Year → 브랜드명 → 한 줄 테제(브랜드 문장) → 설명 2~3문장 → Client / Role / Scope.
+- 순서: 브랜드명(30px, 크게 쓰지 않는다) → 한 줄 테제(고딕, 14px) → 설명 2~3문장 → 표(Category · Client · Role · Scope).
+- Category 행에는 분류와 연도를 함께 적는다(예: Inner Beauty · 2026). 이름 위 라벨과 Work 번호 라벨은 쓰지 않는다.
+- 하단 이동은 `← Index` / `Next →` 두 개만, 둘 다 고딕, 위아래 선 없음. Next 옆에 브랜드명을 쓰지 않는다. 표 아래에 선을 겹쳐 두지 않는다.
 - Tools(Figma·Notion·Claude·GPT 등) 표기와 Workflow 아코디언은 쓰지 않는다. AI Brand OS 이야기는 Service 페이지에서 한다.
 - 콜라보는 Client에 협업사를 적는다(예: "Matchacha with Dior"). 협업사 로고는 승인 없이 쓰지 않는다.
 - 카피는 Studio 보이스(단언형, 절제)로 쓰고 금지어를 지킨다. 숫자·성과는 사실인 것만 쓴다.
 
 ## 3. 레이아웃
 - 데스크톱: 왼쪽 이미지, 오른쪽 고정 텍스트.
-- 모바일: 제목과 테제 → 이미지 세로 스크롤 → 설명 → Client/Role/Scope → Next. 텍스트를 접어서 숨기지 않는다.
+- 모바일: 제목 + 테제 + Detail 버튼 → 이미지 세로 스크롤 → Index / Next. Detail을 누르면 설명과 표(Category·Client·Role·Scope)가 열린다.
 - 케이스 데이터에 `layout`이 있으면 이 규칙의 레이아웃으로 그려진다(`work/case.js`).
 
 ```js

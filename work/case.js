@@ -40,17 +40,20 @@
     function u(f) { return /^(\.\.\/|\/|https?:)/.test(f) ? f : base + f; }
     document.title = name + ' — KRK Studio Work';
 
-    var meta = [c.category, c.period].filter(filled).join(' · ');
-    var credits = [['Client', c.client], ['Role', c.role], ['Scope', c.scope]].filter(function (r) { return filled(r[1]); });
-    var head = '<div class="meta-row label"><span>' + esc(meta) + '</span><span>Work ' + pad(pos + 1) + ' / ' + pad(ORDER.length) + '</span></div>'
-      + '<div><h1 class="case-title">' + esc(name) + '</h1>' + (filled(c.thesis) ? '<p class="case-thesis">' + esc(c.thesis) + '</p>' : '') + '</div>';
-    var t = '<div class="t-head">' + head + '</div>';
-    if (filled(c.lead)) t += '<p class="case-lead">' + esc(c.lead) + '</p>';
-    if (credits.length) t += '<div class="credits">' + credits.map(function (r) { return '<div class="credit"><span class="k">' + r[0] + '</span><span>' + esc(r[1]) + '</span></div>'; }).join('') + '</div>';
-    t += '<nav class="case-nav" aria-label="케이스 이동"><a class="label" href="/work/">← Index</a><a class="next" href="/work/case_' + next.id + '.html">Next — ' + esc(next.name) + ' →</a></nav>';
+    var cat = [c.category, c.period].filter(filled).join(' · ');
+    var credits = [['Category', cat], ['Client', c.client], ['Role', c.role], ['Scope', c.scope]].filter(function (r) { return filled(r[1]); });
+    var creditsHTML = credits.length ? '<div class="credits">' + credits.map(function (r) { return '<div class="credit"><span class="k">' + r[0] + '</span><span>' + esc(r[1]) + '</span></div>'; }).join('') + '</div>' : '';
+    var leadHTML = filled(c.lead) ? '<p class="case-lead">' + esc(c.lead) + '</p>' : '';
+    var thesisHTML = filled(c.thesis) ? '<p class="case-thesis">' + esc(c.thesis) + '</p>' : '';
+
+    var t = '<div class="t-head"><h1 class="case-title">' + esc(name) + '</h1>' + thesisHTML + '</div>' + leadHTML + creditsHTML
+      + '<nav class="case-nav" aria-label="케이스 이동"><a href="/work/">← Index</a><a href="/work/case_' + next.id + '.html" aria-label="다음 케이스 ' + esc(next.name) + '">Next →</a></nav>';
     document.querySelector('[data-text]').innerHTML = t;
 
-    var n = 0, m = '<div class="m-head">' + head.replace('<h1 class="case-title">', '<p class="case-title" aria-hidden="true">').replace('</h1>', '</p>') + '</div>';
+    // Mobile: title + thesis + Detail toggle (opens lead and credits) above the images.
+    var n = 0, m = '<div class="m-head"><h1 class="case-title">' + esc(name) + '</h1>' + thesisHTML
+      + '<button class="m-more" type="button" aria-expanded="false" aria-controls="m-more-panel">Detail <span class="plus" aria-hidden="true">+</span></button>'
+      + '<div class="m-more-panel" id="m-more-panel" hidden>' + leadHTML + creditsHTML + '</div></div>';
     c.layout.forEach(function (row) {
       if (row[0] === 'pair') {
         m += '<div class="row-2">' + [row[1], row[2]].filter(filled).map(function (f) { n++; return media(u(f), 'r-sq', name + ' ' + pad(n)); }).join('') + '</div>';
@@ -59,6 +62,12 @@
       }
     });
     document.querySelector('[data-media]').insertAdjacentHTML('afterbegin', m);
+    var more = document.querySelector('.m-more');
+    if (more) more.addEventListener('click', function () {
+      var open = more.getAttribute('aria-expanded') === 'true';
+      more.setAttribute('aria-expanded', open ? 'false' : 'true');
+      document.getElementById('m-more-panel').hidden = open;
+    });
   }
 
   function filled(v) { return typeof v === 'string' && v.trim() !== '' && !/\{[^}]*\}/.test(v); }
