@@ -15,8 +15,8 @@
    Rules: empty slots are skipped, never filled; text still holding a {placeholder} is not shown. */
 (function () {
   var ORDER = [
-    { id: 'memoparis', name: 'Matchacha × Memo Paris' },
-    { id: 'armani', name: 'Matchacha × Armani Privé' },
+    { id: 'memoparis', name: 'Memo Paris' },
+    { id: 'armani', name: 'Armani Privé' },
     { id: 'anjuvillage', name: 'Anju Village' },
     { id: 'eathlibrary', name: 'EATH LIBRARY' },
     { id: 'eathkakao', name: 'EATH LIBRARY × KAKAO GIFT' },
