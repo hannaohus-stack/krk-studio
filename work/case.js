@@ -27,6 +27,40 @@
   var c = list.find(function (x) { return x.id === params.get('case'); }) || list[0];
   if (!c) return;
 
+  // ── Edit layout (Case Page Rules v1 · 261021) ───────────
+  // A case with `layout` uses the curated layout: 6–8 images, thesis + lead, Client / Role / Scope.
+  // layout rows: ['full', file] or ['pair', fileA, fileB]; files are relative to assets/{id}/.
+  if (Array.isArray(c.layout) && c.layout.length) { renderEdit(); return; }
+
+  function renderEdit() {
+    document.body.classList.add('case-edit');
+    var name = c.en || c.name, pad = function (n) { return String(n).padStart(2, '0'); };
+    var pos = Math.max(ORDER.findIndex(function (o) { return o.id === c.id; }), 0), next = ORDER[(pos + 1) % ORDER.length];
+    var base = '../assets/' + c.id + '/';
+    function u(f) { return /^(\.\.\/|\/|https?:)/.test(f) ? f : base + f; }
+    document.title = name + ' — KRK Studio Work';
+
+    var meta = [c.category, c.period].filter(filled).join(' · ');
+    var credits = [['Client', c.client], ['Role', c.role], ['Scope', c.scope]].filter(function (r) { return filled(r[1]); });
+    var head = '<div class="meta-row label"><span>' + esc(meta) + '</span><span>Work ' + pad(pos + 1) + ' / ' + pad(ORDER.length) + '</span></div>'
+      + '<div><h1 class="case-title">' + esc(name) + '</h1>' + (filled(c.thesis) ? '<p class="case-thesis">' + esc(c.thesis) + '</p>' : '') + '</div>';
+    var t = '<div class="t-head">' + head + '</div>';
+    if (filled(c.lead)) t += '<p class="case-lead">' + esc(c.lead) + '</p>';
+    if (credits.length) t += '<div class="credits">' + credits.map(function (r) { return '<div class="credit"><span class="k">' + r[0] + '</span><span>' + esc(r[1]) + '</span></div>'; }).join('') + '</div>';
+    t += '<nav class="case-nav" aria-label="케이스 이동"><a class="label" href="/work/">← Index</a><a class="next" href="/work/case_' + next.id + '.html">Next — ' + esc(next.name) + ' →</a></nav>';
+    document.querySelector('[data-text]').innerHTML = t;
+
+    var n = 0, m = '<div class="m-head">' + head.replace('<h1 class="case-title">', '<p class="case-title" aria-hidden="true">').replace('</h1>', '</p>') + '</div>';
+    c.layout.forEach(function (row) {
+      if (row[0] === 'pair') {
+        m += '<div class="row-2">' + [row[1], row[2]].filter(filled).map(function (f) { n++; return media(u(f), 'r-sq', name + ' ' + pad(n)); }).join('') + '</div>';
+      } else if (filled(row[1])) {
+        n++; m += media(u(row[1]), 'r-free', name + ' ' + pad(n), n === 1);
+      }
+    });
+    document.querySelector('[data-media]').insertAdjacentHTML('afterbegin', m);
+  }
+
   function filled(v) { return typeof v === 'string' && v.trim() !== '' && !/\{[^}]*\}/.test(v); }
   function esc(s) { return String(s).replace(/[&<>"]/g, function (m) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[m]; }); }
   function srcs(v) { return (Array.isArray(v) ? v : [v]).filter(filled); }
