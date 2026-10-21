@@ -177,28 +177,28 @@
               <span class="snum">01</span>
               <span class="sbody">
                 <h4>Branding</h4>
-                <p>제품은 있고 브랜드가 없을 때. 전략 · 아이덴티티 · 패키지 · AI Brand OS까지 한 번에.</p>
+                <p>제품은 있으나 브랜드가 없는 단계. 브랜드 전략, 아이덴티티, 패키지 디자인을 설계하고 AI Brand OS까지 한 번에 구축합니다.</p>
               </span>
             </button>
             <button type="button" class="krk-c-service" data-service="campaign" data-label="Campaign">
               <span class="snum">02</span>
               <span class="sbody">
                 <h4>Campaign</h4>
-                <p>브랜드가 있을 때. 신제품 · 시즌 비주얼 세트 — 컨셉 1개 · 이미지 15컷 · 숏폼 2편.</p>
+                <p>브랜드 신규 런칭, 제품 출시, 시즌 캠페인의 기획부터 실행까지. 컨셉 개발과 비주얼 제작, 채널별 콘텐츠 운영을 함께 진행합니다.</p>
               </span>
             </button>
             <button type="button" class="krk-c-service" data-service="visualclub" data-label="Visual Club">
               <span class="snum">03</span>
               <span class="sbody">
                 <h4>Visual Club</h4>
-                <p>월 구독. 매달 같은 톤의 이미지 20컷 · 숏폼 2편.</p>
+                <p>AI Brand OS 기반의 브랜드 운영 시스템. 일관된 톤으로 브랜드를 지속 운영하고 관리할 수 있는 체계를 제공합니다.</p>
               </span>
             </button>
             <button type="button" class="krk-c-service" data-service="funding" data-label="정부자금 브랜딩">
               <span class="snum">04</span>
               <span class="sbody">
                 <h4>정부자금 브랜딩</h4>
-                <p>확보한 지원사업 예산에 맞춰 범위를 설계합니다.</p>
+                <p>확보하신 정부 지원사업 예산에 맞춰 브랜딩 범위와 산출물을 설계합니다.</p>
               </span>
             </button>
           </div>
