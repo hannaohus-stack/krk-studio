@@ -89,7 +89,7 @@
 
   function media(src, ratio, alt, eager) {
     var inner = isVideo(src) && /Film_/i.test(src)
-      ? '<video src="' + esc(src) + '" poster="' + esc(src.replace(/Film_/i, 'Hero_').replace(/\.\w+$/, '.jpg')) + '" controls playsinline preload="metadata" aria-label="' + esc(alt) + '"></video>'
+      ? '<video src="' + esc(src) + '" poster="' + esc(src.replace(/Film_/i, 'Hero_').replace(/\.\w+$/, '.jpg')) + '" controls autoplay muted loop playsinline preload="auto" aria-label="' + esc(alt) + '"></video>'
       : isVideo(src)
       ? '<video src="' + esc(src) + '" autoplay muted loop playsinline preload="metadata" aria-label="' + esc(alt) + '"></video>'
       : '<img src="' + esc(src) + '" alt="' + esc(alt) + '"' + (eager ? '' : ' loading="lazy"') + ' />';
