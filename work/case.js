@@ -20,6 +20,7 @@
     { id: 'anjuvillage', name: 'Anju Village' },
     { id: 'eathlibrary', name: 'EATH LIBRARY' },
     { id: 'dior', name: 'DIOR 2025 FW Campaign' },
+    { id: 'webakelove', name: 'WE BAKE LOVE' },
     { id: 'eathkakao', name: 'EATH LIBRARY × KAKAO GIFT' },
     { id: 'thereisthehouse', name: 'There The House' },
     { id: 'thebutterpantry', name: 'The Butter Pantry' },
@@ -87,7 +88,9 @@
   function isVideo(src) { return /\.(mp4|webm|mov)$/i.test(src); }
 
   function media(src, ratio, alt, eager) {
-    var inner = isVideo(src)
+    var inner = isVideo(src) && /Film_/i.test(src)
+      ? '<video src="' + esc(src) + '" poster="' + esc(src.replace(/Film_/i, 'Hero_').replace(/\.\w+$/, '.jpg')) + '" controls playsinline preload="metadata" aria-label="' + esc(alt) + '"></video>'
+      : isVideo(src)
       ? '<video src="' + esc(src) + '" autoplay muted loop playsinline preload="metadata" aria-label="' + esc(alt) + '"></video>'
       : '<img src="' + esc(src) + '" alt="' + esc(alt) + '"' + (eager ? '' : ' loading="lazy"') + ' />';
     return '<figure class="' + ratio + '">' + inner + '</figure>';

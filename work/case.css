@@ -117,7 +117,7 @@
 .case-edit .m-head { display: none; }
 .case-edit .case-title { margin: 0 0 8px; font-size: var(--t-title); line-height: 1.1; }
 .case-edit .case-thesis { margin: 0; font-family: var(--sans); font-weight: 400; font-size: var(--t-body); line-height: 1.5; color: var(--ink-muted); }
-.case-edit .pane-img figure.r-free img { display: block; height: auto; }
+.case-edit .pane-img figure.r-free img, .case-edit .pane-img figure.r-free video { display: block; height: auto; }
 .case-edit .case-nav { padding-top: 0; border-top: 0; }
 .case-edit .case-nav a { font-family: var(--sans); font-size: var(--t-small); font-weight: 500; letter-spacing: var(--ls-caps); text-transform: uppercase; color: var(--ink); transition: color 160ms ease; }
 .case-edit .case-nav a:hover { color: var(--signal-ink); }
